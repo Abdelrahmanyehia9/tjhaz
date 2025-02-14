@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "67174363204",
+    "firebase_url": "https://tjhaz-3d2f3-default-rtdb.firebaseio.com",
+    "project_id": "tjhaz-3d2f3",
+    "storage_bucket": "tjhaz-3d2f3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67174363204:android:2509729a40167e30388c11",
+        "android_client_info": {
+          "package_name": "com.example.tjhaz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzmFoHX7o17DV0YEWpiINSE18qZ09flH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
