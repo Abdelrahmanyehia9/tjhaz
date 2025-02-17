@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -22,7 +23,7 @@ class OnboardingContent extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         Container(
-          padding: const EdgeInsets.all(24),
+          padding:  EdgeInsets.symmetric(horizontal: 24.w , vertical: 24.h),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -45,7 +46,7 @@ class OnboardingContent extends StatelessWidget {
               verticalSpace(8),
               Text(
                   title.toUpperCase(),
-                  style: AppTypography.t48Bold.copyWith(color: AppColors.cWhite , height: 0)
+                  style: AppTypography.t44Bold.copyWith(color: AppColors.cWhite , height: 0)
               ),
             ],
           ),

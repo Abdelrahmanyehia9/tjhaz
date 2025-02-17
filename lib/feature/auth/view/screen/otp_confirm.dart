@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
@@ -43,7 +44,7 @@ otp = context.read<ResetPasswordCubit>().otpController ;
               otpPinCode() ,
               resendCode(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding:  EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: AuthButton(tittle: "Confirm" , onPressed: (){
                   GoRouter.of(context).push(AppRouter.setupNewPasswordScreen);
                 }, isDisabled: otp.text.length !=4 ? true : false     ,),
@@ -57,7 +58,7 @@ otp = context.read<ResetPasswordCubit>().otpController ;
   }
 
   Widget otpPinCode ()=>  Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    padding:  EdgeInsets.symmetric(horizontal: 16.0.w),
     child:                   SizedBox(
       width: screenWidth(context)*.85,
       child: PinCodeTextField(
@@ -71,8 +72,8 @@ otp = context.read<ResetPasswordCubit>().otpController ;
 
             shape: PinCodeFieldShape.box,
             borderRadius: BorderRadius.circular(8),
-            fieldHeight: 70,
-            fieldWidth: 70,
+            fieldHeight: 70.h,
+            fieldWidth: 70.w,
             selectedFillColor: Colors.transparent,
             inactiveFillColor: Colors.transparent,
             activeColor: AppColors.primaryColor,
@@ -91,12 +92,13 @@ otp = context.read<ResetPasswordCubit>().otpController ;
 
   ) ;
   Widget resendCode() => Padding(
-    padding: const EdgeInsets.only(bottom: 24.0),
+    padding:  EdgeInsets.only(bottom: 24.0.h),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           "Didn't receive the code ? ",
+          style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor),
         ),
         InkWell(
             child: Text(

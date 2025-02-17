@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -15,7 +16,7 @@ class OnBoardingButtons extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           shadowColor: Colors.transparent,
-          fixedSize: Size(screenWidth(context)*.4, 50),
+          fixedSize: Size(screenWidth(context)*.4, 50.h),
           backgroundColor:isSkip == true?Colors.transparent:AppColors.secondaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),

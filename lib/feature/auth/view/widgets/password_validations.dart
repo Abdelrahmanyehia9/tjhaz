@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -22,12 +23,12 @@ class PasswordValidations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0 , vertical: 8),
+      padding:  EdgeInsets.symmetric(horizontal: 24.0.w , vertical: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 2.0),
+            padding:  EdgeInsets.only(bottom: 2.0.h),
             child: Text("Recommended" ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
           ) ,
           buildValidationRow('At least 1 lowercase letter', hasLowerCase),

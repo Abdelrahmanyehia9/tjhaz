@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 
 class BoxActionButton extends StatelessWidget {
   final IconData icon ;
-  const BoxActionButton({super.key  , required this.icon});
+  final double? size;
+  const BoxActionButton({super.key  , required this.icon  , this.size});
 
   @override
   Widget build(BuildContext context) {
     return  Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(horizontal: 6.w , vertical: 6.h),
       decoration: BoxDecoration(
         color: AppColors.secondaryColor,
 borderRadius: BorderRadius.circular(8)
       ),
-      child: Icon(icon , color: Colors.white,size: 22,),
+      child: Icon(icon , color: Colors.white,size: size ?? 22,),
     );
   }
 }

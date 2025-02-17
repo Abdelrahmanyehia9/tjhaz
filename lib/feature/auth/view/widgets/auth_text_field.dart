@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import '../styles/colors.dart';
+import '../../../../core/styles/colors.dart';
 
-class TextFieldOutlined extends StatefulWidget {
+class AuthTextField extends StatefulWidget {
   final String labelText;
   final IconData icon;
   final TextEditingController? controller;
   final bool? isPassword  ;
   final Function(String?) validator;
 
-  const TextFieldOutlined({
+  const AuthTextField({
 
     super.key,
     this.isPassword ,
@@ -20,21 +20,22 @@ class TextFieldOutlined extends StatefulWidget {
   });
 
   @override
-  State<TextFieldOutlined> createState() => _TextFieldOutlinedState();
+  State<AuthTextField> createState() => _AuthTextFieldState();
 }
 
-class _TextFieldOutlinedState extends State<TextFieldOutlined> {
+class _AuthTextFieldState extends State<AuthTextField> {
   bool hiddenPassword = true ;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0 , horizontal: 16),
       child: TextFormField(
-
+style: AppTypography.t14light.copyWith(color: AppColors.primaryColor),
         controller: widget.controller,
         cursorColor: AppColors.primaryColor,
         obscureText: widget.isPassword == true ? hiddenPassword : false,
         decoration: InputDecoration(
+
 
           suffixIcon: widget.isPassword==true? InkWell(onTap: (){
             setState(() {
@@ -42,19 +43,21 @@ class _TextFieldOutlinedState extends State<TextFieldOutlined> {
             });
           },
               child: Icon(!hiddenPassword ?Icons.visibility_outlined  : Icons.visibility_off_outlined,color: AppColors.cDarkGrey,)) :null ,
-          prefixIcon: Icon(widget.icon , color: AppColors.primaryColor,), // User icon
+          prefixIcon: Icon(widget.icon , color: AppColors.lightPrimaryColor,), // User icon
           labelText: widget.labelText,
-          labelStyle: AppTypography.t16Normal.copyWith(color: AppColors.primaryColor) ,
+          contentPadding: EdgeInsets.zero,
+          labelStyle: AppTypography.t14Normal.copyWith(color: AppColors.lightPrimaryColor) ,
+          focusColor: AppColors.primaryColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
-                color: AppColors.primaryColor // Border color
+                color: AppColors.lightPrimaryColor // Border color
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
-              color: AppColors.primaryColor ,
+              color: AppColors.lightPrimaryColor ,
               width: 1.0,
             ),
           ),

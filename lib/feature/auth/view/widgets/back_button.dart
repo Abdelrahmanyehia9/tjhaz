@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/styles/colors.dart';
@@ -13,7 +14,7 @@ class AuthBackButton extends StatelessWidget {
       GoRouter.of(context).pop() ;
     },
       style: ElevatedButton.styleFrom(backgroundColor: AppColors.secondaryColor,
-          fixedSize: Size(screenWidth(context) * .4, 30),
+          fixedSize: Size(screenWidth(context) * .4, 30.h),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),)
       ),
       child: Icon(

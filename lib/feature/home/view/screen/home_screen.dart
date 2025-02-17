@@ -7,8 +7,7 @@ import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_slider.dart';
-import '../../../../core/widgets/box_action_button.dart';
-import '../widgets/search_text_field.dart';
+import '../widgets/home_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,8 +22,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               Center(child: SizedBox(width: 120.w , height:  90.h, child: Image.asset(AppConstants.splashLogo , fit: BoxFit.cover,),)) ,
-                homeSearch(context) ,
+                HomeAppBar() ,
                 verticalSpace(18),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,22 +67,6 @@ class HomeScreen extends StatelessWidget {
           ),
         );
   }
-  Widget homeSearch(context)=>Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      SizedBox(
-        width: screenWidth(context)*.67,
-          child: SearchTextField()),
-      Row(children: [
-        BoxActionButton(icon: Icons.favorite,) ,
-        horizontalSpace(3),
-        BoxActionButton(icon: Icons.notifications) ,
-      ],)
-
-
-
-    ],
-  ) ;
   Widget headline({required String tittle , bool? hasViewMore})=>  Padding(
     padding:  EdgeInsets.only(top: 8.0.h , bottom: 8.h),
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,

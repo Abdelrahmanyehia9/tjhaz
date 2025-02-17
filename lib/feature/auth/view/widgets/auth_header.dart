@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import '../../../../core/utils/screen_size.dart';
-import 'header_painter.dart';
+import '../../../../core/widgets/wavy_clipping.dart';
 
 class AuthHeader extends StatelessWidget {
   final Widget tittle  ;
@@ -15,7 +16,7 @@ class AuthHeader extends StatelessWidget {
 
       children: [
         CustomPaint(
-          painter: HeaderPainter(),
+          painter: WavyClipping(),
           child: SizedBox(
             width: double.infinity,
             height: screenHeight(context)*.48,
@@ -25,7 +26,7 @@ class AuthHeader extends StatelessWidget {
               children: [
                 tittle ,
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding:  EdgeInsets.only(top: 8.0.h),
                   child: SizedBox(width: screenWidth(context)*.8,
                       child: Text(description??"" , textAlign: TextAlign.center , style: AppTypography.t12Normal.copyWith(color: AppColors.cWhite))),
                 )

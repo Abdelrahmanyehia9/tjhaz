@@ -1,5 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/utils/routes.dart';
+import 'package:tjhaz/feature/auth/view/screen/login_screen.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/typography.dart';
 import '../widget/on_boarding_buttons.dart';
@@ -46,9 +50,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Positioned(
-            bottom: 50,
-            left: 20,
-            right: 20,
+            bottom: 50.h,
+            left: 20.w,
+            right: 20.w,
             child: Column(
               children: [
                 Row(
@@ -62,14 +66,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    OnBoardingButtons(onPressed: (){} , isSkip: true,) ,
+                    OnBoardingButtons(onPressed: (){
+                      GoRouter.of(context).push(AppRouter.authScreen) ;
+                    } , isSkip: true,) ,
                     OnBoardingButtons( onPressed: () {
                       if (_currentPage < onboardingData.length - 1) {
                         _pageController.nextPage(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.ease);
                       } else {
-                        // Navigate to next screen
+                        GoRouter.of(context).push(AppRouter.authScreen) ;
                       }
                     },),
                   ],
@@ -87,15 +93,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      margin: const EdgeInsets.only(right: 5),
+      margin:  EdgeInsets.only(right: 5.w),
       child: isActive
           ? Text(
        '0${index + 1}',
         style: AppTypography.t20Bold.copyWith(color: Colors.white)
       )
           : Container(
-        height: 8,
-        width: 8,
+        height: 8.h,
+        width: 8.w,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),

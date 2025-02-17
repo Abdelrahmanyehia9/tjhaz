@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tjhaz/feature/auth/logic/reset_password_states.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordStates>{
+
   ResetPasswordCubit():super(ResetPasswordStatesInitial()) ;
 
 
@@ -16,7 +17,6 @@ class ResetPasswordCubit extends Cubit<ResetPasswordStates>{
 
   GlobalKey<FormState>resetPasswordKey = GlobalKey<FormState>() ;
   GlobalKey<FormState>newPasswordKey = GlobalKey<FormState>() ;
-
 
 
 }

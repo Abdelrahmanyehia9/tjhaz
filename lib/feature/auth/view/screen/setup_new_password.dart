@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
-import 'package:tjhaz/core/widgets/text_field_outlined.dart';
+import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/reset_password_cubit.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_header.dart';
@@ -70,17 +71,14 @@ class _SetupNewPasswordState extends State<SetupNewPassword> {
                 description:
                     "You must choose a strong password that will protect your information.",
               ),
-              TextFieldOutlined(
+              AuthTextField(
                 controller: passwordController,
                 labelText: "Password",
                 icon: Icons.lock_outline,
                 isPassword: true,
-                validator: (value) {
-                  return value == null||value.isEmpty
-                      ?"Password shouldn't be empty" : null;
-                },
+                validator: AppValidators.validatePassword
               ),
-              TextFieldOutlined(
+              AuthTextField(
                 controller: passwordConfirmController,
                 labelText: "Password Confirm",
                 icon: Icons.lock_outline,
