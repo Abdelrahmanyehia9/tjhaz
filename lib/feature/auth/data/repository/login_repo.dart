@@ -1,24 +1,36 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tjhaz/feature/auth/data/repository/auth_repo.dart';
+import 'package:tjhaz/core/database/remote/auth_error_handler.dart';
 
-class LoginRepository extends AuthRepository {
-  LoginRepository({required super.auth});
+class LoginRepo{
 
-  Future<UserCredential?> loginByEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential user = await auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return user;
-    } on FirebaseAuthException catch (e) {
-      // Log the error or handle specific FirebaseAuth errors
-      print("Login failed: ${e.message}");
-      return null; // Return null instead of nothing
-    } catch (e) {
-      // Handle other unexpected errors
-      print("Unexpected error: $e");
-      return null;
+  final FirebaseAuth firebaseAuth ;
+  LoginRepo({required this.firebaseAuth});
+
+
+  Future<Either<UserCredential , String>>loginUsingEmailAndPassword({required String email  , required String password})async{
+
+    try{
+      UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password) ;
+      return left(userCredential) ;
+    }catch(e){
+      if(e is FirebaseAuthException){
+        return right(FirebaseAuthErrorHandler.getErrorMessage(e.code)) ;
+      }else{
+        return right(FirebaseAuthErrorHandler.getErrorMessage(e.toString())) ;
+      }
     }
+
+
+
+
+
+
   }
+   bool isLoggedUser(){
+   return   firebaseAuth.currentUser != null ;
+}
+
+
+
 }

@@ -16,7 +16,7 @@ class FirebaseAuthErrorHandler {
       case 'weak-password':
         return "The password provided is too weak.";
       default:
-        return "Unexpected error: $errorCode";
+        return "Something went wrong. Please try again later.";
     }
   }
 }

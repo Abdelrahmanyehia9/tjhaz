@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
+import 'package:tjhaz/core/helpers/spacing.dart';
 
 import '../styles/colors.dart';
 import '../styles/typography.dart';
@@ -29,10 +31,10 @@ class _TogglePagesState extends State<TogglePages> {
     return Column(
       children: [
         FlutterToggleTab(
-          width: 90,
+          width: 90.w,
           isScroll: false,
           borderRadius: 8,
-          height: 50,
+          height: 50.h,
           selectedIndex: _tabTextIndexSelected,
           unSelectedBackgroundColors: [AppColors.primaryColor],
           selectedBackgroundColors: [AppColors.secondaryColor],
@@ -47,7 +49,7 @@ class _TogglePagesState extends State<TogglePages> {
             });
           },
         ),
-        SizedBox(height: 12,) ,
+        verticalSpace(12) ,
         widget.pages[_tabTextIndexSelected]
       ],
     );

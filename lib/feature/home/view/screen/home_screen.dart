@@ -1,12 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tjhaz/core/helpers/constants.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
+import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
+import 'package:tjhaz/feature/home/logic/trips_cubit.dart';
+import 'package:tjhaz/feature/home/logic/trips_states.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_slider.dart';
+import '../../../../core/utils/cached_network_img_helper.dart';
+import '../../data/models/home_model.dart';
 import '../widgets/home_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,8 +39,18 @@ class HomeScreen extends StatelessWidget {
                 HomeSlider(imageList: ["https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg","https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg","https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg"]),
              headline(tittle: "popular Destination") ,
              SizedBox(height:screenHeight(context)*.175 ,
-              child: ListView.builder(itemCount: 4,scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => cardV1("https://static.independent.co.uk/2024/01/05/15/newFile-6.jpg" , context)
+              child: BlocBuilder<TripsCubit ,TripsStates>(
+                builder: (context , states){
+                  if (states is TripsStatesFailure){
+                    return Center(child: Text("loading"),);
+                  }else if (states is TripsStatesSuccess){
+                    return ListView.builder(itemCount: states.trips.length,scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => cardV1(states.trips[index] , context)
+                    ) ;
+                  }else{
+                    return Center(child: CircularProgressIndicator(),) ;
+                  }
+                },
               ),
             
             ) ,
@@ -84,16 +101,7 @@ class HomeScreen extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8), // Rounded corners
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF9FCEE8).withOpacity(0.46),
-              Color(0xFF103B53).withOpacity(0.2),
-  // 33% Opacity
-
-            ],
-          ),
+          gradient: AppGradient.mainCategoriesGradient
         ),
         child: SvgPicture.asset(img),
       ) ,
@@ -102,15 +110,28 @@ class HomeScreen extends StatelessWidget {
 
     ],
   ) ;
-  Widget cardV1(String imgUrl , context)=>Padding(
-    padding:  EdgeInsets.symmetric(vertical: 4.0.h , horizontal: 4.w),
+  Widget cardV1(HomeModel model, context) => Padding(
+    padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 4.w),
     child: Container(
-      width: screenWidth(context)*.3 ,
+      width: screenWidth(context) * .3,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8) , image: DecorationImage(image: NetworkImage(imgUrl) ,fit: BoxFit.cover )),
+        borderRadius: BorderRadius.circular(8),
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(model.imgUrl),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CachedNetworkImage(
+          imageUrl: model.imgUrl,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => CachedImageHelper.imagePlaceholder(),
+          errorWidget: (context, url, error) => CachedImageHelper.imageErrorWidget(),
+        ),
+      ),
     ),
-  ) ;
-  Widget cardV2(String imgUrl , context , String title)=>Padding(
+  );  Widget cardV2(String imgUrl , context , String title)=>Padding(
     padding:  EdgeInsets.symmetric(horizontal: 4.0.w , vertical: 4.h),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

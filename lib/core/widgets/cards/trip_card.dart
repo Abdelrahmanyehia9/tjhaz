@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/styles/app_gradient.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/card_sizes.dart';
@@ -19,16 +20,8 @@ class TripCardItem extends StatelessWidget {
       decoration: BoxDecoration(
 
           borderRadius: BorderRadius.circular(8),
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xff103B53).withOpacity(0.44),
-                Colors.white.withOpacity(0.2)
-              ]
-
-
-          )),
+          gradient: AppGradient.tripCardGradient
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +62,6 @@ class TripCardItem extends StatelessWidget {
             ],
           ),
           Spacer()
-
-
-
         ],
       ),
     );

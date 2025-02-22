@@ -49,6 +49,9 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.17
   carousel_slider: ^5.0.0
+  dartz: ^0.10.1
+  cached_network_image: ^3.4.1
+  easy_localization: ^3.0.7+1
 
 flutter_native_splash:
   android: true
@@ -83,6 +86,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lang/
 
 
   fonts:

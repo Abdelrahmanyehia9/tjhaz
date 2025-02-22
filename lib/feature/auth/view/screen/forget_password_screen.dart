@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/routes.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/reset_password_cubit.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_header.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routes/app_router.dart';
 import '../widgets/back_button.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
@@ -41,8 +40,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             AuthButton(
               tittle: "Send",
               onPressed: () async{
-                FirebaseAuth auth = FirebaseAuth.instance ;
-               final  email = context.read<ResetPasswordCubit>().emailController.text.trim() ;
+
                 if(context.read<ResetPasswordCubit>().resetPasswordKey.currentState!.validate()){
                   GoRouter.of(context).push(AppRouter.confirmOtpScreen);
                 }

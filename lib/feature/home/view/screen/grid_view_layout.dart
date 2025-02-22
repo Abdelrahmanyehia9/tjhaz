@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/widgets/cards/product_card.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_app_bar.dart';
 import '../../../../core/styles/card_sizes.dart';
 import '../../../../core/widgets/cards/square_card.dart';
@@ -23,14 +25,15 @@ class GridViewLayout extends StatelessWidget {
                 child: GridView(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio:
-                          CardSizes.squareCard.width / CardSizes.squareCard.height,
+                          CardSizes.productCard.width/ CardSizes.productCard.height,
                       crossAxisCount: 2,
                       crossAxisSpacing: 12.w,
                       mainAxisSpacing: 12.h),
                   children: [
-                    SquareCard(),
-                    SquareCard(),
-                    SquareCard(),
+                    ProductCard(),
+                    ProductCard(),
+                    ProductCard(),
+
                   ],
                 ),
               ),

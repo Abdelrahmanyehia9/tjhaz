@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/routes.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/signup_states.dart';
@@ -14,6 +13,7 @@ import 'package:tjhaz/feature/auth/view/widgets/auth_loading.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_toast.dart';
 import 'package:toastification/toastification.dart';
 import '../../../../core/helpers/app_regex.dart';
+import '../../../../core/routes/app_router.dart';
 import '../widgets/password_validations.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -29,26 +29,16 @@ class _SignupScreenState extends State<SignupScreen> {
   bool hasSpecialCharacters = false;
   bool hasNumber = false;
   bool hasMinLength = false;
-  late TextEditingController usernameController;
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
-  late TextEditingController passwordConfirmController;
+   TextEditingController usernameController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+   TextEditingController passwordController = TextEditingController();
+   TextEditingController passwordConfirmController = TextEditingController();
+   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>() ;
 
   @override
   void initState() {
     super.initState();
-    usernameController = context
-        .read<SignupCubit>()
-        .usernameController;
-    emailController = context
-        .read<SignupCubit>()
-        .emailController;
-    passwordController = context
-        .read<SignupCubit>()
-        .passwordController;
-    passwordConfirmController = context
-        .read<SignupCubit>()
-        .passwordConfirmationController;
+
     setupPasswordControllerListener();
   }
 
@@ -70,23 +60,17 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: context
-          .read<SignupCubit>()
-          .formKey,
+      key: _globalKey ,
       child: Column(
         children: [
           AuthTextField(
-              controller: context
-                  .read<SignupCubit>()
-                  .usernameController,
+              controller: usernameController,
               labelText: "Username",
               icon: Icons.person_outline,
               validator: AppValidators.validateUsername
           ),
           AuthTextField(
-              controller: context
-                  .read<SignupCubit>()
-                  .emailController,
+              controller:emailController,
               labelText: "Email",
               icon: Icons.email_outlined,
               validator: AppValidators.validateEmail),
@@ -171,13 +155,8 @@ class _SignupScreenState extends State<SignupScreen> {
           ],
         ),
       );
-
   void validateThenSignup(BuildContext context) async {
-    if (context
-        .read<SignupCubit>()
-        .formKey
-        .currentState!
-        .validate()) {
+    if (_globalKey.currentState!.validate()) {
       await context.read<SignupCubit>().signUpByEmailAndPassword(
           username: usernameController.text.trim(),
           email: emailController.text.trim(),
@@ -186,8 +165,10 @@ class _SignupScreenState extends State<SignupScreen> {
   }
   @override
   void dispose() {
-passwordController.clear() ;
-passwordConfirmController.clear() ;
+    usernameController.dispose() ;
+    emailController.dispose() ;
+    passwordController.dispose() ;
+    passwordConfirmController.dispose() ;
 super.dispose();
   }
 }

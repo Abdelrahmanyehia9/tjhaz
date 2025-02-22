@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tjhaz/core/utils/routes.dart';
-import 'package:tjhaz/feature/auth/view/screen/login_screen.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/typography.dart';
 import '../widget/on_boarding_buttons.dart';
 import '../widget/onboarding_content.dart';
