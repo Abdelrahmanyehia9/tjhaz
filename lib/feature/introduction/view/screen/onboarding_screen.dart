@@ -1,7 +1,9 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/typography.dart';
@@ -22,10 +24,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<Map<String, String>> onboardingData = [
     {
       "image": "assets/images/on1.png", // Change to your actual image path
-      "title": "ENJOY\nAND RELAX\nTOGETHER",
-    }, { "image": "assets/images/on2.png", "title": "Let's\ndiscover\nthe world"}, {
+      "title": AppLocalizations.enjoyAndRelax.toUpperCase(),
+    }, { "image": "assets/images/on2.png", "title": AppLocalizations.discoverWorld.toUpperCase()}, {
       "image": "assets/images/on3.png",
-      "title": "Laughter\nand play\nstarts here",
+      "title": AppLocalizations.laughterAndPlay.toUpperCase(),
     }
 
   ];

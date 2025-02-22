@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/signup_states.dart';
@@ -65,18 +67,18 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AuthTextField(
               controller: usernameController,
-              labelText: "Username",
+              labelText: AppLocalizations.username,
               icon: Icons.person_outline,
               validator: AppValidators.validateUsername
           ),
           AuthTextField(
               controller:emailController,
-              labelText: "Email",
+              labelText: AppLocalizations.email,
               icon: Icons.email_outlined,
               validator: AppValidators.validateEmail),
           AuthTextField(
               controller: passwordController,
-              labelText: "Password",
+              labelText: AppLocalizations.password,
               icon: Icons.lock_outline,
               isPassword: true,
               validator: AppValidators.validatePassword
@@ -90,7 +92,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           AuthTextField(
             controller: passwordConfirmController,
-            labelText: "Password Confirm",
+            labelText: AppLocalizations.passwordConfirm,
             icon: Icons.lock_outline,
             isPassword: true,
             validator: (value) {
@@ -117,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 return Padding(
                   padding: const EdgeInsets.only(top: 24.0, bottom: 8),
                   child: AuthButton(
-                    tittle: "SIGN UP",
+                    tittle: AppLocalizations.signUp,
                     onPressed: () => validateThenSignup(context),
                   ),
                 );
@@ -141,17 +143,17 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Widget privacyPolicy() =>
       Align(
-        alignment: Alignment.centerLeft,
+        alignment:context.locale.languageCode == "ar" ? Alignment.centerRight : Alignment.centerLeft,
         child: Wrap(
           children: [
-            Text("By signing up you agree to our ", textAlign: TextAlign.left , style: AppTypography.t14Normal,),
+            Text(AppLocalizations.bySigningUp, style: AppTypography.t14Normal,),
             InkWell(
               child: Text(
-                "Privacy Policy ",
+                AppLocalizations.privacyPolicy,
                 style: AppTypography.t14Bold,
               ),
             ),
-            Text("and Terms.", textAlign: TextAlign.left , style: AppTypography.t14Normal,),
+            Text(AppLocalizations.terms , style: AppTypography.t14Normal,),
           ],
         ),
       );

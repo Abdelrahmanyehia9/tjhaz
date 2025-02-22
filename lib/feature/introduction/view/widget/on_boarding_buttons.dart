@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -22,7 +24,7 @@ class OnBoardingButtons extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child:  Text(isSkip==true? "SKIP": "NEXT",
+        child:  Text(isSkip==true? AppLocalizations.skip.toUpperCase(): AppLocalizations.next.toUpperCase(),
             style: isSkip == true ? AppTypography.t20Normal.copyWith(color: AppColors.cWhite) : AppTypography.t16Normal.copyWith(color: AppColors.cWhite))
     );
   }

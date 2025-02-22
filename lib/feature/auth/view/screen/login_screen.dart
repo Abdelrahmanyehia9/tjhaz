@@ -8,6 +8,7 @@ import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_loading.dart';
@@ -37,13 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
           AuthTextField(
             controller: emailController,
-            labelText: "email".tr(),
+            labelText: AppLocalizations.email,
             icon: Icons.email_outlined,
             validator: AppValidators.validateEmail
           ),
           AuthTextField(
             controller: passwordController,
-            labelText: 'Password',
+          labelText: AppLocalizations.password,
             isPassword: true,
             icon: Icons.lock_outline,
             validator: AppValidators.validatePassword
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if(state is LoginStateLoading){
                 return AuthLoading() ;
               }else{
-                return AuthButton(tittle : "LOG IN"  , onPressed: ()=>validateThenLogin(context)  ) ;
+                return AuthButton(tittle : AppLocalizations.login , onPressed: ()=>validateThenLogin(context)  ) ;
               }
             },
               listener: (context , state){
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
           ),
-          AuthButton(tittle : "Continue as Guest" , onPressed: (){},) ,
+          AuthButton(tittle:AppLocalizations.continueAsGuest, onPressed: (){},) ,
 
         ],),
       ),
@@ -79,14 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
     child: Row(
           children: [
             Text(
-              "Forgot your password ? ",style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor ),
+            AppLocalizations.forgotPassword,style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor ),
             ),
             InkWell(
               onTap: (){
                 GoRouter.of(context).push(AppRouter.forgetPasswordPage) ;
               },
                 child: Text(
-              "Reset now",
+              AppLocalizations.resetNow.tr(),
               style:AppTypography.t14Normal.copyWith(color: AppColors.secondaryColor)
             ))
           ],

@@ -1,3 +1,5 @@
+import 'package:tjhaz/core/utils/app_localization.dart';
+
 class AppConstants{
   static const String appLogo = "assets/images/logo.png" ;
 static const String splashLogo = "assets/images/splash.png" ;
@@ -16,16 +18,16 @@ static const String splashLogo = "assets/images/splash.png" ;
 
 
 
-  static const List<Map<String, String>> categories = [
+  static  List<Map<String, String>> categories = [
     {
       "image": catTrips, // Change to your actual image path
-      "title": "trips",
-    }, { "image": catKashta, "title": "Kashta"}, {
+      "title": AppLocalizations.trips,
+    }, { "image": catKashta, "title": AppLocalizations.kashta}, {
       "image": catActivities,
-      "title": "Activities",
+      "title": AppLocalizations.activities,
     } , {
       "image": catShopping,
-      "title": "Shopping",
+      "title": AppLocalizations.shopping,
     }
 
   ];

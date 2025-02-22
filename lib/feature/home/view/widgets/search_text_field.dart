@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 
 import '../../../../core/styles/colors.dart';
+import '../../../../core/utils/app_localization.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({super.key});
@@ -17,7 +18,7 @@ class SearchTextField extends StatelessWidget {
         style: AppTypography.t14Bold.copyWith(height: 0 , color: AppColors.primaryColor),
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
-          hintText: "search",
+          hintText: AppLocalizations.search,
           hintStyle: AppTypography.t14light.copyWith(color: AppColors.lightPrimaryColor),
           prefixIcon: Icon(Icons.search , color: AppColors.lightPrimaryColor, size: 18,), // User icon
           border: OutlineInputBorder(

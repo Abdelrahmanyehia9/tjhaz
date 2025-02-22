@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tjhaz/core/helpers/constants.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import 'package:tjhaz/feature/home/view/screen/home_screen.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -20,35 +21,35 @@ class _HomeLayoutState extends State<HomeLayout> {
         padding:  EdgeInsets.symmetric(vertical: 4.0.h),
         child: SvgPicture.asset(AppConstants.navHome),
       ),
-      label: "HOME",
+      label: AppLocalizations.home.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Padding(
         padding:  EdgeInsets.symmetric(vertical: 4.0.h),
         child: SvgPicture.asset(AppConstants.navCategories),
       ),
-      label: "CATEGORIES",
+      label: AppLocalizations.categories.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Padding(
         padding:  EdgeInsets.symmetric(vertical: 4.0.h),
         child: SvgPicture.asset(AppConstants.navBooking),
       ),
-      label: "BOOKING",
+      label: AppLocalizations.bookings.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Padding(
         padding:  EdgeInsets.symmetric(vertical: 4.0.h),
         child: SvgPicture.asset(AppConstants.navCart),
       ),
-      label: "CART",
+      label: AppLocalizations.cart.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Padding(
         padding:  EdgeInsets.symmetric(vertical: 4.0.h),
         child: SvgPicture.asset(AppConstants.navProfile),
       ),
-      label: "PROFILE",
+      label: AppLocalizations.profile.toUpperCase(),
     ),
 
 

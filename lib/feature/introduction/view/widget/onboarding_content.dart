@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -40,7 +42,7 @@ class OnboardingContent extends StatelessWidget {
             children: [
               verticalSpace(48),
               Text(
-                  "WELCOME",
+                  AppLocalizations.welcome,
                   style:  AppTypography.t20Bold.copyWith(color: AppColors.cWhite)
               ),
               verticalSpace(8),

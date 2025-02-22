@@ -8,6 +8,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/feature/home/logic/trips_cubit.dart';
 import 'package:tjhaz/feature/home/logic/trips_states.dart';
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 verticalSpace(16),
                 HomeSlider(imageList: ["https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg","https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg","https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg"]),
-             headline(tittle: "popular Destination") ,
+             headline(tittle: AppLocalizations.popularDestinations) ,
              SizedBox(height:screenHeight(context)*.175 ,
               child: BlocBuilder<TripsCubit ,TripsStates>(
                 builder: (context , states){
@@ -56,7 +57,7 @@ class HomeScreen extends StatelessWidget {
             ) ,
                 verticalSpace(8),
                 showMoreDistButton(context) ,
-                headline(tittle: "top ACTIVITIES" , hasViewMore: true) ,
+                headline(tittle: AppLocalizations.topActivities , hasViewMore: true) ,
                 SizedBox( height:screenHeight(context)*.175 ,
                   child: ListView.builder(itemCount: 4,scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                 ) ,
-                headline(tittle: "top store" , hasViewMore: true) ,
+                headline(tittle: AppLocalizations.topStore , hasViewMore: true) ,
                 SizedBox( height:screenHeight(context)*.175,
                   child: ListView.builder(itemCount: 4,scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
@@ -89,7 +90,7 @@ class HomeScreen extends StatelessWidget {
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(tittle.toLowerCase() ,  style: AppTypography.t18Bold.copyWith(color: AppColors.secondaryColor),),
-        hasViewMore == true ? Text("VIEW ALL +" , style: AppTypography.t12Bold.copyWith(color: AppColors.secondaryColor),): SizedBox()
+        hasViewMore == true ? Text(AppLocalizations.viewAll.toUpperCase() , style: AppTypography.t12Bold.copyWith(color: AppColors.secondaryColor),): SizedBox()
       ],
     ),
   ) ;
@@ -153,5 +154,5 @@ Spacer(),        Text(title , style: AppTypography.t14Normal.copyWith(color: App
     side: BorderSide(color: AppColors.primaryColor , width: 1.5),
 
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8) ,)
-  ), child: Text("Show More" , style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),) ,) ;
+  ), child: Text(AppLocalizations.showMore , style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),) ,) ;
 }

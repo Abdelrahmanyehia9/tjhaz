@@ -16,10 +16,12 @@ void main() async{
   setupGetIt();
   runApp(EasyLocalization(
 
-      supportedLocales: [Locale('en', 'US'), Locale('ar', 'KW')],
+      supportedLocales: [Locale('en',"IN"), Locale('ar' , "KW")],
       path: 'assets/lang',
-      fallbackLocale: Locale('en'),
+      startLocale: Locale('ar', "KW"),
+      fallbackLocale: Locale('en', "IN"),
       child: TjhazApp()));
+
 }
 
 class TjhazApp extends StatelessWidget {
