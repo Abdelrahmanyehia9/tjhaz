@@ -62,6 +62,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +87,6 @@ class _HomeLayoutState extends State<HomeLayout> {
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white,
           currentIndex: _selectedIndex,
-
           onTap: _onItemTapped,
           items:navItems,
           type: BottomNavigationBarType.fixed, // Keeps all labels visible

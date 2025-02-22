@@ -42,5 +42,25 @@ class AppLocalizations {
   static String get profile => "Profile".tr();
   static String get send => "send".tr();
   static String get weWillSendYouAnEmail => "We will send".tr();
+  static String get guests => "guests".tr();
+  static String get bedroom => "bedroom".tr();
+  static String get bathroom => "bathroom".tr();
+  static String get egyptian => "Egyptian".tr();
+  static String get halls => "Halls".tr();
+  static String get m2 => "M2".tr();
+  static String get microwave => "Microwave".tr();
+  static String get wifi => "Wifi".tr();
+  static String get ac => "AC".tr();
+  static String get tv => "TV".tr();
+  static String get bbq => "BBQ".tr();
+  static String get coffeeMachine => "Coffee Machine".tr();
+  static String get tan => "Tan".tr();
+  static String get soundSystem => "Sound System".tr();
+  static String get lifeJacket => "Life Jacket".tr();
+  static String get description => "Description".tr();
+  static String get facilities => "Facilities".tr();
+  static String get comfortFacilities => "Comfort Facilities".tr();
+  static String get bookNow => "Book now".tr();
+  static String get back => "back".tr();
 
 }

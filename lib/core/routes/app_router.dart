@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +19,10 @@ import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import 'package:tjhaz/feature/introduction/view/screen/onboarding_screen.dart';
 import 'package:tjhaz/feature/introduction/view/screen/splash_screen.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
+import 'package:tjhaz/feature/trip/data/repository/trip_repository.dart';
+import 'package:tjhaz/feature/trip/logic/trip_cubit.dart';
+import '../../feature/trip/data/model/trip_model.dart';
+import '../../feature/trip/view/screen/trip_screen.dart';
 import 'navigation_transitions.dart';
 
 
@@ -33,20 +38,21 @@ class AppRouter {
   static const forgetPasswordPage = "/forgetPasswordScreen";
   static const homeLayout = "/homeLayout";
   static const gridViewLayout = "/gridview";
+  static const tripScreen = "/tripScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
+
       GoRoute(
         path: splashScreen,
-        pageBuilder: (context, state) => slidingTransition(child: SplashScreen()),
-      ),
-      GoRoute(
+        pageBuilder: (context, state) => fadingTransition(child: SplashScreen()),
+      ), GoRoute(
         path: onBoardingScreen,
-        pageBuilder: (context, state) => slidingTransition(child: OnboardingScreen()),
+        pageBuilder: (context, state) => fadingTransition(child: OnboardingScreen()),
       ),
       GoRoute(
         path: authScreen,
-        pageBuilder: (context, state) => slidingTransition(
+        pageBuilder: (context, state) => fadingTransition(
           child: MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) =>
@@ -62,7 +68,7 @@ class AppRouter {
       ),
       GoRoute(
         path: confirmOtpScreen,
-        pageBuilder: (context, state) => slidingTransition(
+        pageBuilder: (context, state) => fadingTransition(
           child: BlocProvider(
             create: (context) => ResetPasswordCubit(),
             child: OtpConfirmScreen(),
@@ -71,7 +77,7 @@ class AppRouter {
       ),
       GoRoute(
         path: setupNewPasswordScreen,
-        pageBuilder: (context, state) => slidingTransition(
+        pageBuilder: (context, state) => fadingTransition(
           child: BlocProvider(
             create: (context) => ResetPasswordCubit(),
             child: SetupNewPassword(),
@@ -80,7 +86,7 @@ class AppRouter {
       ),
       GoRoute(
         path: forgetPasswordPage,
-        pageBuilder: (context, state) => slidingTransition(
+        pageBuilder: (context, state) => fadingTransition(
           child: BlocProvider(
             create: (context) => ResetPasswordCubit(),
             child: ForgetPasswordScreen(),
@@ -89,7 +95,7 @@ class AppRouter {
       ),
       GoRoute(
         path: homeLayout,
-        pageBuilder: (context, state) => slidingTransition(child: MultiBlocProvider(
+        pageBuilder: (context, state) => fadingTransition(child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (context ) => TripsCubit(homeRepository: getIt.get<HomeRepository>())..getAllTrips() )
           ],
@@ -97,8 +103,18 @@ class AppRouter {
       ),
       GoRoute(
         path: gridViewLayout,
-        pageBuilder: (context, state) => slidingTransition(child: GridViewLayout()),
+        pageBuilder: (context, state) => fadingTransition(child: GridViewLayout()),
       ),
+      GoRoute(
+        path: tripScreen,
+        pageBuilder: (context, state) {
+          final trip = state.extra as String; // Extract object
+          return fadingTransition(child: BlocProvider(
+            create: (context)=>TripCubit(TripRepository(firestore: getIt.get<FirebaseFirestore>())),
+              child: TripScreen(tripID: trip)));
+        },
+      ),
+
     ],
   );
 }

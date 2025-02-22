@@ -26,6 +26,16 @@ static LinearGradient mainCategoriesGradient= LinearGradient(
 
     ],
   ) ;
+static LinearGradient facilityCardGradient= LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF9FCEE8).withOpacity(0.25),
+      Color(0xFF103B53).withOpacity(0.1),
+      // 33% Opacity
+
+    ],
+  ) ;
 
 
 

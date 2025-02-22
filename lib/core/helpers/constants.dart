@@ -1,4 +1,5 @@
 import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/main.dart';
 
 class AppConstants{
   static const String appLogo = "assets/images/logo.png" ;
@@ -12,7 +13,7 @@ static const String splashLogo = "assets/images/splash.png" ;
   static const String navBooking = "assets/icons/Vector (1).svg" ;
   static const String navCategories = "assets/icons/Vector (3).svg" ;
   static const String navProfile = "assets/icons/Group 9.svg" ;
-
+static String currentLanguage = currentLocale.languageCode.toUpperCase() ;
 
 
 

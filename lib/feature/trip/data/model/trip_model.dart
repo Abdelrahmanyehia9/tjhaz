@@ -1,63 +1,57 @@
 class TripModel {
-  final String tripId;
+  final String id;
   final Map<String, String> name;
-  final String price;
-  final Map<String, String>? location;
-  final List<String> images;
-  final int? ratingCount;
-  final String? rating;
-  final String tripTime;
-  final List<String> facilities;
-  final List<String> comfortFacilities;
-  final int? numOfGusts;
+  final Map<String, String> location;
   final Map<String, String> description;
+  final List<String> images;
+  final String time;
+  final int guests;
+  final String rates;
+  final int ratingCount;
+  final Map<String, dynamic> facilities;
+  final List<String> comfortFacilities;
 
   TripModel({
-    required this.tripId,
+    required this.id,
     required this.name,
-    required this.price,
-    this.location,
+    required this.location,
+    required this.description,
     required this.images,
-    this.ratingCount,
-    this.rating,
-    required this.tripTime,
+    required this.time,
+    required this.guests,
+    required this.rates,
+    required this.ratingCount,
     required this.facilities,
     required this.comfortFacilities,
-    this.numOfGusts,
-    required this.description,
   });
 
-  factory TripModel.fromJson(Map<String, dynamic> json) => TripModel(
-    tripId: json["id"],
-    name: Map<String, String>.from(json["name"]),
-    price: json["price"],
-    images: List<String>.from(json["images"]),
-    tripTime: json["time"],
-    facilities: List<String>.from(json["Facilities"]),
-    comfortFacilities: List<String>.from(json["comfort_Facilities"]),
-    description: Map<String, String>.from(json["description"]),
-    location: json["location"] != null
-        ? Map<String, String>.from(json["location"])
-        : null,
-    ratingCount: json["rating_count"],
-    rating: json["rates"],
-    numOfGusts: json["guests"],
-  );
-
-  Map<String, dynamic> toJson() {
+  factory TripModel.fromJson(Map<String, dynamic> json) {
+    return TripModel(
+      id: json["id"],
+      name: json["name"] != null ? Map<String, String>.from(json["name"].map((k, v) => MapEntry(k, v.toString()))) : {},
+      location: json["location"] != null ? Map<String, String>.from(json["location"].map((k, v) => MapEntry(k, v.toString()))) : {},
+      description: json["description"] != null ? Map<String, String>.from(json["description"].map((k, v) => MapEntry(k, v.toString()))) : {},
+      images: json["images"] != null ? List<String>.from(json["images"].map((v) => v.toString())) : [],
+      time: json["time"],
+      guests: json["guests"],
+      rates: json["rates"],
+      ratingCount: json["rating_count"],
+      facilities: Map<String, dynamic>.from(json["Facilities"] ?? {}),
+      comfortFacilities: json["comfort_Facilities"] != null ? List<String>.from(json["comfort_Facilities"].map((v) => v.toString())) : [],
+    );
+  }  Map<String, dynamic> toJson() {
     return {
-      "id": tripId,
+      "id": id,
       "name": name,
-      "price": price,
+      "location": location,
+      "description": description,
       "images": images,
-      "time": tripTime,
+      "time": time,
+      "guests": guests,
+      "rates": rates,
+      "rating_count": ratingCount,
       "Facilities": facilities,
       "comfort_Facilities": comfortFacilities,
-      "description": description,
-      "location": location,
-      "rating_count": ratingCount,
-      "rates": rating,
-      "guests": numOfGusts,
     };
   }
 }

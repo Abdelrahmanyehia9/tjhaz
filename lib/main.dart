@@ -7,6 +7,10 @@ import 'package:tjhaz/core/styles/colors.dart';
 import 'core/routes/app_router.dart';
 import 'firebase_options.dart';
 
+
+///to do shared preference
+Locale currentLocale = Locale("en","IN") ;
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -18,7 +22,7 @@ void main() async{
 
       supportedLocales: [Locale('en',"IN"), Locale('ar' , "KW")],
       path: 'assets/lang',
-      startLocale: Locale('ar', "KW"),
+      startLocale: currentLocale,
       fallbackLocale: Locale('en', "IN"),
       child: TjhazApp()));
 
@@ -36,10 +40,12 @@ class TjhazApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
       theme: ThemeData(
-        primaryColor: AppColors.primaryColor ,
-        splashColor: Colors.transparent ,
+        scaffoldBackgroundColor: AppColors.scaffoldBackground,
+        primaryColor: AppColors.primaryColor,
+        splashColor: Colors.transparent,
         fontFamily: 'alex',
-        highlightColor: Colors.transparent , hoverColor: Colors.transparent ,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
       ),
         debugShowCheckedModeBanner: false,
         routerConfig: AppRouter.routes,
@@ -47,4 +53,3 @@ class TjhazApp extends StatelessWidget {
     );
   }
 }
-

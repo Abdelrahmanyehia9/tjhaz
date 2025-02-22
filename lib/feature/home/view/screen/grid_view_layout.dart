@@ -6,6 +6,7 @@ import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/widgets/cards/product_card.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_app_bar.dart';
 import '../../../../core/styles/card_sizes.dart';
+import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/widgets/cards/square_card.dart';
 
 class GridViewLayout extends StatelessWidget {
@@ -48,23 +49,7 @@ class GridViewLayout extends StatelessWidget {
         padding: EdgeInsets.only(top: 16.0.h, bottom: 24.h),
         child: Row(
           children: [
-            InkWell(
-              onTap: () {},
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: AppColors.secondaryColor,
-                    size: 24.sp,
-                  ),
-                  Text(
-                    "BACK",
-                    style: AppTypography.t12Bold
-                        .copyWith(color: AppColors.primaryColor),
-                  )
-                ],
-              ),
-            ),
+            AppBackButton(),
             Spacer(),
             Text(
               tittle.toUpperCase(),

@@ -52,6 +52,7 @@ dependencies:
   dartz: ^0.10.1
   cached_network_image: ^3.4.1
   easy_localization: ^3.0.7+1
+  iconify_flutter: ^0.0.7
 
 flutter_native_splash:
   android: true
