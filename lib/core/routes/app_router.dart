@@ -12,17 +12,21 @@ import 'package:tjhaz/feature/auth/view/screen/auth_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
 import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
+import 'package:tjhaz/feature/entertainment/logic/activity_cubit.dart';
+import 'package:tjhaz/feature/entertainment/view/screen/activity_screen.dart';
 import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
-import 'package:tjhaz/feature/home/logic/trips_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
 import 'package:tjhaz/feature/home/view/screen/grid_view_layout.dart';
 import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import 'package:tjhaz/feature/introduction/view/screen/onboarding_screen.dart';
 import 'package:tjhaz/feature/introduction/view/screen/splash_screen.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
-import 'package:tjhaz/feature/trip/data/repository/trip_repository.dart';
-import 'package:tjhaz/feature/trip/logic/trip_cubit.dart';
-import '../../feature/trip/data/model/trip_model.dart';
-import '../../feature/trip/view/screen/trip_screen.dart';
+import 'package:tjhaz/feature/entertainment/data/repository/trip_repository.dart';
+import 'package:tjhaz/feature/entertainment/logic/trip_cubit.dart';
+import '../../feature/entertainment/data/model/entertainment_model.dart';
+import '../../feature/entertainment/data/repository/activity_repository.dart';
+import '../../feature/entertainment/view/screen/trip_screen.dart';
 import 'navigation_transitions.dart';
 
 
@@ -39,6 +43,7 @@ class AppRouter {
   static const homeLayout = "/homeLayout";
   static const gridViewLayout = "/gridview";
   static const tripScreen = "/tripScreen";
+  static const activityScreen = "/activityScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
@@ -97,7 +102,9 @@ class AppRouter {
         path: homeLayout,
         pageBuilder: (context, state) => fadingTransition(child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context ) => TripsCubit(homeRepository: getIt.get<HomeRepository>())..getAllTrips() )
+            BlocProvider(create: (context ) => HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())..getHomeTrips()),
+             BlocProvider(create: (context ) => HomeActivitiesCubit(homeRepository: getIt.get<HomeRepository>())..getHomeActivities()),
+
           ],
             child: HomeLayout())),
       ),
@@ -112,6 +119,15 @@ class AppRouter {
           return fadingTransition(child: BlocProvider(
             create: (context)=>TripCubit(TripRepository(firestore: getIt.get<FirebaseFirestore>())),
               child: TripScreen(tripID: trip)));
+        },
+      ),
+      GoRoute(
+        path: activityScreen,
+        pageBuilder: (context, state) {
+          final activity = state.extra as String; // Extract object
+          return fadingTransition(child: BlocProvider(
+            create: (context)=>ActivityCubit(activityRepository: ActivityRepository( firestore: getIt.get<FirebaseFirestore>())),
+              child: ActivityScreen(activityID: activity)));
         },
       ),
 

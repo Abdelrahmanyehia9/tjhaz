@@ -13,4 +13,5 @@ void setupGetIt()  {
   getIt.registerLazySingleton<UserRepository>(() => UserRepository(firestore: getIt.get<FirebaseFirestore>()));
 getIt.registerLazySingleton<HomeRepository>(()=> HomeRepository(firestore: getIt.get<FirebaseFirestore>())  ) ;
 
+
 }

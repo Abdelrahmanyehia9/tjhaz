@@ -6,17 +6,19 @@ import 'package:tjhaz/core/helpers/constants.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_localization.dart';
 import 'package:tjhaz/core/widgets/app_back_button.dart';
+import 'package:tjhaz/core/widgets/app_loading.dart';
 import 'package:tjhaz/core/widgets/box_action_button.dart';
 import 'package:tjhaz/core/widgets/fixed_bottom_button.dart';
-import 'package:tjhaz/feature/trip/data/model/facilities_icon.dart';
-import 'package:tjhaz/feature/trip/logic/trip_cubit.dart';
-import 'package:tjhaz/feature/trip/logic/trip_states.dart';
-import 'package:tjhaz/feature/trip/view/widget/facilities.dart';
+import 'package:tjhaz/feature/entertainment/logic/trip_cubit.dart';
+import 'package:tjhaz/feature/entertainment/logic/trip_states.dart';
+import 'package:tjhaz/feature/entertainment/view/widget/facilities.dart';
+import 'package:tjhaz/feature/entertainment/view/widget/slider.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../../../core/widgets/app_slider.dart';
 import '../../../../core/widgets/icon_and_text.dart';
+import '../../helper/facilities_helper.dart';
 
 class TripScreen extends StatefulWidget {
   final String tripID;
@@ -46,18 +48,8 @@ class _TripScreenState extends State<TripScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding:  EdgeInsets.symmetric(vertical: 16.0.h),
-                        child: AppBackButton(),
-                      ),
-                      Stack(
-                        children: [
-                          AppSlider(height: screenHeight(context)*.3,imageList: state.tripModel.images,),
-                          Positioned(
-                              bottom: 8.h,right: 8.w,
-                              child: BoxActionButton(icon: Icons.favorite))
-                        ],
-                      ) ,
+                      AppBackButton(),
+                      EntertainmentSlider(imageList:state.tripModel.images),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0 , bottom: 8),
                         child: Text(state.tripModel.name[AppConstants.currentLanguage]! , style: AppTypography.t20Bold.copyWith(color: AppColors.primaryColor),),
@@ -66,17 +58,17 @@ class _TripScreenState extends State<TripScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconAndText(title: "${state.tripModel.guests} ${AppLocalizations.guests}" , icon:Icons.person),
-                          IconAndText(title: state.tripModel.location[AppConstants.currentLanguage]??"No specific location",icon:  Icons.location_on),
+                          IconAndText(title: state.tripModel.location?[AppConstants.currentLanguage]??"No specific location",icon:  Icons.location_on),
                           IconAndText(title: state.tripModel.rates , icon: Icons.star) ,
                           horizontalSpace(80)
                         ],),
                       verticalSpace(24) ,
-                      facilities(state.tripModel.facilities),
+                      facilities(state.tripModel.facilities!),
                       Padding(
                         padding:  EdgeInsets.symmetric(vertical: 24.0.h),
                         child: Text(AppLocalizations.comfortFacilities , style: AppTypography.t16Bold.copyWith(color: AppColors.primaryColor),),
                       ),
-                      comfortFacilities(state.tripModel.comfortFacilities),
+                      comfortFacilities(state.tripModel.comfortFacilities!),
                       Padding(
                         padding:  EdgeInsets.only(top: 16.0.h , bottom: 8.h),
                         child: Text(AppLocalizations.description.toUpperCase() , style: AppTypography.t16Bold.copyWith(color: AppColors.primaryColor),),
@@ -94,7 +86,7 @@ class _TripScreenState extends State<TripScreen> {
         else if( state is TripStatesFailure){
           return Center(child: Text(state.errorMsg) ) ;
         }else{
-          return Center(child: LinearProgressIndicator(),) ;
+          return AppLoading() ;
         }
       },
     );

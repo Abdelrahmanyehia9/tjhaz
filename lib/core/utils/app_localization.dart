@@ -62,5 +62,6 @@ class AppLocalizations {
   static String get comfortFacilities => "Comfort Facilities".tr();
   static String get bookNow => "Book now".tr();
   static String get back => "back".tr();
+  static String get details => "details".tr();
 
 }

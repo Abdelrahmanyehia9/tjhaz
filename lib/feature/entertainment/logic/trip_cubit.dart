@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tjhaz/feature/trip/data/repository/trip_repository.dart';
-import 'package:tjhaz/feature/trip/logic/trip_states.dart';
+import 'package:tjhaz/feature/entertainment/data/repository/trip_repository.dart';
+import 'package:tjhaz/feature/entertainment/logic/trip_states.dart';
 
 class TripCubit extends Cubit<TripStates>{
   final TripRepository tripRepository ;

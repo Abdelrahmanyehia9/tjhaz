@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconify_flutter/icons/zondicons.dart';
 
 class FacilitiesHelper {
   static String bedroom = "bedroom" ;
@@ -24,7 +23,7 @@ class FacilitiesHelper {
         return Icons.wb_sunny_outlined;
       case 'Sound System':
         return Icons.music_note_outlined;
-        case 'Life Jacket':
+      case 'Life Jacket':
         return Icons.dangerous;
       default:
         return Icons.ac_unit;

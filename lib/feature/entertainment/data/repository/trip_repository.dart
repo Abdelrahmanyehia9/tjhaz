@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/database/remote/fireStore_constants.dart';
 import '../../../../core/database/remote/firestore_errorHandler.dart';
-import '../model/trip_model.dart';
+import '../model/entertainment_model.dart';
 
 class TripRepository{
 
@@ -11,10 +11,10 @@ class TripRepository{
   TripRepository({required this.firestore});
 
 
-  Future<Either<TripModel , String>>getTripByID({required String tripID })async{
+  Future<Either<EntertainmentModel , String>>getTripByID({required String tripID })async{
     try{
       DocumentSnapshot<Map<String, dynamic>> response = await firestore.collection(FireStoreConstants.tripsCollection).doc(tripID).get() ;
-      TripModel trip = TripModel.fromJson(response.data()!) ;
+      EntertainmentModel trip = EntertainmentModel.fromJson(response.data()!) ;
       return left(trip) ;
     }catch(e){
       if(e is FirebaseException){

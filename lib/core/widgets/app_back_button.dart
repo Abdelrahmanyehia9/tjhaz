@@ -18,20 +18,23 @@ class AppBackButton extends StatelessWidget {
       onTap: () {
         context.pop();
       },
-      child: Row(
-        children: [
-          Icon(
-            Icons.arrow_back,
-            color: AppColors.secondaryColor,
-            size:iconSize?.sp?? 24.sp,
-          ),
-          horizontalSpace(4),
-          Text(
-            AppLocalizations.back,
-            style: textStyle ?? AppTypography.t12Bold
-                .copyWith(color: AppColors.primaryColor),
-          )
-        ],
+      child: Padding(
+        padding:  EdgeInsets.symmetric(vertical: 16.h),
+        child: Row(
+          children: [
+            Icon(
+              Icons.arrow_back,
+              color: AppColors.secondaryColor,
+              size:iconSize?.sp?? 24.sp,
+            ),
+            horizontalSpace(4),
+            Text(
+              AppLocalizations.back,
+              style: textStyle ?? AppTypography.t12Bold
+                  .copyWith(color: AppColors.primaryColor),
+            )
+          ],
+        ),
       ),
     )
     ;
