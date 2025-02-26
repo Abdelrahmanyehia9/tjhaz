@@ -27,19 +27,19 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             AuthHeader(
               tittle: Text(
-                AppLocalizations.forgotPassword.toUpperCase(),
+                AppLocalizationsString.forgotPassword.toUpperCase(),
                 style: AppTypography.t24Bold.copyWith(color: AppColors.cWhite),
               ),
               description:
-                  AppLocalizations.weWillSendYouAnEmail,
+                  AppLocalizationsString.weWillSendYouAnEmail,
             ),
             AuthTextField(
               controller: context.read<ResetPasswordCubit>().emailController,
                 validator: AppValidators.validateEmail ,
-                labelText: AppLocalizations.email,
+                labelText: AppLocalizationsString.email,
                 icon: Icons.email_outlined),
             AuthButton(
-              tittle: AppLocalizations.send,
+              tittle: AppLocalizationsString.send,
               onPressed: () async{
 
                 if(context.read<ResetPasswordCubit>().resetPasswordKey.currentState!.validate()){

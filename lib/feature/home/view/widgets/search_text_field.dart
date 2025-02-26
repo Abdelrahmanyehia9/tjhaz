@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 
 import '../../../../core/styles/colors.dart';
@@ -11,16 +12,19 @@ class SearchTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: 40,
+    return SizedBox(height: 40.h,
       child: TextFormField(
         cursorWidth: 1,
 
-        style: AppTypography.t14Bold.copyWith(height: 0 , color: AppColors.primaryColor),
+        style: AppTypography.t12Normal.copyWith(height: 2, color: AppColors.primaryColor),
         cursorColor: AppColors.primaryColor,
         decoration: InputDecoration(
-          hintText: AppLocalizations.search,
-          hintStyle: AppTypography.t14light.copyWith(color: AppColors.lightPrimaryColor),
-          prefixIcon: Icon(Icons.search , color: AppColors.lightPrimaryColor, size: 18,), // User icon
+          contentPadding: EdgeInsets.zero,
+
+          hintText: AppLocalizationsString.search,
+
+          hintStyle: AppTypography.t12Normal.copyWith(color: AppColors.lightPrimaryColor ,),
+          prefixIcon: Icon(Icons.search , color: AppColors.lightPrimaryColor, size: 24.sp,), // User icon
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(

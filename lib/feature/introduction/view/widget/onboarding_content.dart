@@ -42,7 +42,7 @@ class OnboardingContent extends StatelessWidget {
             children: [
               verticalSpace(48),
               Text(
-                  AppLocalizations.welcome,
+                  AppLocalizationsString.welcome,
                   style:  AppTypography.t20Bold.copyWith(color: AppColors.cWhite)
               ),
               verticalSpace(8),

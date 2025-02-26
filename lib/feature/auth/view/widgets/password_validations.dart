@@ -30,18 +30,18 @@ class PasswordValidations extends StatelessWidget {
         children: [
           Padding(
             padding:  EdgeInsets.only(bottom: 2.0.h),
-            child: Text(AppLocalizations.recommended ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
+            child: Text(AppLocalizationsString.recommended ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
           ) ,
-          buildValidationRow(AppLocalizations.atLeast1Lowercase, hasLowerCase),
+          buildValidationRow(AppLocalizationsString.atLeast1Lowercase, hasLowerCase),
           verticalSpace(2),
-          buildValidationRow(AppLocalizations.atLeast1Uppercase, hasUpperCase),
+          buildValidationRow(AppLocalizationsString.atLeast1Uppercase, hasUpperCase),
           verticalSpace(2),
           buildValidationRow(
-              AppLocalizations.atLeast1SpecialCharacter, hasSpecialCharacters),
+              AppLocalizationsString.atLeast1SpecialCharacter, hasSpecialCharacters),
           verticalSpace(2),
-          buildValidationRow(AppLocalizations.atLeast1Number, hasNumber),
+          buildValidationRow(AppLocalizationsString.atLeast1Number, hasNumber),
           verticalSpace(2),
-          buildValidationRow(AppLocalizations.atLeast8Characters, hasMinLength),
+          buildValidationRow(AppLocalizationsString.atLeast8Characters, hasMinLength),
         ],
       ),
     );

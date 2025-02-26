@@ -24,10 +24,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   List<Map<String, String>> onboardingData = [
     {
       "image": "assets/images/on1.png", // Change to your actual image path
-      "title": AppLocalizations.enjoyAndRelax.toUpperCase(),
-    }, { "image": "assets/images/on2.png", "title": AppLocalizations.discoverWorld.toUpperCase()}, {
+      "title": AppLocalizationsString.enjoyAndRelax.toUpperCase(),
+    }, { "image": "assets/images/on2.png", "title": AppLocalizationsString.discoverWorld.toUpperCase()}, {
       "image": "assets/images/on3.png",
-      "title": AppLocalizations.laughterAndPlay.toUpperCase(),
+      "title": AppLocalizationsString.laughterAndPlay.toUpperCase(),
     }
 
   ];

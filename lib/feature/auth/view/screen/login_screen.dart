@@ -38,13 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
           AuthTextField(
             controller: emailController,
-            labelText: AppLocalizations.email,
+            labelText: AppLocalizationsString.email,
             icon: Icons.email_outlined,
             validator: AppValidators.validateEmail
           ),
           AuthTextField(
             controller: passwordController,
-          labelText: AppLocalizations.password,
+          labelText: AppLocalizationsString.password,
             isPassword: true,
             icon: Icons.lock_outline,
             validator: AppValidators.validatePassword
@@ -52,14 +52,9 @@ class _LoginScreenState extends State<LoginScreen> {
           verticalSpace(8) ,
           forgetPassword(context),
           verticalSpace(30) ,
-          BlocConsumer<LoginCubit , LoginStates>(
-            builder: (context , state){
-              if(state is LoginStateLoading){
-                return AuthLoading() ;
-              }else{
-                return AuthButton(tittle : AppLocalizations.login , onPressed: ()=>validateThenLogin(context)  ) ;
-              }
-            },
+          BlocListener<LoginCubit , LoginStates>(
+           child:  AuthButton(tittle : AppLocalizationsString.login , onPressed: ()=>validateThenLogin(context)  ) ,
+
               listener: (context , state){
                 if(state is LoginStateFailure){
                   toast(context: context , type: ToastificationType.error , tittle: "Login Failure"  , description: state.errorMsg ) ;
@@ -68,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
           ),
-          AuthButton(tittle:AppLocalizations.continueAsGuest, onPressed: (){},) ,
+          AuthButton(tittle:AppLocalizationsString.continueAsGuest, onPressed: (){},) ,
 
         ],),
       ),
@@ -80,14 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
     child: Row(
           children: [
             Text(
-            AppLocalizations.forgotPassword,style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor ),
+            AppLocalizationsString.forgotPassword,style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor ),
             ),
             InkWell(
               onTap: (){
                 GoRouter.of(context).push(AppRouter.forgetPasswordPage) ;
               },
                 child: Text(
-              AppLocalizations.resetNow.tr(),
+              AppLocalizationsString.resetNow.tr(),
               style:AppTypography.t14Normal.copyWith(color: AppColors.secondaryColor)
             ))
           ],
@@ -97,7 +92,11 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = emailController.text.trim()  ;
   String password = passwordController.text ;
   if(_globalKey.currentState!.validate()){
+    context.loaderOverlay.show() ;
     await context.read<LoginCubit>().login(email: email,password:  password) ;
+    if(context.mounted){
+      context.loaderOverlay.hide() ;
+    }
   }
 }
 

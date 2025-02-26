@@ -6,7 +6,7 @@ import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/widgets/box_action_button.dart';
-import 'package:tjhaz/core/widgets/product_quantiy.dart';
+import 'package:tjhaz/feature/shop/view/widget/product_quantiy.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key});
@@ -16,48 +16,55 @@ class ProductCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          alignment: Alignment.bottomCenter,
           width: CardSizes.productCard.width,
           height: CardSizes.productCard.height,
           decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage("https://m.media-amazon.com/images/I/519zDNyJ-KL.jpg"),
-                fit: BoxFit.cover),
+            gradient: AppGradient.productCardGradient,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: AppGradient.productCardGradient
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 8.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  verticalSpace(4) ,
-                  Text(
-                    "WATER WALKWAT ".toUpperCase(),
-                    style: AppTypography.t12Bold.copyWith(color: AppColors.cWhite),
-                  ),
-                  verticalSpace(2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("89.50 KWD", style: AppTypography.t11Normal.copyWith(color: AppColors.cWhite)),
-                      ProductQuantity(),
-                    ],
-                  ),
-                ],
-              ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                      width: 151.w,
+                      height: 120.h,
+                      child: Image.network(
+                        "https://m.media-amazon.com/images/I/51lTCyB0dsL._AC_UF894,1000_QL80_.jpg",
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Spacer(),
+                Text(
+                  "WATER WALKWAT".toUpperCase(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTypography.t12Bold
+                      .copyWith(color: AppColors.primaryColor),
+                ),
+                verticalSpace(2),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text("89.50 KWD",
+                        style: AppTypography.t11Normal
+                            .copyWith(color: AppColors.primaryColor)),
+                    ProductQuantity(),
+                  ],
+                ),
+                Spacer(),
+              ],
             ),
           ),
         ),
         Positioned(
             top: 12.h,
             right: 12.h,
-            child: BoxActionButton(
+            child: BoxIconButton(
               icon: Icons.favorite,
               size: 16.sp,
             )),
@@ -72,7 +79,8 @@ class ProductCard extends StatelessWidget {
               child: Center(
                 child: Text(
                   "49% sale".toUpperCase(),
-                  style: AppTypography.t11Bold.copyWith(color: AppColors.cWhite),
+                  style:
+                      AppTypography.t11Bold.copyWith(color: AppColors.cWhite),
                 ),
               ),
             ),
@@ -81,5 +89,4 @@ class ProductCard extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -25,7 +25,7 @@
   "At least 8 characters ": "على الأقل 8 أحرف",
   "search": "بحث",
   "trips": "الرحلات",
-  "kashta": "كشْتة",
+  "Kashta": "كشْتة",
   "activities": "الأنشطة",
   "shopping": "التسوق",
   "popular_destinations": "الوجهات الشهيرة",
@@ -60,7 +60,31 @@
   "Comfort Facilities": "وسائل الراحة",
   "Book now": "احجز الآن",
   "back": "رجوع",
-  "details": "التفاصيل"
+  "details": "التفاصيل",
+  "Wild": "برِّي",
+  "Fridge": "ثلاجة",
+  "GPS Navigation": "نظام الملاحة GPS",
+  "Shower": "دُش",
+  "Swimming Ladder": "سلم سباحة",
+  "Jet Ski": "جيت سكي",
+  "Jet ski": "جيت سكي",
+  "Ice Box": "صندوق تبريد",
+  "Fishing Tools": "أدوات صيد",
+  "First Aid Kit": "عدة إسعافات أولية",
+  "Cabins": "كبائن",
+  "Snorkeling Gear": "معدات الغطس",
+  "Island": "جزيرة",
+  "Diving": "غوص",
+  "Fishing": "صيد",
+  "Yacht": "يخت",
+  "Boat": "قارب",
+  "Caravans": "كرفانات",
+  "Camps": "مخيمات",
+  "Beach Buggy": "بيتش باجى",
+  "Sorry": "عفوا, ",
+  "Something went wrong": "خطأ غير معروف",
+  "are not available at the moment. Stay tuned for more soon!": "غير متوفر حاليا . ترقب المزيد قريبا"
+
 
 
 }

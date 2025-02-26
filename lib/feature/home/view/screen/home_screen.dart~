@@ -1,0 +1,154 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/helpers/spacing.dart';
+import 'package:tjhaz/core/routes/app_router.dart';
+import 'package:tjhaz/core/widgets/error_widget.dart';
+import 'package:tjhaz/feature/categories/logic/sub_categories_cubit.dart';
+import 'package:tjhaz/feature/categories/logic/sub_categories_states.dart';
+import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
+import 'package:tjhaz/feature/home/logic/banners_states.dart';
+import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_activities_states.dart';
+import 'package:tjhaz/feature/home/logic/home_store_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_store_state.dart';
+import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_trips_states.dart';
+import 'package:tjhaz/feature/home/view/widgets/home_activities_sucess.dart';
+import 'package:tjhaz/feature/home/view/widgets/home_store_success.dart';
+import '../../../../core/widgets/global_app_bar.dart';
+import '../widgets/home_banner.dart';
+import '../widgets/home_category_item.dart';
+import '../widgets/popular_destination_success.dart';
+import '../widgets/shimmer_list_v1.dart';
+import '../widgets/shimmer_list_v2.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String title = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GlobalAppBar(),
+            verticalSpace(18),
+            //categories
+            BlocListener<EntertainmentCategoriesCubit, SubCategoriesStates>(
+              listener: (context, state) {
+                if (state is SubCategoriesStatesSuccess) {
+                  context.push(
+                    AppRouter.entertainmentScreen,
+                    extra: {
+                      "id": state.categories.first.id,
+                      "categories": state.categories,
+                      "name": title
+                    },
+                  );
+                }
+              },
+              child: homeCategories()
+            ),
+            verticalSpace(16),
+            //banners
+            BlocBuilder<BannerCubit, BannersStates>(
+              builder: (context, state) {
+                if (state is BannersStatesSuccess) {
+                  return state.banners.isNotEmpty
+                      ? HomeBanner(
+                          banners: state.banners,
+                        )
+                      : SizedBox();
+                } else {
+                  return SizedBox();
+                }
+              },
+            ),
+            verticalSpace(8),
+
+            ///trips
+            BlocBuilder<HomeTripsCubit, HomeTripsStates>(
+                builder: (context, state) {
+              if (state is HomeTripsStatesSuccess) {
+                return PopularDestinationSuccess(items: state.trips,) ;
+              } else if (state is HomeTripsStatesFailure) {
+                return AppErrorWidget(error: state.errorMsg,) ;
+              } else {
+                return const ShimmerListV1();
+              }
+            }),
+
+            ///activities
+            BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
+                builder: (context, state) {
+              if (state is HomeActivitiesStatesSuccess) {
+                return HomeActivitiesSuccess(items: state.activities) ;
+              } else if (state is HomeActivitiesStatesFailure) {
+                return AppErrorWidget(error: state.errorMsg,);
+              } else {
+                return const ShimmerListV2();
+              }
+            }),
+
+            ///stores
+            BlocBuilder<HomeStoresCubit, HomeStoreStates>(
+                builder: (context, state) {
+              if (state is HomeStoreStatesSuccess) {
+                return HomeStoreSuccess(items: state.stores) ;
+              } else if (state is HomeStoreStatesFailure) {
+                return AppErrorWidget(error: state.error,) ;
+              } else {
+                return const ShimmerListV2();
+              }
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+Widget homeCategories()=>Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: List.generate(
+    AppConstants.categories.length,
+        (index) {
+      final item = AppConstants.categories[index];
+      return InkWell(
+        onTap: () async {
+          context.loaderOverlay.show();
+          if (index != 3) {
+            title = item["title"]!;
+            await context
+                .read<EntertainmentCategoriesCubit>()
+                .getEntertainmentsSubCategoryByParentID(
+              item["id"]!,
+            );
+          }
+          if (context.mounted) {
+            context.loaderOverlay.hide();
+          }
+        },
+        child: HomeCategoryItem(
+
+          imgUrl :item["image"]!,
+          title : item["title"]!,
+        ),
+      );
+    },
+  ),
+) ;
+}

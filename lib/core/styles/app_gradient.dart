@@ -2,11 +2,17 @@
 import 'package:flutter/material.dart';
 
 class AppGradient{
-  static LinearGradient productCardGradient = LinearGradient(
-  begin: Alignment.topCenter,
-end: Alignment.bottomCenter,
-colors: [Colors.transparent, Colors.black87]);
-static LinearGradient tripCardGradient= LinearGradient(
+  static LinearGradient productCardGradient =  LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF9FCEE8).withOpacity(0.22),
+      Color(0xFF103B53).withOpacity(0.07),
+      // 33% Opacity
+
+    ],
+  ) ;
+  static LinearGradient tripCardGradient= LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
@@ -16,22 +22,12 @@ static LinearGradient tripCardGradient= LinearGradient(
 
 
 );
-static LinearGradient mainCategoriesGradient= LinearGradient(
+  static LinearGradient mainCategoriesGradient= LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
       Color(0xFF9FCEE8).withOpacity(0.46),
       Color(0xFF103B53).withOpacity(0.2),
-      // 33% Opacity
-
-    ],
-  ) ;
-static LinearGradient facilityCardGradient= LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFF9FCEE8).withOpacity(0.25),
-      Color(0xFF103B53).withOpacity(0.1),
       // 33% Opacity
 
     ],

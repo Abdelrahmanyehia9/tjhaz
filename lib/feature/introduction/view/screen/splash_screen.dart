@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tjhaz/core/helpers/constants.dart';
+import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 

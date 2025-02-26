@@ -1,28 +1,40 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tjhaz/core/helpers/constants.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
-import 'package:tjhaz/core/styles/app_gradient.dart';
-import 'package:tjhaz/core/styles/colors.dart';
-import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
-import 'package:tjhaz/core/utils/screen_size.dart';
+import 'package:tjhaz/core/widgets/error_widget.dart';
+import 'package:tjhaz/feature/categories/logic/entertainment_categories_cubit.dart';
+import 'package:tjhaz/feature/categories/logic/entertainment_categories_states.dart';
+import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
+import 'package:tjhaz/feature/home/logic/banners_states.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_states.dart';
+import 'package:tjhaz/feature/home/logic/home_store_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_store_state.dart';
 import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
 import 'package:tjhaz/feature/home/logic/home_trips_states.dart';
-import '../../../../core/utils/cached_network_img_helper.dart';
-import '../../../../core/widgets/app_slider.dart';
-import '../../data/models/home_model.dart';
-import '../widgets/home_app_bar.dart';
+import 'package:tjhaz/feature/home/view/widgets/home_activities_sucess.dart';
+import 'package:tjhaz/feature/home/view/widgets/home_store_success.dart';
+import '../../../../core/widgets/global_app_bar.dart';
+import '../widgets/home_banner.dart';
+import '../widgets/home_category_item.dart';
+import '../widgets/popular_destination_success.dart';
+import '../widgets/shimmer_list_v1.dart';
+import '../widgets/shimmer_list_v2.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String title = "";
 
   @override
   Widget build(BuildContext context) {
@@ -32,214 +44,111 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HomeAppBar(),
+            GlobalAppBar(),
             verticalSpace(18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(
-                AppConstants.categories.length,
-                    (index) => categoryItem(
-                  AppConstants.categories[index]["image"]!,
-                  AppConstants.categories[index]["title"]!,
-                ),
-              ),
+            //categories
+            BlocListener<EntertainmentCategoriesCubit, EntertainmentCategoriesStates>(
+              listener: (context, state) {
+                if (state is EntertainmentCategoriesStatesSuccess) {
+                  context.push(
+                    AppRouter.entertainmentScreen,
+                    extra: {
+                      "id": state.categories.first.id,
+                      "categories": state.categories,
+                      "name": title
+                    },
+                  );
+                }
+              },
+              child: homeCategories()
             ),
             verticalSpace(16),
-            AppSlider(
-              height: screenHeight(context) * .225,
-              imageList: [
-                "https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg",
-                "https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg",
-                "https://i.pinimg.com/736x/17/7c/96/177c9667f8a87b10e3dd36fff6cd9e06.jpg"
-              ],
-            ),
-            headline(tittle: AppLocalizations.popularDestinations),
-            BlocBuilder<HomeTripsCubit,HomeTripsStates>(
-              builder: (context  , state){
-                if(state is HomeTripsStatesSuccess){
-                  return SizedBox(
-                    height: screenHeight(context) * 0.175,
-                    child: ListView.builder(
-                      itemCount: state.trips.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => cardV1(
-                        state.trips[index],
-                        context,
-                            () {
-                          context.push(
-                            AppRouter.tripScreen,
-                            extra: state.trips[index].id,
-                          );
-                        },
-                      ),
-                    ),
-                  ) ;
+            //banners
+            BlocBuilder<BannerCubit, BannersStates>(
+              builder: (context, state) {
+                if (state is BannersStatesSuccess) {
+                  return state.banners.isNotEmpty
+                      ? HomeBanner(
+                          banners: state.banners,
+                        )
+                      : SizedBox();
+                } else {
+                  return SizedBox();
                 }
-              else if (state is HomeTripsStatesFailure){
-                return Text(state.errorMsg);
-              }else{
-                return const Center(child: CircularProgressIndicator());
-      }
-              }
+              },
             ),
             verticalSpace(8),
-            showMoreDistButton(context),
-            headline(
-              tittle: AppLocalizations.topActivities,
-              hasViewMore: true,
-            ),
-            BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
-              builder: (context, state) {
-                if (state is HomeActivitiesStatesSuccess) {
-                  return SizedBox(
-                    height: screenHeight(context) * .175,
-                    child: ListView.builder(
-                      itemCount: state.activities.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => cardV2(
-                        state.activities[index].imgUrl,
-                        context,
-                        state.activities[index].name![AppConstants.currentLanguage]!,
-                          (){
-                          context.push(AppRouter.activityScreen , extra: state.activities[index].id);
-                          }
-                      ),
-                    ),
-                  );
-                }else if (state is HomeActivitiesStatesFailure) {
-                  return Text(state.errorMsg);
-                }else{
-                  return const Center(child: CircularProgressIndicator());
-                }
+
+            ///trips
+            BlocBuilder<HomeTripsCubit, HomeTripsStates>(
+                builder: (context, state) {
+              if (state is HomeTripsStatesSuccess) {
+                return PopularDestinationSuccess(items: state.trips,) ;
+              } else if (state is HomeTripsStatesFailure) {
+                return AppErrorWidget(error: state.errorMsg,) ;
+              } else {
+                return const ShimmerListV1();
               }
-            ),
-            headline(
-              tittle: AppLocalizations.topStore,
-              hasViewMore: true,
-            ),
-            SizedBox(
-              height: screenHeight(context) * .175,
-              child: ListView.builder(
-                itemCount: 4,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => cardV2(
-                  "https://images.squarespace-cdn.com/content/v1/5a5c3110f6576e7552a4c667/1691537778615-ZGQVN4RFNSCLGLRU39AS/2023_PBA_Merch-89.jpg?format=1500w",
-                  context,
-                  "POWER BOAT",(){}
-                ),
-              ),
-            ),
+            }),
+
+            ///activities
+            BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
+                builder: (context, state) {
+              if (state is HomeActivitiesStatesSuccess) {
+                return HomeActivitiesSuccess(items: state.activities) ;
+              } else if (state is HomeActivitiesStatesFailure) {
+                return AppErrorWidget(error: state.errorMsg,);
+              } else {
+                return const ShimmerListV2();
+              }
+            }),
+
+            ///stores
+            BlocBuilder<HomeStoresCubit, HomeStoreStates>(
+                builder: (context, state) {
+              if (state is HomeStoreStatesSuccess) {
+                return HomeStoreSuccess(items: state.stores) ;
+              } else if (state is HomeStoreStatesFailure) {
+                return AppErrorWidget(error: state.error,) ;
+              } else {
+                return const ShimmerListV2();
+              }
+            }),
           ],
         ),
-      )
-
-
+      ),
     );
   }
 
-  Widget headline({required String tittle, bool? hasViewMore}) => Padding(
-    padding: EdgeInsets.only(top: 8.0.h, bottom: 8.h),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          tittle.toLowerCase(),
-          style: AppTypography.t18Bold.copyWith(color: AppColors.secondaryColor),
+
+Widget homeCategories()=>Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: List.generate(
+    AppConstants.categories.length,
+        (index) {
+      final item = AppConstants.categories[index];
+      return InkWell(
+        onTap: () async {
+          context.loaderOverlay.show();
+          if (index != 3) {
+            title = item["title"]!;
+            await context
+                .read<EntertainmentCategoriesCubit>()
+                .getEntertainmentsSubCategoryByParentID(
+              item["id"]!,
+            );
+          }
+          if (context.mounted) {
+            context.loaderOverlay.hide();
+          }
+        },
+        child: HomeCategoryItem(
+
+          imgUrl :item["image"]!,
+          title : item["title"]!,
         ),
-        hasViewMore == true
-            ? Text(
-          AppLocalizations.viewAll.toUpperCase(),
-          style: AppTypography.t12Bold.copyWith(color: AppColors.secondaryColor),
-        )
-            : SizedBox(),
-      ],
-    ),
-  );
-  Widget categoryItem(String img, String tittle) => Column(
-    children: [
-      Container(
-        width: 75.w,
-        height: 75.h,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          gradient: AppGradient.mainCategoriesGradient,
-        ),
-        child: SvgPicture.asset(img),
-      ),
-      verticalSpace(2),
-      Text(
-        tittle.toUpperCase(),
-        style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),
-      )
-    ],
-  );
-  Widget cardV1(HomeModel model, context, void Function()? onTap) => Padding(
-    padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 4.w),
-    child: InkWell(
-      onTap: onTap,
-      child: Container(
-        width: screenWidth(context) * .3,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(model.imgUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: CachedNetworkImage(
-            imageUrl: model.imgUrl,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => CachedImageHelper.imagePlaceholder(),
-            errorWidget: (context, url, error) => CachedImageHelper.imageErrorWidget(),
-          ),
-        ),
-      ),
-    ),
-  );
-  Widget cardV2(String imgUrl, context, String title , void Function()? onTap) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: Container(
-            width: screenWidth(context) * .425,
-            height: screenHeight(context) * .11,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(image: CachedNetworkImageProvider(imgUrl), fit: BoxFit.cover),
-            ),
-          ),
-        ),
-        Spacer(),
-        Text(
-          title,
-          style: AppTypography.t14Normal.copyWith(
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.w300,
-          ),
-        ),
-        Spacer(),
-      ],
-    ),
-  );
-  Widget showMoreDistButton(context) => ElevatedButton(
-    onPressed: () {},
-    style: ElevatedButton.styleFrom(
-      overlayColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-      fixedSize: Size(screenWidth(context), 30.h),
-      shadowColor: Colors.transparent,
-      side: BorderSide(color: AppColors.primaryColor, width: 1.5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ),
-    child: Text(
-      AppLocalizations.showMore,
-      style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
-    ),
-  );
+      );
+    },
+  ),
+) ;
 }

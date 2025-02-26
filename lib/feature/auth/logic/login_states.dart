@@ -1,8 +1,13 @@
-abstract class LoginStates {}
+import 'package:equatable/equatable.dart';
+
+abstract class LoginStates {
+  const LoginStates();
+
+}
 class LoginStateInitial extends LoginStates{}
-class LoginStateLoading extends LoginStates{}
 class LoginStateSuccess extends LoginStates{}
 class LoginStateFailure extends LoginStates{
   final String errorMsg ;
-  LoginStateFailure({required this.errorMsg});
+  const LoginStateFailure({required this.errorMsg});
+
 }

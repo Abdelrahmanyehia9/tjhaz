@@ -9,7 +9,6 @@ class LoginCubit extends Cubit<LoginStates>{
  final LoginRepo loginRepo  ;
  LoginCubit(this.loginRepo):super(LoginStateInitial())  ;
   Future<void>login({required String email  , required String password})async{
-   emit(LoginStateLoading()) ;
   final result = await loginRepo.loginUsingEmailAndPassword(email: email, password: password);
   result.fold((credential){
    emit(LoginStateSuccess()) ;

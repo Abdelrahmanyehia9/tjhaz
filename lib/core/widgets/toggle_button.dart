@@ -7,41 +7,74 @@ import '../styles/colors.dart';
 import '../styles/typography.dart';
 
 class TogglePages extends StatefulWidget {
-  final List<String> title ;
-  final List<Widget> pages;
+  final List<String> title;
 
-  const TogglePages({super.key , required this.pages , required this.title});
+  final List<Widget> pages;
+  final double? width;
+
+  final bool? isScroll;
+
+  final double? height;
+
+  final Color? unSelectedBackgroundColors;
+
+  final Color? selectedBackgroundColors;
+
+  final TextStyle? unSelectedTextStyle;
+
+  final TextStyle? selectedTextStyle;
+
+  final double? vSpace;
+
+  const TogglePages(
+      {super.key,
+      required this.pages,
+      required this.title,
+      this.width,
+      this.isScroll,
+      this.height,
+      this.unSelectedBackgroundColors,
+      this.selectedBackgroundColors,
+      this.unSelectedTextStyle,
+      this.selectedTextStyle,
+      this.vSpace});
 
   @override
   State<TogglePages> createState() => _TogglePagesState();
 }
 
 class _TogglePagesState extends State<TogglePages> {
+  late List<DataTab> _listTextTabToggle;
 
-  late List<DataTab> _listTextTabToggle ;
   int _tabTextIndexSelected = 0;
+
   @override
   void initState() {
-
-    _listTextTabToggle = List.generate(widget.title.length,(item)=> DataTab(title:widget.title[item] ));
+    _listTextTabToggle = List.generate(
+        widget.title.length, (item) => DataTab(title: widget.title[item]));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         FlutterToggleTab(
-          width: 90.w,
-          isScroll: false,
+          width: widget.width ?? 90.w,
+          isScroll: widget.isScroll ?? false,
           borderRadius: 8,
-          height: 50.h,
+          height: widget.height ?? 50.h,
           selectedIndex: _tabTextIndexSelected,
-          unSelectedBackgroundColors: [AppColors.primaryColor],
-          selectedBackgroundColors: [AppColors.secondaryColor],
-          selectedTextStyle:
-          AppTypography.t16Normal.copyWith(color: AppColors.cWhite),
-          unSelectedTextStyle:
-          AppTypography.t16Normal.copyWith(color: AppColors.cWhite),
+          unSelectedBackgroundColors: [
+            widget.unSelectedBackgroundColors ?? AppColors.primaryColor
+          ],
+          selectedBackgroundColors: [
+            widget.selectedBackgroundColors ?? AppColors.secondaryColor
+          ],
+          selectedTextStyle: widget.selectedTextStyle ??
+              AppTypography.t16Normal.copyWith(color: AppColors.cWhite),
+          unSelectedTextStyle: widget.unSelectedTextStyle ??
+              AppTypography.t16Normal.copyWith(color: AppColors.cWhite),
           dataTabs: _listTextTabToggle,
           selectedLabelIndex: (index) {
             setState(() {
@@ -49,7 +82,7 @@ class _TogglePagesState extends State<TogglePages> {
             });
           },
         ),
-        verticalSpace(12) ,
+        verticalSpace(widget.vSpace ?? 12),
         widget.pages[_tabTextIndexSelected]
       ],
     );

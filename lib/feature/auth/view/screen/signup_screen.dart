@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
@@ -67,18 +68,18 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           AuthTextField(
               controller: usernameController,
-              labelText: AppLocalizations.username,
+              labelText: AppLocalizationsString.username,
               icon: Icons.person_outline,
               validator: AppValidators.validateUsername
           ),
           AuthTextField(
               controller:emailController,
-              labelText: AppLocalizations.email,
+              labelText: AppLocalizationsString.email,
               icon: Icons.email_outlined,
               validator: AppValidators.validateEmail),
           AuthTextField(
               controller: passwordController,
-              labelText: AppLocalizations.password,
+              labelText: AppLocalizationsString.password,
               icon: Icons.lock_outline,
               isPassword: true,
               validator: AppValidators.validatePassword
@@ -92,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           AuthTextField(
             controller: passwordConfirmController,
-            labelText: AppLocalizations.passwordConfirm,
+            labelText: AppLocalizationsString.passwordConfirm,
             icon: Icons.lock_outline,
             isPassword: true,
             validator: (value) {
@@ -111,20 +112,18 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             child: privacyPolicy(),
           ),
-          BlocConsumer<SignupCubit, SignupStates>(
-            builder: (context, state) {
-              if (state is SignupStateLoading) {
-                return AuthLoading();
-              } else {
-                return Padding(
+          BlocListener<SignupCubit, SignupStates>(
+           child: Padding(
                   padding: const EdgeInsets.only(top: 24.0, bottom: 8),
                   child: AuthButton(
-                    tittle: AppLocalizations.signUp,
+                    tittle: AppLocalizationsString.signUp,
                     onPressed: () => validateThenSignup(context),
                   ),
-                );
-              }
-            },
+           )
+            ,
+
+
+
             listener: (context, state) {
               if (state is SignupStateFailure) {
                 toast(type: ToastificationType.error,
@@ -146,23 +145,27 @@ class _SignupScreenState extends State<SignupScreen> {
         alignment:context.locale.languageCode == "ar" ? Alignment.centerRight : Alignment.centerLeft,
         child: Wrap(
           children: [
-            Text(AppLocalizations.bySigningUp, style: AppTypography.t14Normal,),
+            Text(AppLocalizationsString.bySigningUp, style: AppTypography.t14Normal,),
             InkWell(
               child: Text(
-                AppLocalizations.privacyPolicy,
+                AppLocalizationsString.privacyPolicy,
                 style: AppTypography.t14Bold,
               ),
             ),
-            Text(AppLocalizations.terms , style: AppTypography.t14Normal,),
+            Text(AppLocalizationsString.terms , style: AppTypography.t14Normal,),
           ],
         ),
       );
   void validateThenSignup(BuildContext context) async {
     if (_globalKey.currentState!.validate()) {
+      context.loaderOverlay.show() ;
       await context.read<SignupCubit>().signUpByEmailAndPassword(
           username: usernameController.text.trim(),
           email: emailController.text.trim(),
           password: passwordController.text) ;
+      if(context.mounted){
+        context.loaderOverlay.hide() ;
+      }
     }
   }
   @override

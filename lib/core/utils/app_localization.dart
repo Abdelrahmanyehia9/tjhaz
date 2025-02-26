@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-class AppLocalizations {
+class AppLocalizationsString {
   static String get email => "Email".tr();
   static String get password => "Password".tr();
   static String get login => "Login".tr();
@@ -48,20 +48,17 @@ class AppLocalizations {
   static String get egyptian => "Egyptian".tr();
   static String get halls => "Halls".tr();
   static String get m2 => "M2".tr();
-  static String get microwave => "Microwave".tr();
-  static String get wifi => "Wifi".tr();
-  static String get ac => "AC".tr();
-  static String get tv => "TV".tr();
-  static String get bbq => "BBQ".tr();
-  static String get coffeeMachine => "Coffee Machine".tr();
-  static String get tan => "Tan".tr();
-  static String get soundSystem => "Sound System".tr();
-  static String get lifeJacket => "Life Jacket".tr();
   static String get description => "Description".tr();
-  static String get facilities => "Facilities".tr();
   static String get comfortFacilities => "Comfort Facilities".tr();
   static String get bookNow => "Book now".tr();
   static String get back => "back".tr();
   static String get details => "details".tr();
+  static String get wild => "Wild".tr();
+  static String get sorry => "Sorry".tr();
+  static String get somethingWentWrong => "Something went wrong".tr();
+  static String get notAvailableStayTuned => "are not available at the moment. Stay tuned for more soon!".tr();
+
+
+
 
 }

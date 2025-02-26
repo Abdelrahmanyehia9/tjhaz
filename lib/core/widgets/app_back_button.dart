@@ -29,7 +29,7 @@ class AppBackButton extends StatelessWidget {
             ),
             horizontalSpace(4),
             Text(
-              AppLocalizations.back,
+              AppLocalizationsString.back,
               style: textStyle ?? AppTypography.t12Bold
                   .copyWith(color: AppColors.primaryColor),
             )

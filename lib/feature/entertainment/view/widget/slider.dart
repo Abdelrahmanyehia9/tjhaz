@@ -16,7 +16,7 @@ class EntertainmentSlider extends StatelessWidget {
         AppSlider(height: screenHeight(context)*.3,imageList: imageList,),
         Positioned(
             bottom: 8.h,right: 8.w,
-            child: BoxActionButton(icon: Icons.favorite))
+            child: BoxIconButton(icon: Icons.favorite))
       ],
     ) ;
   }

@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
-
 import '../utils/cached_network_img_helper.dart';
 
 class AppSlider extends StatefulWidget {
   final double height;
   final List<String> imageList;
+
 
   const AppSlider({super.key, required this.imageList , required this.height});
 

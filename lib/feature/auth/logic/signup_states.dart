@@ -1,9 +1,13 @@
-abstract class SignupStates {}
-class SignupStateInitial extends SignupStates{}
-class SignupStateLoading extends SignupStates{}
 
+abstract class SignupStates {
+  const SignupStates();
+
+
+}
+class SignupStateInitial extends SignupStates{}
 class SignupStateSuccess extends SignupStates{}
 class SignupStateFailure extends SignupStates{
   final String errorMsg ;
-  SignupStateFailure({required this.errorMsg});
+  const SignupStateFailure({required this.errorMsg});
+
 }

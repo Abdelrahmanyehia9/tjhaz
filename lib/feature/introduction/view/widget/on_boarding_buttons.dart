@@ -24,7 +24,7 @@ class OnBoardingButtons extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child:  Text(isSkip==true? AppLocalizations.skip.toUpperCase(): AppLocalizations.next.toUpperCase(),
+        child:  Text(isSkip==true? AppLocalizationsString.skip.toUpperCase(): AppLocalizationsString.next.toUpperCase(),
             style: isSkip == true ? AppTypography.t20Normal.copyWith(color: AppColors.cWhite) : AppTypography.t16Normal.copyWith(color: AppColors.cWhite))
     );
   }

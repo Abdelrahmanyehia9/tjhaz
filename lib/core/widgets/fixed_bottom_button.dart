@@ -19,7 +19,7 @@ class FixedBottomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           backgroundColor: AppColors.secondaryColor
       ),
-      child: Text(AppLocalizations.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
+      child: Text(AppLocalizationsString.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
     );
   }
 }

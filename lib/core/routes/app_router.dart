@@ -12,21 +12,25 @@ import 'package:tjhaz/feature/auth/view/screen/auth_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
 import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
-import 'package:tjhaz/feature/entertainment/logic/activity_cubit.dart';
-import 'package:tjhaz/feature/entertainment/view/screen/activity_screen.dart';
+import 'package:tjhaz/feature/categories/data/model/cateory_model.dart';
+import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
+import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
+import 'package:tjhaz/feature/categories/logic/entertainment_categories_cubit.dart';
+import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
+import 'package:tjhaz/feature/entertainment/data/repository/entertainment_repository.dart';
+import 'package:tjhaz/feature/entertainment/logic/entertainment_cubit.dart';
+import 'package:tjhaz/feature/entertainment/logic/entertainment_details_cubit.dart';
+import 'package:tjhaz/feature/entertainment/view/screen/entertainment_screen.dart';
 import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
+import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
+import 'package:tjhaz/feature/home/logic/home_store_cubit.dart';
 import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
-import 'package:tjhaz/feature/home/view/screen/grid_view_layout.dart';
 import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import 'package:tjhaz/feature/introduction/view/screen/onboarding_screen.dart';
 import 'package:tjhaz/feature/introduction/view/screen/splash_screen.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
-import 'package:tjhaz/feature/entertainment/data/repository/trip_repository.dart';
-import 'package:tjhaz/feature/entertainment/logic/trip_cubit.dart';
-import '../../feature/entertainment/data/model/entertainment_model.dart';
-import '../../feature/entertainment/data/repository/activity_repository.dart';
-import '../../feature/entertainment/view/screen/trip_screen.dart';
+import '../../feature/entertainment/view/screen/entertainment_details_screen.dart';
 import 'navigation_transitions.dart';
 
 
@@ -35,23 +39,22 @@ import 'navigation_transitions.dart';
 
 class AppRouter {
   static const splashScreen = "/";
-  static const authScreen = "/authScreen";
   static const onBoardingScreen = "/onBoardingScreen";
+  static const authScreen = "/authScreen";
+  static const forgetPasswordPage = "/forgetPasswordScreen";
   static const confirmOtpScreen = "/confirmOtpScreen";
   static const setupNewPasswordScreen = "/setupNewPassword";
-  static const forgetPasswordPage = "/forgetPasswordScreen";
   static const homeLayout = "/homeLayout";
-  static const gridViewLayout = "/gridview";
-  static const tripScreen = "/tripScreen";
-  static const activityScreen = "/activityScreen";
+  static const entertainmentDetailsScreen = "/entertainmentDetailsScreen";
+  static const entertainmentScreen = "/entertainmentScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
-
       GoRoute(
         path: splashScreen,
         pageBuilder: (context, state) => fadingTransition(child: SplashScreen()),
-      ), GoRoute(
+      ),
+      GoRoute(
         path: onBoardingScreen,
         pageBuilder: (context, state) => fadingTransition(child: OnboardingScreen()),
       ),
@@ -68,6 +71,15 @@ class AppRouter {
                       userRepository: getIt<UserRepository>()))),
             ],
             child: AuthScreen(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: forgetPasswordPage,
+        pageBuilder: (context, state) => fadingTransition(
+          child: BlocProvider(
+            create: (context) => ResetPasswordCubit(),
+            child: ForgetPasswordScreen(),
           ),
         ),
       ),
@@ -90,46 +102,51 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: forgetPasswordPage,
-        pageBuilder: (context, state) => fadingTransition(
-          child: BlocProvider(
-            create: (context) => ResetPasswordCubit(),
-            child: ForgetPasswordScreen(),
-          ),
-        ),
-      ),
-      GoRoute(
         path: homeLayout,
         pageBuilder: (context, state) => fadingTransition(child: MultiBlocProvider(
           providers: [
+            BlocProvider(create: (context) => EntertainmentCategoriesCubit(getIt.get<CategoryRepository>()) ) ,
+            BlocProvider(create: (context) => CategoriesCubit(getIt.get<CategoryRepository>())..getCategoriesByParentId("1") ) ,
             BlocProvider(create: (context ) => HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())..getHomeTrips()),
              BlocProvider(create: (context ) => HomeActivitiesCubit(homeRepository: getIt.get<HomeRepository>())..getHomeActivities()),
+             BlocProvider(create: (context ) => HomeStoresCubit(getIt.get<HomeRepository>())..getHomeStores()),
+             BlocProvider(create: (context ) => BannerCubit(getIt.get<HomeRepository>())..getBanners()),
+             BlocProvider(create: (context ) => EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
 
           ],
             child: HomeLayout())),
       ),
       GoRoute(
-        path: gridViewLayout,
-        pageBuilder: (context, state) => fadingTransition(child: GridViewLayout()),
-      ),
-      GoRoute(
-        path: tripScreen,
+        path: entertainmentDetailsScreen,
         pageBuilder: (context, state) {
-          final trip = state.extra as String; // Extract object
+          final model = state.extra as EntertainmentDetailsModel; // Extract object
           return fadingTransition(child: BlocProvider(
-            create: (context)=>TripCubit(TripRepository(firestore: getIt.get<FirebaseFirestore>())),
-              child: TripScreen(tripID: trip)));
+            create: (context)=>EntertainmentDetailsCubit(EntertainmentRepository(firestore: getIt.get<FirebaseFirestore>())),
+              child: EntertainmentDetailsScreen(model: model))
+
+          );
         },
       ),
       GoRoute(
-        path: activityScreen,
+        path: entertainmentScreen,
         pageBuilder: (context, state) {
-          final activity = state.extra as String; // Extract object
-          return fadingTransition(child: BlocProvider(
-            create: (context)=>ActivityCubit(activityRepository: ActivityRepository( firestore: getIt.get<FirebaseFirestore>())),
-              child: ActivityScreen(activityID: activity)));
+          final extraData = state.extra as Map<String, dynamic>;
+          final subCategoryId = extraData["id"] as String;
+          final name = extraData["name"] as String;
+          final categories = extraData["categories"] as List<CategoryModel>;
+
+          return fadingTransition(
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => EntertainmentCategoriesCubit(getIt.get<CategoryRepository>())),
+                BlocProvider(create: (context) => EntertainmentCubit(getIt.get<EntertainmentRepository>())),
+              ],
+              child: EntertainmentScreen(catID: subCategoryId, categories: categories  , name : name ),
+            ),
+          );
         },
       ),
+
 
     ],
   );
