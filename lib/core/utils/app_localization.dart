@@ -29,7 +29,7 @@ class AppLocalizationsString {
   static String get trips => "trips".tr();
   static String get kashta => "kashta".tr();
   static String get activities => "activities".tr();
-  static String get shopping => "shopping".tr();
+  static String get stores => "stores".tr();
   static String get popularDestinations => "popular_destinations".tr();
   static String get showMore => "show_more".tr();
   static String get topActivities => "top_activities".tr();
@@ -57,6 +57,26 @@ class AppLocalizationsString {
   static String get sorry => "Sorry".tr();
   static String get somethingWentWrong => "Something went wrong".tr();
   static String get notAvailableStayTuned => "are not available at the moment. Stay tuned for more soon!".tr();
+  static String get userDisabled => "user_disabled".tr();
+  static String get invalidCredential => "invalid_credential".tr();
+  static String get tooManyRequests => "too_many_requests".tr();
+  static String get networkRequestFailed => "network_request_failed".tr();
+  static String get emailAlreadyInUse => "email_already_in_use".tr();
+  static String get userNotFound => "user_not_found".tr();
+  static String get weakPassword => "weak_password".tr();
+  static String get genericError => "generic_error".tr();
+  static String get loginError => "login failure".tr();
+  static String get signUpError => "signup failure".tr();
+  static String get doesNotMatch => "doesn't match".tr();
+  static String get shouldNotBeEmpty => "shouldn't be empty".tr();
+  static String get pleaseEnterValidEmail => "Please enter a valid email".tr();
+  static String get kwdCurrency => "kwd".tr();
+  static String get sale => "sale".tr();
+  static String get addToCart => "add_to_cart".tr();
+  static String get buyNow => "buy_now".tr();
+  static String get youMightLikeThis => "you_might_like_this".tr();
+  static String get notSpecified => "not_specified".tr();
+  static String get notRated => "not_rated".tr();
 
 
 

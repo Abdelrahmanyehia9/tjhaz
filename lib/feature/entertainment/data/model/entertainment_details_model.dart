@@ -1,14 +1,17 @@
+import 'package:tjhaz/core/extention/localized_map.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
+
 class EntertainmentDetailsModel {
   final String id;
-  final Map<String, String> name;
-  final String categoryID ;
-  final Map<String, String>? location;
-  final Map<String, String> description;
+  final String name;
+  final String categoryID;
+  final String location;
+  final String description;
   final String entertainmentType;
-  final Map<String, String>? details;
+  final String? details;
   final List<String> images;
-  final String price ;
-  final String time;
+  final double price;
+  final String? time;
   final int? guests;
   final String rates;
   final int ratingCount;
@@ -16,17 +19,17 @@ class EntertainmentDetailsModel {
   final List<String>? comfortFacilities;
 
   EntertainmentDetailsModel({
-    required this.categoryID,
-    required this.entertainmentType ,
     required this.id,
     required this.name,
-    this.location,
-    required this.price,
-   required this.description,
-    this.details,
+    required this.categoryID,
+    required this.location,
+    required this.description,
+    required this.entertainmentType,
+     this.details,
     required this.images,
-    required this.time,
-    this.guests,
+    required this.price,
+     this.time,
+      this.guests,
     required this.rates,
     required this.ratingCount,
     this.facilities,
@@ -35,21 +38,23 @@ class EntertainmentDetailsModel {
 
   factory EntertainmentDetailsModel.fromJson(Map<String, dynamic> json) {
     return EntertainmentDetailsModel(
-      entertainmentType: json["entertainment_type"],
-      id: json["id"],
-      name: Map<String, String>.from(json["name"]),
-      location: json["location"] != null ? Map<String, String>.from(json["location"]) : null,
-      description: Map<String, String>.from(json["description"]) ,
-      details: json["details"] != null ? Map<String, String>.from(json["details"]) : null,
-      images: List<String>.from(json["images"]),
-      time: json["time"],
-      guests: json["guests"],
-      categoryID: json["category_id"],
-      rates: json["rates"],
-      price: json["price"],
-      ratingCount: json["rating_count"],
-      facilities: json["Facilities"] != null ? Map<String, dynamic>.from(json["Facilities"]) : null,
-      comfortFacilities: json["comfort_Facilities"] != null ? List<String>.from(json["comfort_Facilities"]) : null,
+      id: json["id"] ?? '',
+      name: (json["name"] as Map<String, dynamic>?)?.localized ?? '',
+      location: (json["location"] as Map<String, dynamic>?)?.localized ?? AppLocalizationsString.notSpecified,
+      description: (json["description"] as Map<String, dynamic>).localized ,
+      details: (json["details"] as Map<String, dynamic>?)?.localized ,
+      entertainmentType: json["entertainment_type"] ,
+      categoryID: json["category_id"] ,
+      images: (json["images"] as List<dynamic>).map((e) => e.toString()).toList(),
+      time: json["time"]?.toString() ?? AppLocalizationsString.notSpecified,
+      guests: json["guests"] ,
+      price: json["price"] is num
+          ? (json["price"] as num).toDouble()
+          : (json["price"] != null ? double.tryParse(json["price"].toString()) : 0.0) ?? 0.0,
+      rates: json["rates"]?.toString() ?? AppLocalizationsString.notRated,
+      ratingCount: json["rating_count"] is int ? json["rating_count"] as int : int.tryParse(json["rating_count"]?.toString() ?? '0') ?? 0,
+      facilities: json["Facilities"] as Map<String, dynamic>?,
+      comfortFacilities: (json["comfort_Facilities"] as List<dynamic>?)?.map((e) => e.toString()).toList(),
     );
   }
 
@@ -61,15 +66,15 @@ class EntertainmentDetailsModel {
       "location": location,
       "description": description,
       "details": details,
-      "category_id":categoryID,
+      "category_id": categoryID,
       "images": images,
       "time": time,
       "guests": guests,
+      "price": price,
       "rates": rates,
       "rating_count": ratingCount,
       "Facilities": facilities,
       "comfort_Facilities": comfortFacilities,
-      "price": price
     };
   }
 }

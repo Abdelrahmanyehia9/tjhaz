@@ -16,6 +16,7 @@ class AppTypography{
   static  TextStyle t16Normal= TextStyle( fontSize: 16.sp ) ;
   static  TextStyle t16Bold= TextStyle( fontSize: 16.sp  , fontWeight: FontWeight.bold) ;
   static  TextStyle t18Bold = TextStyle( fontSize: 18.sp , fontWeight: FontWeight.bold , ) ;
+  static  TextStyle t18Normal = TextStyle( fontSize: 18.sp , fontWeight: FontWeight.w500 , ) ;
   static  TextStyle t20Bold = TextStyle( fontSize: 20.sp , fontWeight: FontWeight.bold) ;
   static  TextStyle t20Normal = TextStyle( fontSize: 20.sp ) ;
   static  TextStyle t24Bold = TextStyle( fontSize: 24.sp , fontWeight: FontWeight.bold) ;

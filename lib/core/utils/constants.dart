@@ -20,6 +20,6 @@ class AppConstants {
     },
     {"image": catWild, "title": AppLocalizationsString.wild, "id": "2"},
     {"image": catActivities, "title": AppLocalizationsString.activities, "id": "3"},
-    {"image": catShopping, "title": AppLocalizationsString.shopping, "id": "shopping"}
+    {"image": catShopping, "title": AppLocalizationsString.stores, "id": "shopping"}
   ];
 }

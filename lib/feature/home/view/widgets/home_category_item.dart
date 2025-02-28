@@ -29,8 +29,7 @@ class HomeCategoryItem extends StatelessWidget {
         verticalSpace(2),
         Text(
           title.toUpperCase(),
-          style:
-          AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),
+          style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),
         )
       ],
     );

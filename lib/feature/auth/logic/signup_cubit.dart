@@ -14,7 +14,7 @@ class SignupCubit extends Cubit<SignupStates> {
   SignupCubit(this.signUpRepository) : super(SignupStateInitial());
   Future<void> signUpByEmailAndPassword({required String username, required String email, required String password}) async
   {
-
+     emit(SignupStateLoading()) ;
     final result = await signUpRepository.signUpUsingEmailAndPassword(
         username: username, email: email, password: password);
     result.fold((user) {

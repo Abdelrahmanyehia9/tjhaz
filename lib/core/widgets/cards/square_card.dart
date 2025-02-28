@@ -43,7 +43,7 @@ class SquareCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name[AppConstants.currentLanguage]!,
+                    model.name,
                     style: AppTypography.t12Normal
                         .copyWith(color: AppColors.cWhite),
                   ),
@@ -60,8 +60,7 @@ class SquareCard extends StatelessWidget {
                         size: 8,
                       ),
                       Text(
-                        model.location?[AppConstants.currentLanguage] ??
-                            "No Location Specified",
+                        model.location ,
                         style: AppTypography.t10light
                             .copyWith(color: AppColors.cWhite),
                       ),

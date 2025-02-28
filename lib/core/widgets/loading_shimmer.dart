@@ -5,7 +5,7 @@ class LoadingShimmerContainer extends StatelessWidget {
   final double height ;
   final double width ;
   final double? radius ;
-  const LoadingShimmerContainer({super.key , required this.width , required this.height  ,  this.radius});
+  const LoadingShimmerContainer({super.key , required this.width , required this.height  ,  this.radius });
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +13,7 @@ class LoadingShimmerContainer extends StatelessWidget {
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: Container(
+
       height: height,
       width: width,
       decoration: BoxDecoration(

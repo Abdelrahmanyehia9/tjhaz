@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/utils/app_localization.dart';
@@ -11,7 +12,7 @@ import '../../../entertainment/logic/entertainment_details_cubit.dart';
 import '../../../entertainment/logic/entertainment_details_states.dart';
 import '../../data/models/home_model.dart';
 import 'home_cards.dart';
-import 'home_headline.dart';
+import 'headline_view_more.dart';
 
 class HomeActivitiesSuccess extends StatelessWidget {
   final List<HomeModel> items ;
@@ -21,7 +22,8 @@ class HomeActivitiesSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HomeHeadline(title: AppLocalizationsString.topActivities,hasViewMore: true,viewMoreOnTap:(){
+        HeadlineViewMore(title: AppLocalizationsString.topActivities,hasViewMore: true,viewMoreOnTap:(){
+          context.push(AppRouter.entertainmentScreen , extra: {"parent":AppConstants.categories[2] }) ;
         } ,),
         SizedBox(
           height: screenHeight(context) * 0.175,
@@ -41,7 +43,7 @@ class HomeActivitiesSuccess extends StatelessWidget {
               },
               child: CardV2(
                 imgUrl: items[index].imgUrl,
-                title: items[index].name![AppConstants.currentLanguage]!,
+                title: items[index].name!,
                 onTap: () async{
                   context.loaderOverlay.show() ;
                   await context.read<EntertainmentDetailsCubit>().findEntertainmentByID(items[index].id) ;

@@ -5,6 +5,7 @@ import 'package:tjhaz/feature/categories/data/repository/categories_repository.d
 import 'package:tjhaz/feature/entertainment/data/repository/entertainment_repository.dart';
 import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
+import 'package:tjhaz/feature/shop/data/repository/shop_repository.dart';
 
 final GetIt getIt = GetIt.instance ;
 
@@ -16,6 +17,7 @@ void setupGetIt()  {
   getIt.registerLazySingleton<HomeRepository>(()=> HomeRepository(firestore: getIt.get<FirebaseFirestore>())  ) ;
   getIt.registerLazySingleton<CategoryRepository>(()=> CategoryRepository( getIt.get<FirebaseFirestore>())  ) ;
   getIt.registerLazySingleton<EntertainmentRepository>(()=> EntertainmentRepository(firestore:  getIt.get<FirebaseFirestore>())  ) ;
+  getIt.registerLazySingleton<ShopRepository>(()=> ShopRepository(firestore:  getIt.get<FirebaseFirestore>())  ) ;
 
 
 }

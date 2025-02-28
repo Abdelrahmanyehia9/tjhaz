@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/styles/colors.dart';
+import '../../../../core/utils/screen_size.dart';
+import '../../../../core/widgets/loading_widget.dart';
 
 class AuthLoading extends StatelessWidget {
   const AuthLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 18.0.w , vertical: 16.h),
-      child: CircularProgressIndicator(color: AppColors.secondaryColor,),
-    ) ;
+    return  Container(width: screenWidth(context),height: screenHeight(context),
+      color: AppColors.primaryColor,
+      child: LoadingWidgetAnimation(
+
+      ),
+    ) ;;
   }
 }

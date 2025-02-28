@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/widgets/box_action_button.dart';
+import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/shop/view/widget/product_quantiy.dart';
 
+import '../../../feature/shop/data/model/product_mode.dart';
+
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final ProductModel productModel ;
+  const ProductCard({super.key , required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +40,12 @@ class ProductCard extends StatelessWidget {
                   child: SizedBox(
                       width: 151.w,
                       height: 120.h,
-                      child: Image.network(
-                        "https://m.media-amazon.com/images/I/51lTCyB0dsL._AC_UF894,1000_QL80_.jpg",
-                        fit: BoxFit.cover,
-                      )),
+                      child: CachedImageWidget(imgUrl: productModel.images.first)
+                  ),
                 ),
                 Spacer(),
                 Text(
-                  "WATER WALKWAT".toUpperCase(),
+                  productModel.name.toUpperCase(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTypography.t12Bold
@@ -50,7 +55,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("89.50 KWD",
+                    Text("${productModel.price} ${AppLocalizationsString.kwdCurrency}",
                         style: AppTypography.t11Normal
                             .copyWith(color: AppColors.primaryColor)),
                     ProductQuantity(),
@@ -68,7 +73,7 @@ class ProductCard extends StatelessWidget {
               icon: Icons.favorite,
               size: 16.sp,
             )),
-        Positioned(
+        productModel.priceBeforeDiscount != null ? Positioned(
           top: 20.h,
           left: -50.w,
           child: Transform.rotate(
@@ -78,14 +83,14 @@ class ProductCard extends StatelessWidget {
               color: AppColors.secondaryColor,
               child: Center(
                 child: Text(
-                  "49% sale".toUpperCase(),
+                  "${((productModel.price/productModel.priceBeforeDiscount!)*100).toStringAsFixed(0)}% ${AppLocalizationsString.sale}".toUpperCase(),
                   style:
                       AppTypography.t11Bold.copyWith(color: AppColors.cWhite),
                 ),
               ),
             ),
           ),
-        ),
+        ):SizedBox(),
       ],
     );
   }

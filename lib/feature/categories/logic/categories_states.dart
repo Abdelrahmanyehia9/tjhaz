@@ -11,9 +11,8 @@ class CategoriesStateInitial extends CategoriesStates{}
 class CategoriesStateLoading extends CategoriesStates{}
 class CategoriesStateSuccess extends CategoriesStates{
   final List<CategoryModel> categories ;
-  const CategoriesStateSuccess({required this.categories});
-  @override
-  List<Object> get props => [categories];
+  const CategoriesStateSuccess(this.categories);
+
 }
 class CategoriesStateFailure extends CategoriesStates{
   final String errorMsg  ;

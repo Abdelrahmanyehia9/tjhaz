@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/helpers/icon_helper.dart';
-import 'package:tjhaz/core/styles/app_icon.dart';
-
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';

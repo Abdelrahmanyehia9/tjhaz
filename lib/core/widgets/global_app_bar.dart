@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/app_icon.dart';
-import 'package:tjhaz/feature/home/view/widgets/search_text_field.dart';
+import 'package:tjhaz/core/widgets/search_text_field.dart';
 
 import '../utils/constants.dart';
 import '../helpers/spacing.dart';

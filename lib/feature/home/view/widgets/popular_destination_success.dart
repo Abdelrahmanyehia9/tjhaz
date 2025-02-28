@@ -11,43 +11,47 @@ import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../data/models/home_model.dart';
 import 'home_cards.dart';
-import 'home_headline.dart';
+import 'headline_view_more.dart';
 
 class PopularDestinationSuccess extends StatelessWidget {
-  final List<HomeModel> items ;
-  const PopularDestinationSuccess({super.key  ,required this.items});
+  final List<HomeModel> items;
+
+  const PopularDestinationSuccess({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HomeHeadline(title: AppLocalizationsString.popularDestinations,),
+        HeadlineViewMore(
+          title: AppLocalizationsString.popularDestinations,
+        ),
         SizedBox(
           height: screenHeight(context) * 0.175,
           child: ListView.builder(
-            itemCount: items.length ,
+            itemCount: items.length,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) =>  BlocListener<EntertainmentDetailsCubit , EntertainmentDetailsStates>(
-              listener: (context , state){
-                if(state is EntertainmentDetailsStatesSuccess){
-                  context.push(
-                    AppRouter.entertainmentDetailsScreen,
-                    extra: state.entertainmentModel
-                  );
+            itemBuilder: (context, index) => BlocListener<
+                EntertainmentDetailsCubit, EntertainmentDetailsStates>(
+              listener: (context, state) {
+                if (state is EntertainmentDetailsStatesSuccess) {
+                  context.push(AppRouter.entertainmentDetailsScreen,
+                      extra: state.entertainmentModel);
                 }
               },
               child: CardV1(
                 img: items[index].imgUrl,
-                onTap: () async{
-                  context.loaderOverlay.show() ;
-                  await context.read<EntertainmentDetailsCubit>().findEntertainmentByID(items[index].id) ;
-if(context.mounted){
-  context.loaderOverlay.hide() ;
-}
-
+                onTap: () async {
+                  context.loaderOverlay.show();
+                  await context
+                      .read<EntertainmentDetailsCubit>()
+                      .findEntertainmentByID(items[index].id);
+                  if (context.mounted) {
+                    context.loaderOverlay.hide();
+                  }
                 },
               ),
             ),
@@ -59,21 +63,23 @@ if(context.mounted){
     );
   }
 
-  Widget showMoreDistButton(context) => ElevatedButton(
-    onPressed: () {},
-    style: ElevatedButton.styleFrom(
-      overlayColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-      fixedSize: Size(screenWidth(context), 30.h),
-      shadowColor: Colors.transparent,
-      side: BorderSide(color: AppColors.primaryColor, width: 1.5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ),
-    child: Text(
-      AppLocalizationsString.showMore,
-      style:
-      AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
-    ),
-  );
-
+  Widget showMoreDistButton(BuildContext context) => ElevatedButton(
+        onPressed: () {
+          context.push(AppRouter.entertainmentScreen,
+              extra: {"parent": AppConstants.categories[0]});
+        },
+        style: ElevatedButton.styleFrom(
+          overlayColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          fixedSize: Size(screenWidth(context), 30.h),
+          shadowColor: Colors.transparent,
+          side: BorderSide(color: AppColors.primaryColor, width: 1.5),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        child: Text(
+          AppLocalizationsString.showMore,
+          style:
+              AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
+        ),
+      );
 }

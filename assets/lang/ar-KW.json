@@ -27,7 +27,7 @@
   "trips": "الرحلات",
   "Kashta": "كشْتة",
   "activities": "الأنشطة",
-  "shopping": "التسوق",
+  "stores": "المتاجر",
   "popular_destinations": "الوجهات الشهيرة",
   "show_more": "عرض المزيد",
   "top_activities": "أفضل الأنشطة",
@@ -83,8 +83,27 @@
   "Beach Buggy": "بيتش باجى",
   "Sorry": "عفوا, ",
   "Something went wrong": "خطأ غير معروف",
-  "are not available at the moment. Stay tuned for more soon!": "غير متوفر حاليا . ترقب المزيد قريبا"
-
+  "are not available at the moment. Stay tuned for more soon!": "غير متوفر حاليا . ترقب المزيد قريبا",
+  "user_disabled": "تم حظر الحساب. جرب حسابًا آخر.",
+  "invalid_credential": "كلمة المرور خاطئة، حاول مرة أخرى لاحقًا.",
+  "too_many_requests": "طلبات كثيرة جدًا، يرجى المحاولة لاحقًا.",
+  "network_request_failed": "خطأ في الشبكة، تحقق من اتصالك بالإنترنت.",
+  "email_already_in_use": "هذا البريد الإلكتروني مستخدم بالفعل. حاول تسجيل الدخول.",
+  "user_not_found": "لم يتم العثور على مستخدم بهذا البريد الإلكتروني.",
+  "weak_password": "كلمة المرور ضعيفة جدًا.",
+  "generic_error": "حدث خطأ ما. يرجى المحاولة لاحقًا.",
+  "login failure": "فشل تسجيل الدخول",
+  "signup failure": "فشل التسجيل",
+  "shouldn't be empty": "لا يمكن ان يكون فارغا",
+  "doesn't match": "غير متطابق",
+  "Please enter a valid email": "يرجى ادخال بريد إلكتروني صحيح",
+  "kwd": "د.ك",
+  "sale": "خصم",
+  "add_to_cart": "اضف الى العربة",
+  "buy_now": "تسوق الان",
+  "you_might_like_this" : "سوف يعجبك ايضا",
+  "not_specified" : "غير محدد" ,
+  "not_rated" : "لا توجد تقييمات"
 
 
 }

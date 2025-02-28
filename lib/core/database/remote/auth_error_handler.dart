@@ -1,22 +1,24 @@
+import '../../utils/app_localization.dart';
+
 class FirebaseAuthErrorHandler {
   static String getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'user-disabled':
-        return "Account has been blocked. Try another account.";
+        return AppLocalizationsString.userDisabled;
       case 'invalid-credential':
-        return "Wrong password, try again later.";
+        return AppLocalizationsString.invalidCredential;
       case 'too-many-requests':
-        return "Too many requests, please try again later.";
+        return AppLocalizationsString.tooManyRequests;
       case 'network-request-failed':
-        return "Network error, check your connection.";
+        return AppLocalizationsString.networkRequestFailed;
       case 'email-already-in-use':
-        return "This email is already in use. Try logging in.";
+        return AppLocalizationsString.emailAlreadyInUse;
       case 'user-not-found':
-        return "No user found with this email.";
+        return AppLocalizationsString.userNotFound;
       case 'weak-password':
-        return "The password provided is too weak.";
+        return AppLocalizationsString.weakPassword;
       default:
-        return "Something went wrong. Please try again later.";
+        return AppLocalizationsString.genericError;
     }
   }
 }

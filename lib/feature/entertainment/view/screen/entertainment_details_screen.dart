@@ -33,12 +33,11 @@ class EntertainmentDetailsScreen extends StatelessWidget {
               children: [
                 AppBackButton(),
                 EntertainmentSlider(
-                    imageList: model.images),
+                    imageList: model.images!),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8),
                   child: Text(
-                    model
-                        .name[AppConstants.currentLanguage]!,
+                    model.name,
                     style: AppTypography.t20Bold
                         .copyWith(color: AppColors.primaryColor),
                   ),
@@ -48,10 +47,10 @@ class EntertainmentDetailsScreen extends StatelessWidget {
                 model.facilities == null ? SizedBox() : EntertainmentFacilities(
                   facilitiesComfortable: model.comfortFacilities!,
                   entertainmentFacilities: model.facilities!,),
-              headlineAndText(model.description[AppConstants.currentLanguage]!, AppLocalizationsString.description),
+              headlineAndText(model.description, AppLocalizationsString.description),
                 model.details == null
                     ? SizedBox()
-                    : headlineAndText(model.details![AppConstants.currentLanguage]!, AppLocalizationsString.details),
+                    : headlineAndText(model.details!, AppLocalizationsString.details),
                 verticalSpace(16)
               ],
             ),
@@ -80,26 +79,37 @@ class EntertainmentDetailsScreen extends StatelessWidget {
           ),
         ],
       );
-  Widget entertainmentOption()=> Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      model.guests != null
-          ? IconAndText(
-          title:
-          "${model.guests} ${AppLocalizationsString.guests}",
-          icon: Icons.person)
-          : SizedBox(),
-      IconAndText(
-          title: model.location?[
-          AppConstants.currentLanguage] ??
-              "No specific location",
-          icon: Icons.location_on),
-      IconAndText(
-          title: model.rates,
-          icon: Icons.star),
-      horizontalSpace(80)
-    ],
-  ) ;
+  Widget entertainmentOption() {
+    List<Widget> items = [];
+
+    if (model.guests != null) {
+      items.add(IconAndText(
+        title: "${model.guests} ${AppLocalizationsString.guests}",
+        icon: Icons.person,
+      ));
+    }
+
+    items.add(IconAndText(
+      title: model.location ?? "Unknown Location",
+      icon: Icons.location_on,
+    ));
+
+
+      items.add(IconAndText(
+        title: model.rates.toString(),
+        icon: Icons.star,
+      ));
+
+
+    return Row(
+      children: [
+        for (int i = 0; i < items.length; i++) ...[
+          if (i > 0) horizontalSpace(20),
+          items[i],
+        ],
+      ],
+    );
+  }
 
 }
 

@@ -5,6 +5,7 @@ class FireStoreConstants{
  static const String storesCollection = "vendors" ;
  static const String bannersCollection = "banners" ;
  static const String categoriesCollection = "categories" ;
+ static const String productCollection = "products" ;
 
 
 

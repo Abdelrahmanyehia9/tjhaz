@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
-import '../utils/cached_network_img_helper.dart';
+import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 
 class AppSlider extends StatefulWidget {
   final double height;
@@ -48,12 +47,7 @@ class _AppSliderState extends State<AppSlider> {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(8), // Rounded corners
                 child: SizedBox(width: double.infinity,
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => CachedImageHelper.imagePlaceholder(),
-                    errorWidget: (context, url, error) => CachedImageHelper.imageErrorWidget(),
-                  ),
+                  child: CachedImageWidget(imgUrl: imageUrl),
                 )
               );
             }).toList(),

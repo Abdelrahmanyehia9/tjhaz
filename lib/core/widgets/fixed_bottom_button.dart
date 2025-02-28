@@ -8,7 +8,8 @@ import '../utils/screen_size.dart';
 
 class FixedBottomButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  const FixedBottomButton({super.key , required this.onPressed});
+  final Widget? child ;
+  const FixedBottomButton({super.key , required this.onPressed  , this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class FixedBottomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           backgroundColor: AppColors.secondaryColor
       ),
-      child: Text(AppLocalizationsString.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
+      child: child ?? Text(AppLocalizationsString.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
     );
   }
 }

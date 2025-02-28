@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
+import 'package:tjhaz/core/utils/screen_size.dart';
+import 'package:tjhaz/core/widgets/app_slider.dart';
 import 'package:tjhaz/core/widgets/error_widget.dart';
-import 'package:tjhaz/feature/categories/logic/entertainment_categories_cubit.dart';
-import 'package:tjhaz/feature/categories/logic/entertainment_categories_states.dart';
 import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_states.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
@@ -20,11 +19,10 @@ import 'package:tjhaz/feature/home/logic/home_trips_states.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_activities_sucess.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_store_success.dart';
 import '../../../../core/widgets/global_app_bar.dart';
-import '../widgets/home_banner.dart';
 import '../widgets/home_category_item.dart';
+import '../widgets/home_shimmer.dart';
 import '../widgets/popular_destination_success.dart';
-import '../widgets/shimmer_list_v1.dart';
-import '../widgets/shimmer_list_v2.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,8 +32,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String title = "";
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,32 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GlobalAppBar(),
-            verticalSpace(18),
             //categories
-            BlocListener<EntertainmentCategoriesCubit, EntertainmentCategoriesStates>(
-              listener: (context, state) {
-                if (state is EntertainmentCategoriesStatesSuccess) {
-                  context.push(
-                    AppRouter.entertainmentScreen,
-                    extra: {
-                      "id": state.categories.first.id,
-                      "categories": state.categories,
-                      "name": title
-                    },
-                  );
-                }
-              },
-              child: homeCategories()
+            Padding(
+              padding:  EdgeInsets.symmetric(vertical: 16.0.h),
+              child: homeCategories(context),
             ),
-            verticalSpace(16),
             //banners
             BlocBuilder<BannerCubit, BannersStates>(
               builder: (context, state) {
                 if (state is BannersStatesSuccess) {
-                  return state.banners.isNotEmpty
-                      ? HomeBanner(
-                          banners: state.banners,
-                        )
+                  List<String> imgList = state.banners.map((item)=>item.image).toList();
+                  return state.banners.isNotEmpty? AppSlider(imageList: imgList, height: screenHeight(context)*0.225,)
                       : SizedBox();
                 } else {
                   return SizedBox();
@@ -83,9 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<HomeTripsCubit, HomeTripsStates>(
                 builder: (context, state) {
               if (state is HomeTripsStatesSuccess) {
-                return PopularDestinationSuccess(items: state.trips,) ;
+                return PopularDestinationSuccess(
+                  items: state.trips,
+                );
               } else if (state is HomeTripsStatesFailure) {
-                return AppErrorWidget(error: state.errorMsg,) ;
+                return AppErrorWidget(
+                  error: state.errorMsg,
+                );
               } else {
                 return const ShimmerListV1();
               }
@@ -95,9 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
                 builder: (context, state) {
               if (state is HomeActivitiesStatesSuccess) {
-                return HomeActivitiesSuccess(items: state.activities) ;
+                return HomeActivitiesSuccess(items: state.activities);
               } else if (state is HomeActivitiesStatesFailure) {
-                return AppErrorWidget(error: state.errorMsg,);
+                return AppErrorWidget(
+                  error: state.errorMsg,
+                );
               } else {
                 return const ShimmerListV2();
               }
@@ -107,9 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<HomeStoresCubit, HomeStoreStates>(
                 builder: (context, state) {
               if (state is HomeStoreStatesSuccess) {
-                return HomeStoreSuccess(items: state.stores) ;
+                return HomeStoreSuccess(items: state.stores);
               } else if (state is HomeStoreStatesFailure) {
-                return AppErrorWidget(error: state.error,) ;
+                return AppErrorWidget(
+                  error: state.error,
+                );
               } else {
                 return const ShimmerListV2();
               }
@@ -120,35 +109,25 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget homeCategories(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(
+          AppConstants.categories.length,
+          (index) {
+            final item = AppConstants.categories[index];
+            return InkWell(
+              onTap: ()
+  {
 
-Widget homeCategories()=>Row(
-  mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: List.generate(
-    AppConstants.categories.length,
-        (index) {
-      final item = AppConstants.categories[index];
-      return InkWell(
-        onTap: () async {
-          context.loaderOverlay.show();
-          if (index != 3) {
-            title = item["title"]!;
-            await context
-                .read<EntertainmentCategoriesCubit>()
-                .getEntertainmentsSubCategoryByParentID(
-              item["id"]!,
+                index == 3 ?context.push(AppRouter.shopScreen) : context.push(AppRouter.entertainmentScreen,
+                    extra: {"parent": item});
+              },
+              child: HomeCategoryItem(
+                imgUrl: item["image"]!,
+                title: item["title"]!,
+              ),
             );
-          }
-          if (context.mounted) {
-            context.loaderOverlay.hide();
-          }
-        },
-        child: HomeCategoryItem(
-
-          imgUrl :item["image"]!,
-          title : item["title"]!,
+          },
         ),
       );
-    },
-  ),
-) ;
 }

@@ -1,23 +1,24 @@
 import 'package:tjhaz/core/helpers/app_regex.dart';
+import 'package:tjhaz/core/utils/app_localization.dart';
 
 class AppValidators {
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password shouldn't be empty";
+      return "${AppLocalizationsString.password} ${AppLocalizationsString.shouldNotBeEmpty}";
     }
     return null;
   }
   static String? validateUsername(String? value) {
     if (value == null || value.isEmpty) {
-      return "Username shouldn't be empty";
+      return "${AppLocalizationsString.username} ${AppLocalizationsString.shouldNotBeEmpty}";
     }
     return null;
   }
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return "Email shouldn't be empty";
+      return "${AppLocalizationsString.email} ${AppLocalizationsString.shouldNotBeEmpty}";
     } else if (!AppRegex.isEmailValid(value)) {
-      return "Please enter a valid email";
+      return AppLocalizationsString.pleaseEnterValidEmail;
     }
     return null;
   }

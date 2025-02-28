@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
-import 'package:tjhaz/core/utils/cached_network_img_helper.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/card_sizes.dart';
@@ -43,11 +41,8 @@ class TripCardItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: SizedBox(
                       height: 131.h,width: 166.w,
-                      child: CachedNetworkImage( fit: BoxFit.cover, imageUrl: model.images.first,
-                      placeholder: (context,url)=> CachedImageHelper.imagePlaceholder(),
-                        errorWidget: (context , url , error)=> CachedImageHelper.imageErrorWidget(),
-
-                      )),
+                      child: CachedImageWidget(imgUrl: model.images.first)
+                  ),
                 ) ,
                 Positioned(
                     top: 8.h, right: 6.h,
@@ -55,7 +50,7 @@ class TripCardItem extends StatelessWidget {
               ],
             ) ,
             verticalSpace(8),
-            Text(model.name[AppConstants.currentLanguage]! , style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),) ,
+            Text(model.name , style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),) ,
             Text("Starting from ${model.price} KWD" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
             Text("(Per Hr)" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
             Spacer(),
@@ -71,7 +66,7 @@ class TripCardItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children: [
-                tripOption(model.location?[AppConstants.currentLanguage]??"No Location Specified" , Icons.location_on),
+                tripOption(model.location , Icons.location_on),
                 tripOption("${model.time} Hrs" , Icons.access_time_filled_rounded)
               ],
             ),

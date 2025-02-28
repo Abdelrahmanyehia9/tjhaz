@@ -1,0 +1,2 @@
+C:/Users/Abdel/StudioProjects/tjhaz/android/app/.cxx/RelWithDebInfo/5b2g5q2b/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Abdel/StudioProjects/tjhaz/android/app/.cxx/RelWithDebInfo/5b2g5q2b/armeabi-v7a/CMakeFiles/rebuild_cache.dir

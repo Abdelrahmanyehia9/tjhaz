@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../../../core/utils/cached_network_img_helper.dart';
 import '../../../../core/utils/screen_size.dart';
 
 class CardV1 extends StatelessWidget {
@@ -28,14 +28,7 @@ const CardV1({super.key , this.onTap , required this.img});
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: img,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  CachedImageHelper.imagePlaceholder(),
-              errorWidget: (context, url, error) =>
-                  CachedImageHelper.imageErrorWidget(),
-            ),
+            child: CachedImageWidget(imgUrl: img)
           ),
         ),
       ),

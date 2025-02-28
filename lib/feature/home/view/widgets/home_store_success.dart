@@ -7,7 +7,7 @@ import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../data/models/home_model.dart';
 import 'home_cards.dart';
-import 'home_headline.dart';
+import 'headline_view_more.dart';
 
 class HomeStoreSuccess extends StatelessWidget {
   final List<HomeModel> items ;
@@ -17,7 +17,7 @@ class HomeStoreSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HomeHeadline(
+        HeadlineViewMore(
           title: AppLocalizationsString.topStore,
           hasViewMore: true,
         ),
@@ -28,8 +28,7 @@ class HomeStoreSuccess extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => CardV2(
                 imgUrl: items[index].imgUrl,
-                title: items[index]
-                    .name![AppConstants.currentLanguage]!,
+                title: items[index].name!,
                 onTap: () {
 
                 }),
