@@ -1,4 +1,6 @@
-class CategoryModel{
+import 'package:equatable/equatable.dart';
+
+class CategoryModel extends Equatable{
   final String id;
   final String title;
   final String? image;
@@ -6,7 +8,7 @@ class CategoryModel{
   final bool? isNew ;
   final bool? hotOffer ;
 
-  CategoryModel({ required this.id,required this.title, this.image,required this.pID , this.hotOffer, this.isNew});
+  const CategoryModel({ required this.id,required this.title, this.image,required this.pID , this.hotOffer, this.isNew});
 
   factory CategoryModel.fromJson(Map<String,dynamic> json){
     return CategoryModel(
@@ -27,15 +29,9 @@ class CategoryModel{
     };
   }
 
-
-
-
-
-
-
-
-
-
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id,title,image,pID,hotOffer,isNew] ;
 
 
 

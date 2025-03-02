@@ -7,7 +7,8 @@ import 'app_back_button.dart';
 
 class AppHeadline extends StatelessWidget {
   final String tittle ;
-  const AppHeadline({super.key , required this.tittle});
+  final TextStyle? textStyle ;
+  const AppHeadline({super.key , required this.tittle , this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class AppHeadline extends StatelessWidget {
           Spacer(),
           Text(
             tittle.toUpperCase(),
-            style: AppTypography.t24Bold
+            style:textStyle?? AppTypography.t24Bold
                 .copyWith(color: AppColors.secondaryColor),
           ),
           Spacer()

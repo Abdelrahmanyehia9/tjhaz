@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import '../../../../core/helpers/spacing.dart';
 
 
@@ -30,18 +30,18 @@ class PasswordValidations extends StatelessWidget {
         children: [
           Padding(
             padding:  EdgeInsets.only(bottom: 2.0.h),
-            child: Text(AppLocalizationsString.recommended ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
+            child: Text(AppStrings.recommended ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
           ) ,
-          buildValidationRow(AppLocalizationsString.atLeast1Lowercase, hasLowerCase),
+          buildValidationRow(AppStrings.atLeast1Lowercase, hasLowerCase),
           verticalSpace(2),
-          buildValidationRow(AppLocalizationsString.atLeast1Uppercase, hasUpperCase),
+          buildValidationRow(AppStrings.atLeast1Uppercase, hasUpperCase),
           verticalSpace(2),
           buildValidationRow(
-              AppLocalizationsString.atLeast1SpecialCharacter, hasSpecialCharacters),
+              AppStrings.atLeast1SpecialCharacter, hasSpecialCharacters),
           verticalSpace(2),
-          buildValidationRow(AppLocalizationsString.atLeast1Number, hasNumber),
+          buildValidationRow(AppStrings.atLeast1Number, hasNumber),
           verticalSpace(2),
-          buildValidationRow(AppLocalizationsString.atLeast8Characters, hasMinLength),
+          buildValidationRow(AppStrings.atLeast8Characters, hasMinLength),
         ],
       ),
     );

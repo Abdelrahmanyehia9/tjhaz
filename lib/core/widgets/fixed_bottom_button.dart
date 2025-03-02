@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
 import '../styles/colors.dart';
 import '../styles/typography.dart';
@@ -9,7 +9,8 @@ import '../utils/screen_size.dart';
 class FixedBottomButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget? child ;
-  const FixedBottomButton({super.key , required this.onPressed  , this.child});
+  final  String? title ;
+  const FixedBottomButton({super.key , required this.onPressed  , this.child , this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class FixedBottomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           backgroundColor: AppColors.secondaryColor
       ),
-      child: child ?? Text(AppLocalizationsString.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
+      child: child ?? Text(title??AppStrings.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
     );
   }
 }

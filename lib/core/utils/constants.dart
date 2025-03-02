@@ -1,4 +1,4 @@
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/main.dart';
 
 class AppConstants {
@@ -11,15 +11,16 @@ class AppConstants {
   static const String empty = "assets/images/empty-box (1).svg" ;
   static const String disconnected ="assets/images/disconnected.svg" ;
   static const String error ="assets/images/error.svg" ;
+  static const String crownIcon ="assets/images/crown.png" ;
   static String currentLanguage = currentLocale.languageCode.toUpperCase();
   static List<Map<String, String>> categories = [
     {
       "image": catTrips,
-      "title": AppLocalizationsString.trips,
+      "title": AppStrings.trips,
       "id": "1"
     },
-    {"image": catWild, "title": AppLocalizationsString.wild, "id": "2"},
-    {"image": catActivities, "title": AppLocalizationsString.activities, "id": "3"},
-    {"image": catShopping, "title": AppLocalizationsString.stores, "id": "shopping"}
+    {"image": catWild, "title": AppStrings.wild, "id": "2"},
+    {"image": catActivities, "title": AppStrings.activities, "id": "3"},
+    {"image": catShopping, "title": AppStrings.stores, "id": "shopping"}
   ];
 }

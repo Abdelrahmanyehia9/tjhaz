@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/shop/data/model/product_mode.dart';
 import 'package:tjhaz/feature/shop/logic/related_products_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/related_products_states.dart';
@@ -39,7 +39,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizationsString.youMightLikeThis,
+                AppStrings.youMightLikeThis,
                 style: AppTypography.t18Bold.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.secondaryColor),
@@ -74,7 +74,7 @@ class _RelatedProductsState extends State<RelatedProducts> {
           child: SizedBox(
               width: CardSizes.squareCard.width,
               height: CardSizes.squareCard.height,
-              child: CachedImageWidget(imgUrl: imgUrl)),
+              child: CachedNetworkImageWidget(imgUrl: imgUrl)),
         ),
       );
 }

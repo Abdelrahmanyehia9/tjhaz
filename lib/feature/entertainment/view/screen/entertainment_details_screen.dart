@@ -1,18 +1,17 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tjhaz/core/helpers/icon_helper.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_back_button.dart';
+import 'package:tjhaz/core/widgets/app_slider.dart';
 import 'package:tjhaz/core/widgets/fixed_bottom_button.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/entertainment/view/widget/entertainment_facilities.dart';
-import 'package:tjhaz/feature/entertainment/view/widget/slider.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
-import '../../../../core/utils/amenities.dart';
 import '../../../../core/widgets/icon_and_text.dart';
 
 class EntertainmentDetailsScreen extends StatelessWidget {
@@ -23,7 +22,9 @@ class EntertainmentDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: FixedBottomButton(onPressed: () {}),
+      bottomNavigationBar: FixedBottomButton(onPressed: () {
+        context.push(AppRouter.reservationScreen , extra: model) ;
+      }),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -32,8 +33,9 @@ class EntertainmentDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppBackButton(),
-                EntertainmentSlider(
-                    imageList: model.images!),
+                AppSlider(
+                  height: screenHeight(context) * .3,
+                    imageList: model.images  , addToFavourite: true,   ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8),
                   child: Text(
@@ -47,10 +49,10 @@ class EntertainmentDetailsScreen extends StatelessWidget {
                 model.facilities == null ? SizedBox() : EntertainmentFacilities(
                   facilitiesComfortable: model.comfortFacilities!,
                   entertainmentFacilities: model.facilities!,),
-              headlineAndText(model.description, AppLocalizationsString.description),
+              headlineAndText(model.description, AppStrings.description),
                 model.details == null
                     ? SizedBox()
-                    : headlineAndText(model.details!, AppLocalizationsString.details),
+                    : headlineAndText(model.details!, AppStrings.details),
                 verticalSpace(16)
               ],
             ),
@@ -83,19 +85,19 @@ class EntertainmentDetailsScreen extends StatelessWidget {
     List<Widget> items = [];
 
     if (model.guests != null) {
-      items.add(IconAndText(
-        title: "${model.guests} ${AppLocalizationsString.guests}",
+      items.add(IconAndTextHorizontal(
+        title: "${model.guests} ${AppStrings.guests}",
         icon: Icons.person,
       ));
     }
 
-    items.add(IconAndText(
+    items.add(IconAndTextHorizontal(
       title: model.location ?? "Unknown Location",
       icon: Icons.location_on,
     ));
 
 
-      items.add(IconAndText(
+      items.add(IconAndTextHorizontal(
         title: model.rates.toString(),
         icon: Icons.star,
       ));

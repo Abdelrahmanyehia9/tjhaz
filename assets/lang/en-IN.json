@@ -103,6 +103,18 @@
   "buy_now": "Buy Now",
   "you_might_like_this" : "You Might also Like" ,
   "not_specified" : "Not Specified" ,
-  "not_rated" : "Not Rated yet"
+  "not_rated" : "Not Rated yet",
+  "permission-denied": "You don't have permission to access this data.",
+  "unavailable": "Database service is currently unavailable. Try again later.",
+  "not-found": "Requested data was not found.",
+  "already-exists": "This data already exists.",
+  "deadline-exceeded": "Operation took too long to complete. Try again later.",
+  "resource-exhausted": "Quota exceeded. Try again later.",
+  "cancelled": "Operation was cancelled.",
+  "data-loss": "Data loss occurred. Please contact support.",
+  "invalid-argument": "Invalid data provided.",
+  "internal": "Internal Firestore error. Try again later.",
+  "aborted": "Operation was aborted due to concurrency issues.",
+  "failed-precondition": "Operation cannot be executed in the current system state."
 
 }

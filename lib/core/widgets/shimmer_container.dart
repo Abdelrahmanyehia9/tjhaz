@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class LoadingShimmerContainer extends StatelessWidget {
+class ShimmerContainer extends StatelessWidget {
   final double height ;
   final double width ;
   final double? radius ;
-  const LoadingShimmerContainer({super.key , required this.width , required this.height  ,  this.radius });
+  const ShimmerContainer({super.key , required this.width , required this.height  ,  this.radius });
 
   @override
   Widget build(BuildContext context) {

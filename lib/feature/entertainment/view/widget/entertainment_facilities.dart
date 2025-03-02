@@ -9,7 +9,7 @@ import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
 import '../../../../core/helpers/icon_helper.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../../../core/utils/app_localization.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/amenities.dart';
 import 'facilities_container.dart';
 class EntertainmentFacilities extends StatelessWidget {
@@ -42,25 +42,25 @@ class EntertainmentFacilities extends StatelessWidget {
           FacilitiesContainer(
               icon: Icons.person_outline,
               title:
-              "${fac[Amenities.guests]} ${AppLocalizationsString.guests}"),
+              "${fac[Amenities.guests]} ${AppStrings.guests}"),
           FacilitiesContainer(
               icon: Icons.bed_outlined,
               title:
-              "${fac[Amenities.bedroom]} ${AppLocalizationsString.bedroom}"),
+              "${fac[Amenities.bedroom]} ${AppStrings.bedroom}"),
           FacilitiesContainer(
               icon: Icons.shower_outlined,
               title:
-              "${fac[Amenities.bathroom]} ${AppLocalizationsString.bathroom}"),
+              "${fac[Amenities.bathroom]} ${AppStrings.bathroom}"),
           FacilitiesContainer(
               icon: Icons.closed_caption_outlined,
               title: fac[Amenities.captain].toString().tr()),
           FacilitiesContainer(
               icon: Icons.chair_outlined,
               title:
-              "${fac[Amenities.halls]} ${AppLocalizationsString.halls}"),
+              "${fac[Amenities.halls]} ${AppStrings.halls}"),
           FacilitiesContainer(
               icon: Icons.area_chart_outlined,
-              title: "${fac[Amenities.area]} ${AppLocalizationsString.m2}"),
+              title: "${fac[Amenities.area]} ${AppStrings.m2}"),
         ],
       );
   Widget comfortFacilities(List<String> fac, BuildContext context) {
@@ -71,7 +71,7 @@ class EntertainmentFacilities extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 24.0.h , bottom: 16.h),
             child: Text(
-              AppLocalizationsString.comfortFacilities,
+              AppStrings.comfortFacilities,
               style:
               AppTypography.t16Bold.copyWith(color: AppColors.primaryColor),
             ),
@@ -104,7 +104,7 @@ class EntertainmentFacilities extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
-                                    child: Text(AppLocalizationsString.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
+                                    child: Text(AppStrings.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
                                   ),
                                   Wrap(
                                       spacing: 16.w,
@@ -141,7 +141,7 @@ class EntertainmentFacilities extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 24.0.h),
             child: Text(
-              AppLocalizationsString.comfortFacilities,
+              AppStrings.comfortFacilities,
               style:
               AppTypography.t16Bold.copyWith(color: AppColors.primaryColor),
             ),
@@ -183,7 +183,7 @@ class EntertainmentFacilities extends StatelessWidget {
           ),
           verticalSpace(4),
           Text(
-            AppLocalizationsString.viewAll.toUpperCase(),
+            AppStrings.viewAll.toUpperCase(),
             style:
             AppTypography.t11Bold.copyWith(color: AppColors.secondaryColor),
           )

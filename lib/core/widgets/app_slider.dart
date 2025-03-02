@@ -1,14 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
+
+import 'box_icon_button.dart';
 
 class AppSlider extends StatefulWidget {
   final double height;
   final List<String> imageList;
+  final bool? addToFavourite ;
 
 
-  const AppSlider({super.key, required this.imageList , required this.height});
+  const AppSlider({super.key, required this.imageList , required this.height , this.addToFavourite});
 
   @override
   State<AppSlider> createState() => _AppSliderState();
@@ -47,7 +51,7 @@ class _AppSliderState extends State<AppSlider> {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(8), // Rounded corners
                 child: SizedBox(width: double.infinity,
-                  child: CachedImageWidget(imgUrl: imageUrl),
+                  child: CachedNetworkImageWidget(imgUrl: imageUrl),
                 )
               );
             }).toList(),
@@ -63,6 +67,9 @@ class _AppSliderState extends State<AppSlider> {
             ),
           ),
         ),
+        Positioned(
+            bottom: 8.h,right: 8.w,
+            child: widget.addToFavourite ==true ?  BoxIconButton(icon: Icons.favorite):SizedBox()   )
 
 
       ],

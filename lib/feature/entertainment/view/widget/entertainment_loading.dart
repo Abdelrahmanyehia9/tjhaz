@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
-import 'package:tjhaz/core/widgets/loading_shimmer.dart';
+import 'package:tjhaz/core/widgets/shimmer_container.dart';
 
 class EntertainmentGridLoading extends StatelessWidget {
   const EntertainmentGridLoading({super.key});
@@ -30,19 +30,19 @@ class EntertainmentGridLoading extends StatelessWidget {
   Widget gridItem() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LoadingShimmerContainer(
+          ShimmerContainer(
             width: CardSizes.productCard.width,
             height: CardSizes.productCard.height - 48.h,
             radius: 8,
           ),
           verticalSpace(12),
-          LoadingShimmerContainer(
+          ShimmerContainer(
             width: CardSizes.productCard.width,
             height: 16.h,
             radius: 2,
           ),
           verticalSpace(6),
-          LoadingShimmerContainer(
+          ShimmerContainer(
             width: CardSizes.productCard.width - 50.w,
             height: 12.h,
             radius: 1,
@@ -80,7 +80,7 @@ class EntertainmentCategoriesLoading extends StatelessWidget {
                 child: CircleAvatar(radius: 36.sp, backgroundColor: Colors.grey,   )
             ),
             verticalSpace(8),
-            LoadingShimmerContainer(
+            ShimmerContainer(
               width: 80.w,
               height: 12.h,
               radius: 1.sp,

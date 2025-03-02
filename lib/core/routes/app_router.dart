@@ -11,7 +11,12 @@ import 'package:tjhaz/feature/auth/view/screen/auth_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
 import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
-import 'package:tjhaz/feature/booking/view/screen/calenderScreen.dart';
+import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
+import 'package:tjhaz/feature/booking/logic/get_reservation_date_cubit.dart';
+import 'package:tjhaz/feature/booking/logic/get_reservation_hours_cubit.dart';
+import 'package:tjhaz/feature/booking/view/screen/reservation_screen.dart';
+import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
+import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/entertainment/data/repository/entertainment_repository.dart';
 import 'package:tjhaz/feature/entertainment/logic/entertainment_cubit.dart';
@@ -32,10 +37,8 @@ import 'package:tjhaz/feature/shop/logic/related_products_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/vendors_cubit.dart';
 import 'package:tjhaz/feature/shop/view/screen/shop_details_screen.dart';
 import 'package:tjhaz/feature/shop/view/screen/shop_screen.dart';
-import '../widgets/calender.dart';
 import '../../feature/entertainment/view/screen/entertainment_details_screen.dart';
 import 'navigation_transitions.dart';
-
 class AppRouter {
   static const splashScreen = "/splash";
   static const onBoardingScreen = "/onBoardingScreen";
@@ -43,12 +46,12 @@ class AppRouter {
   static const forgetPasswordPage = "/forgetPasswordScreen";
   static const confirmOtpScreen = "/confirmOtpScreen";
   static const setupNewPasswordScreen = "/setupNewPassword";
-  static const homeLayout = "/home";
+  static const homeLayout = "/";
   static const entertainmentDetailsScreen = "/entertainmentDetailsScreen";
   static const entertainmentScreen = "/entertainmentScreen";
   static const shopScreen = "/shopScreen" ;
   static const shopDetailsScreen = "/shopDetailsScreen" ;
-  static const calender = "/" ;
+  static const reservationScreen = "/reservationScreen" ;
 
 
   static final GoRouter routes = GoRouter(
@@ -57,11 +60,6 @@ class AppRouter {
         path: splashScreen,
         pageBuilder: (context, state) =>
             fadingTransition(child: SplashScreen()),
-      ),
-      GoRoute(
-        path: calender,
-        pageBuilder: (context, state) =>
-            fadingTransition(child: CalenderScreen()),
       ),
       GoRoute(
         path: onBoardingScreen,
@@ -116,10 +114,14 @@ class AppRouter {
         path: homeLayout,
         pageBuilder: (context, state) => fadingTransition(
             child: MultiBlocProvider(providers: [
+
           BlocProvider(
               create: (context) =>
                   HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())
                     ..getHomeTrips()),
+          BlocProvider(
+              create: (context) =>
+          CategoriesCubit( getIt.get<CategoryRepository>())..getCategoriesByParentId("1")),
           BlocProvider(
               create: (context) => HomeActivitiesCubit(
                   homeRepository: getIt.get<HomeRepository>())
@@ -149,6 +151,10 @@ class AppRouter {
           return fadingTransition(
             child: MultiBlocProvider(
               providers: [
+                BlocProvider(
+                    create: (context) =>
+                    CategoriesCubit( getIt.get<CategoryRepository>() ) ,),
+
                 BlocProvider(create: (context) {
                   return EntertainmentCubit(
                       getIt.get<EntertainmentRepository>());
@@ -164,13 +170,15 @@ class AppRouter {
       ),
       GoRoute(
         path: shopScreen,
-        pageBuilder: (context, state) =>
-            fadingTransition(child: MultiBlocProvider(
+        pageBuilder: (context, state) {
+          final int? activeCategory = state.extra as int?;
+          return fadingTransition(child: MultiBlocProvider(
                 providers: [
                   BlocProvider(create: (context)=> VendorCubit(getIt.get<ShopRepository>())..getAllVendors()),
                   BlocProvider(create: (context)=> ProductsCubit(getIt.get<ShopRepository>())),
                 ],
-                child: ShopScreen())  ),
+                child: ShopScreen(activeCategory: activeCategory))  );
+        },
       ),
       GoRoute(
         path: shopDetailsScreen,
@@ -179,6 +187,21 @@ class AppRouter {
           return fadingTransition(child: BlocProvider(
               create: (context) =>RelatedProductsCubit(getIt.get<ShopRepository>()) ,
               child: ShopDetailsScreen(model: model)));
+        },
+      ),
+      GoRoute(
+        path: reservationScreen,
+        pageBuilder: (context, state) {
+          final EntertainmentDetailsModel model = state.extra as EntertainmentDetailsModel;
+          return fadingTransition(
+              child: MultiBlocProvider(
+                  providers: [
+                    BlocProvider( create: (context)=>GetReservedDatesCubit(getIt.get<BookingRepository>()),) ,
+                    BlocProvider( create: (context)=>GetReservedHoursCubit(getIt.get<BookingRepository>()),) ,
+
+
+                  ],
+                  child: ReservationScreen(model: model,)));
         },
       ),
 

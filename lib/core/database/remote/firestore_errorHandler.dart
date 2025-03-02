@@ -1,32 +1,34 @@
+import 'package:tjhaz/core/utils/app_strings.dart';
+
 class FirestoreErrorHandler {
   static String getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'permission-denied':
-        return "You don't have permission to access this data.";
+        return AppStrings.fireStoreExPermissionDenied;
       case 'unavailable':
-        return "Firestore service is currently unavailable. Try again later.";
+        return AppStrings.fireStoreExeUnAvailable;
       case 'not-found':
-        return "Requested document was not found.";
+        return AppStrings.fireStoreExNotFound;
       case 'already-exists':
-        return "This document already exists.";
+        return AppStrings.fireStoreExAlreadyExists;
       case 'deadline-exceeded':
-        return "Operation took too long to complete. Try again later.";
+        return AppStrings.fireStoreExDeadlineExceeded;
       case 'resource-exhausted':
-        return "Quota exceeded. Try again later.";
+        return AppStrings.fireStoreExResourceExhausted;
       case 'cancelled':
-        return "Operation was cancelled.";
+        return AppStrings.fireStoreExCancelled;
       case 'data-loss':
-        return "Data loss occurred. Please contact support.";
+        return AppStrings.fireStoreExDataLoss;
       case 'invalid-argument':
-        return "Invalid data provided.";
+        return AppStrings.fireStoreExInvalidArgument;
       case 'internal':
-        return "Internal Firestore error. Try again later.";
+        return AppStrings.fireStoreExInternal;
       case 'aborted':
-        return "Operation was aborted due to concurrency issues.";
+        return AppStrings.fireStoreExAborted;
       case 'failed-precondition':
-        return "Operation cannot be executed in the current system state.";
+        return AppStrings.fireStoreExFailedPrecondition;
       default:
-        return "Something went wrong. Please try again.";
+        return AppStrings.genericError;
     }
   }
 }

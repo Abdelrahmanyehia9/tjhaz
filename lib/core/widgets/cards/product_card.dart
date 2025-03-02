@@ -6,9 +6,9 @@ import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/utils/constants.dart';
-import 'package:tjhaz/core/widgets/box_action_button.dart';
+import 'package:tjhaz/core/widgets/box_icon_button.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/shop/view/widget/product_quantiy.dart';
 
@@ -40,7 +40,7 @@ class ProductCard extends StatelessWidget {
                   child: SizedBox(
                       width: 151.w,
                       height: 120.h,
-                      child: CachedImageWidget(imgUrl: productModel.images.first)
+                      child: CachedNetworkImageWidget(imgUrl: productModel.images.first)
                   ),
                 ),
                 Spacer(),
@@ -55,7 +55,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("${productModel.price} ${AppLocalizationsString.kwdCurrency}",
+                    Text("${productModel.price} ${AppStrings.kwdCurrency}",
                         style: AppTypography.t11Normal
                             .copyWith(color: AppColors.primaryColor)),
                     ProductQuantity(),
@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
               color: AppColors.secondaryColor,
               child: Center(
                 child: Text(
-                  "${((productModel.price/productModel.priceBeforeDiscount!)*100).toStringAsFixed(0)}% ${AppLocalizationsString.sale}".toUpperCase(),
+                  "${((productModel.price/productModel.priceBeforeDiscount!)*100).toStringAsFixed(0)}% ${AppStrings.sale}".toUpperCase(),
                   style:
                       AppTypography.t11Bold.copyWith(color: AppColors.cWhite),
                 ),

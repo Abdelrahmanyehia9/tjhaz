@@ -21,7 +21,6 @@ class ShopRepository {
       }).toList();
       return left(vendors);
     } catch (e) {
-      print(e.toString());
       return right(e.firestoreErrorMessage);
     }
   }

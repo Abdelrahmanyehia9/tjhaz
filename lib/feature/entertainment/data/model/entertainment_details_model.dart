@@ -1,5 +1,5 @@
 import 'package:tjhaz/core/extention/localized_map.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
 class EntertainmentDetailsModel {
   final String id;
@@ -9,9 +9,11 @@ class EntertainmentDetailsModel {
   final String description;
   final String entertainmentType;
   final String? details;
+  final int  availableFrom;
+  final int availableTo ;
+  final int minHoursToBooking;
   final List<String> images;
   final double price;
-  final String? time;
   final int? guests;
   final String rates;
   final int ratingCount;
@@ -19,6 +21,9 @@ class EntertainmentDetailsModel {
   final List<String>? comfortFacilities;
 
   EntertainmentDetailsModel({
+   required this.availableFrom  ,
+    required this.availableTo ,
+    required this.minHoursToBooking ,
     required this.id,
     required this.name,
     required this.categoryID,
@@ -28,7 +33,6 @@ class EntertainmentDetailsModel {
      this.details,
     required this.images,
     required this.price,
-     this.time,
       this.guests,
     required this.rates,
     required this.ratingCount,
@@ -39,19 +43,21 @@ class EntertainmentDetailsModel {
   factory EntertainmentDetailsModel.fromJson(Map<String, dynamic> json) {
     return EntertainmentDetailsModel(
       id: json["id"] ?? '',
-      name: (json["name"] as Map<String, dynamic>?)?.localized ?? '',
-      location: (json["location"] as Map<String, dynamic>?)?.localized ?? AppLocalizationsString.notSpecified,
+      availableFrom:  json["available_from"] ?? 10,
+      availableTo:  json["available_to"] ?? 22,
+      minHoursToBooking:  json["min_hours_to_booking"] ?? 1,
+      name: (json["name"] as Map<String, dynamic>).localized,
+      location: (json["location"] as Map<String, dynamic>?)?.localized ?? AppStrings.notSpecified,
       description: (json["description"] as Map<String, dynamic>).localized ,
       details: (json["details"] as Map<String, dynamic>?)?.localized ,
       entertainmentType: json["entertainment_type"] ,
       categoryID: json["category_id"] ,
       images: (json["images"] as List<dynamic>).map((e) => e.toString()).toList(),
-      time: json["time"]?.toString() ?? AppLocalizationsString.notSpecified,
       guests: json["guests"] ,
       price: json["price"] is num
           ? (json["price"] as num).toDouble()
           : (json["price"] != null ? double.tryParse(json["price"].toString()) : 0.0) ?? 0.0,
-      rates: json["rates"]?.toString() ?? AppLocalizationsString.notRated,
+      rates: json["rates"]?.toString() ?? AppStrings.notRated,
       ratingCount: json["rating_count"] is int ? json["rating_count"] as int : int.tryParse(json["rating_count"]?.toString() ?? '0') ?? 0,
       facilities: json["Facilities"] as Map<String, dynamic>?,
       comfortFacilities: (json["comfort_Facilities"] as List<dynamic>?)?.map((e) => e.toString()).toList(),
@@ -68,7 +74,6 @@ class EntertainmentDetailsModel {
       "details": details,
       "category_id": categoryID,
       "images": images,
-      "time": time,
       "guests": guests,
       "price": price,
       "rates": rates,

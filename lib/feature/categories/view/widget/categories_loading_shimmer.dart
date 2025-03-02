@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tjhaz/core/widgets/loading_shimmer.dart';
+import 'package:tjhaz/core/widgets/shimmer_container.dart';
 
-class GridCategoryShimmer extends StatelessWidget {
-  const GridCategoryShimmer({super.key});
+class CategoriesLoadingShimmer extends StatelessWidget {
+  const CategoriesLoadingShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,9 @@ class GridCategoryShimmer extends StatelessWidget {
   Widget categoryBox()=>Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      LoadingShimmerContainer(width: 107.w, height: 64.h , radius: 8 ,) ,
+      ShimmerContainer(width: 107.w, height: 64.h , radius: 8 ,) ,
       Spacer(),
-      LoadingShimmerContainer(width: 100.w, height: 16.h , radius: 4,) ,
+      ShimmerContainer(width: 100.w, height: 16.h , radius: 4,) ,
       Spacer()
     ],
   );

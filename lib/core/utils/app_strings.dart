@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-class AppLocalizationsString {
+class AppStrings {
   static String get email => "Email".tr();
   static String get password => "Password".tr();
   static String get login => "Login".tr();
@@ -77,7 +77,18 @@ class AppLocalizationsString {
   static String get youMightLikeThis => "you_might_like_this".tr();
   static String get notSpecified => "not_specified".tr();
   static String get notRated => "not_rated".tr();
-
+  static String get fireStoreExPermissionDenied => "permission-denied".tr();
+  static String get fireStoreExeUnAvailable => "unavailable".tr();
+  static String get fireStoreExNotFound => "Requested data was not found.".tr();
+  static String get fireStoreExAlreadyExists => "already-exists".tr();
+  static String get fireStoreExDeadlineExceeded => "deadline-exceeded".tr();
+  static String get fireStoreExResourceExhausted => "resource-exhausted".tr();
+  static String get fireStoreExCancelled => "cancelled".tr();
+  static String get fireStoreExDataLoss => "data-loss".tr();
+  static String get fireStoreExInvalidArgument => "invalid-argument".tr();
+  static String get fireStoreExInternal => "internal".tr();
+  static String get fireStoreExAborted => "aborted".tr();
+  static String get fireStoreExFailedPrecondition => "failed-precondition".tr();
 
 
 

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/utils/screen_size.dart';
-import '../../../../core/widgets/loading_widget.dart';
+import '../../../../core/widgets/lottie_widget.dart';
 
 class AuthLoading extends StatelessWidget {
   const AuthLoading({super.key});
@@ -12,7 +12,7 @@ class AuthLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(width: screenWidth(context),height: screenHeight(context),
       color: AppColors.primaryColor,
-      child: LoadingWidgetAnimation(
+      child: LottieAnimation(
 
       ),
     ) ;;

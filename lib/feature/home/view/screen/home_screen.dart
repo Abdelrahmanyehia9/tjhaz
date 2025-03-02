@@ -7,7 +7,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_slider.dart';
-import 'package:tjhaz/core/widgets/error_widget.dart';
+import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_states.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
@@ -18,6 +18,7 @@ import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
 import 'package:tjhaz/feature/home/logic/home_trips_states.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_activities_sucess.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_store_success.dart';
+import '../../../../core/widgets/errors_widgets.dart';
 import '../../../../core/widgets/global_app_bar.dart';
 import '../widgets/home_category_item.dart';
 import '../widgets/home_shimmer.dart';
@@ -118,7 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
             return InkWell(
               onTap: ()
   {
-
                 index == 3 ?context.push(AppRouter.shopScreen) : context.push(AppRouter.entertainmentScreen,
                     extra: {"parent": item});
               },

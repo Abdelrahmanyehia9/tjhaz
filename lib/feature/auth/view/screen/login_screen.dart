@@ -8,9 +8,9 @@ import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
-import 'package:tjhaz/core/widgets/loading_widget.dart';
+import 'package:tjhaz/core/widgets/lottie_widget.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
 import 'package:toastification/toastification.dart';
@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
           toast(
             context: context,
             type: ToastificationType.error,
-            tittle: AppLocalizationsString.loginError,
+            tittle: AppStrings.loginError,
             description: state.errorMsg,
           );
         } else if (state is LoginStateSuccess) {
@@ -59,13 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               AuthTextField(
                 controller: emailController,
-                labelText: AppLocalizationsString.email,
+                labelText: AppStrings.email,
                 icon: Icons.email_outlined,
                 validator: AppValidators.validateEmail,
               ),
               AuthTextField(
                 controller: passwordController,
-                labelText: AppLocalizationsString.password,
+                labelText: AppStrings.password,
                 isPassword: true,
                 icon: Icons.lock_outline,
                 validator: AppValidators.validatePassword,
@@ -74,11 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
               forgetPassword(context),
               verticalSpace(30),
               AuthButton(
-                tittle: AppLocalizationsString.login,
+                tittle: AppStrings.login,
                 onPressed: () => validateThenLogin(context),
               ),
               AuthButton(
-                tittle: AppLocalizationsString.continueAsGuest,
+                tittle: AppStrings.continueAsGuest,
                 onPressed: () {},
               ),
             ],
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Row(
         children: [
           Text(
-            AppLocalizationsString.forgotPassword,
+            AppStrings.forgotPassword,
             style:
                 AppTypography.t14Normal.copyWith(color: AppColors.primaryColor),
           ),
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
               GoRouter.of(context).push(AppRouter.forgetPasswordPage);
             },
             child: Text(
-              AppLocalizationsString.resetNow.tr(),
+              AppStrings.resetNow.tr(),
               style: AppTypography.t14Normal
                   .copyWith(color: AppColors.secondaryColor),
             ),

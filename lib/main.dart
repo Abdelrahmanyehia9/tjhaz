@@ -8,9 +8,12 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/DI/dependency_injection.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/styles/colors.dart';
-import 'package:tjhaz/core/widgets/loading_widget.dart';
+import 'package:tjhaz/core/widgets/lottie_widget.dart';
+import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
+import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
 import 'core/routes/app_router.dart';
+import 'feature/booking/data/model/reservation_model.dart';
 import 'feature/categories/data/repository/categories_repository.dart';
 import 'feature/categories/logic/categories_cubit.dart';
 import 'feature/entertainment/data/repository/entertainment_repository.dart';
@@ -26,13 +29,13 @@ void main() async {
 
 
 
-
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupGetIt();
+
 
   runApp(EasyLocalization(
 
@@ -41,9 +44,9 @@ void main() async {
       startLocale: currentLocale,
       fallbackLocale: Locale('en', "IN"),
       child: GlobalLoaderOverlay(
-        overlayColor: Colors.white.withOpacity(0.8),
-          overlayWidgetBuilder: (_){
-            return LoadingWidgetAnimation() ;
+          overlayColor: Colors.white.withOpacity(0.8),
+          overlayWidgetBuilder: (_) {
+            return LottieAnimation();
           },
           child: TjhazApp())));
 }
@@ -58,8 +61,8 @@ class TjhazApp extends StatelessWidget {
 
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => CategoriesCubit(getIt.get<CategoryRepository>())..getCategoriesByParentId("1") ) ,
-          BlocProvider(create: (context ) => EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
+          BlocProvider(create: (context) =>
+              EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
 
         ],
         child: MaterialApp.router(
@@ -83,14 +86,8 @@ class TjhazApp extends StatelessWidget {
 }
 
 
-
-
-Future<void>addItem (ProductModel model)async{
-await FirebaseFirestore.instance.collection(FireStoreConstants.productCollection).add(model.toJson()) ;
-
-
-
-
-
+Future<void> addItem(ReservationModel model) async {
+  await FirebaseFirestore.instance.collection(
+      FireStoreConstants.entertainment).doc("CdK1PomBcxVqBasGOALx").collection(FireStoreConstants.reservationCollection).doc(DateTime.now().month.toString()).set(model.toJson()) ;
 }
 

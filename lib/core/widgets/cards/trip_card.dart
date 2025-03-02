@@ -9,7 +9,7 @@ import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/card_sizes.dart';
 import '../../../../../core/styles/colors.dart';
 import '../../../../../core/styles/typography.dart';
-import '../../../../../core/widgets/box_action_button.dart';
+import '../../../../../core/widgets/box_icon_button.dart';
 
 class TripCardItem extends StatelessWidget {
   final EntertainmentDetailsModel model ;
@@ -41,7 +41,7 @@ class TripCardItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: SizedBox(
                       height: 131.h,width: 166.w,
-                      child: CachedImageWidget(imgUrl: model.images.first)
+                      child: CachedNetworkImageWidget(imgUrl: model.images.first)
                   ),
                 ) ,
                 Positioned(
@@ -67,7 +67,7 @@ class TripCardItem extends StatelessWidget {
 
               children: [
                 tripOption(model.location , Icons.location_on),
-                tripOption("${model.time} Hrs" , Icons.access_time_filled_rounded)
+                tripOption("${model.minHoursToBooking} Hrs" , Icons.access_time_filled_rounded)
               ],
             ),
             Spacer()

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tjhaz/core/widgets/loading_shimmer.dart';
+import 'package:tjhaz/core/widgets/shimmer_container.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/utils/screen_size.dart';
@@ -31,10 +31,10 @@ class ShimmerListV1 extends StatelessWidget {
 
   Widget cardV1(context) => Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 4.w),
-    child: LoadingShimmerContainer(width: screenWidth(context)*.3, height: screenHeight(context )*.175 , radius: 8,),
+    child: ShimmerContainer(width: screenWidth(context)*.3, height: screenHeight(context )*.175 , radius: 8,),
   );
   Widget showMoreDistButton(context)=>
-      LoadingShimmerContainer(width: double.infinity, height: 60.h , radius: 8,) ;
+      ShimmerContainer(width: double.infinity, height: 60.h , radius: 8,) ;
 }
 class ShimmerListV2 extends StatelessWidget {
   const ShimmerListV2({super.key});
@@ -63,9 +63,9 @@ class ShimmerListV2 extends StatelessWidget {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LoadingShimmerContainer(width: screenWidth(context)*.425, height: screenHeight(context)*.11 , radius: 8,),
+        ShimmerContainer(width: screenWidth(context)*.425, height: screenHeight(context)*.11 , radius: 8,),
         verticalSpace(8),
-        LoadingShimmerContainer(width: screenWidth(context)*.425, height: 20.h , radius: 4,),
+        ShimmerContainer(width: screenWidth(context)*.425, height: 20.h , radius: 4,),
         Spacer(),
       ],
     ),

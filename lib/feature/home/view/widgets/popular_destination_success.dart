@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/entertainment/logic/entertainment_details_cubit.dart';
 import 'package:tjhaz/feature/entertainment/logic/entertainment_details_states.dart';
 
@@ -27,7 +27,7 @@ class PopularDestinationSuccess extends StatelessWidget {
     return Column(
       children: [
         HeadlineViewMore(
-          title: AppLocalizationsString.popularDestinations,
+          title: AppStrings.popularDestinations,
         ),
         SizedBox(
           height: screenHeight(context) * 0.175,
@@ -77,7 +77,7 @@ class PopularDestinationSuccess extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: Text(
-          AppLocalizationsString.showMore,
+          AppStrings.showMore,
           style:
               AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
         ),

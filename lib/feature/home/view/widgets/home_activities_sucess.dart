@@ -5,7 +5,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 
 import '../../../../core/routes/app_router.dart';
-import '../../../../core/utils/app_localization.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../../entertainment/logic/entertainment_details_cubit.dart';
@@ -22,7 +22,7 @@ class HomeActivitiesSuccess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HeadlineViewMore(title: AppLocalizationsString.topActivities,hasViewMore: true,viewMoreOnTap:(){
+        HeadlineViewMore(title: AppStrings.topActivities,hasViewMore: true,viewMoreOnTap:(){
           context.push(AppRouter.entertainmentScreen , extra: {"parent":AppConstants.categories[2] }) ;
         } ,),
         SizedBox(

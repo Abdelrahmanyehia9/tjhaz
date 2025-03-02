@@ -6,6 +6,8 @@ class FireStoreConstants{
  static const String bannersCollection = "banners" ;
  static const String categoriesCollection = "categories" ;
  static const String productCollection = "products" ;
+ static const String bookingsCollection = "bookings" ;
+ static const String reservationCollection = "reservation" ;
 
 
 

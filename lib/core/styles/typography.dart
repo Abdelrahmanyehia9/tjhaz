@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTypography{
-  static  TextStyle t10light = TextStyle( fontSize: 10.sp , fontWeight: FontWeight.w100 ) ;
+  const AppTypography._();
+  static  TextStyle t10light =  TextStyle( fontSize: 10.sp , fontWeight: FontWeight.w100 ) ;
   static  TextStyle t10Normal = TextStyle( fontSize: 10.sp ,fontWeight: FontWeight.w400 ) ;
   static  TextStyle t11Normal = TextStyle( fontSize: 11.sp , fontWeight: FontWeight.w200 ) ;
   static  TextStyle t11Light = TextStyle( fontSize: 11.sp , fontWeight: FontWeight.w100 ) ;

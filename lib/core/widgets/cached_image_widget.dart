@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CachedImageWidget extends StatelessWidget {
+class CachedNetworkImageWidget extends StatelessWidget {
   final String imgUrl;
 
-  const CachedImageWidget({super.key, required this.imgUrl});
+  const CachedNetworkImageWidget({super.key, required this.imgUrl});
 
   @override
   Widget build(BuildContext context) {

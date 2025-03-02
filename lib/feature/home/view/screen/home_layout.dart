@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/categories/view/screen/all_categories_screen.dart';
 import 'package:tjhaz/feature/home/view/screen/home_screen.dart';
 
@@ -21,23 +21,23 @@ class _HomeLayoutState extends State<HomeLayout> {
   List<BottomNavigationBarItem> navItems = [
     BottomNavigationBarItem(
       icon: Icon(AppIcons.home),
-      label: AppLocalizationsString.home.toUpperCase(),
+      label: AppStrings.home.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon:  Icon(AppIcons.categories),
-  label: AppLocalizationsString.categories.toUpperCase(),
+  label: AppStrings.categories.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Icon(AppIcons.booking),
-      label: AppLocalizationsString.bookings.toUpperCase(),
+      label: AppStrings.bookings.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Icon(AppIcons.cart),
-      label: AppLocalizationsString.cart.toUpperCase(),
+      label: AppStrings.cart.toUpperCase(),
     ),
     BottomNavigationBarItem(
       icon: Icon(AppIcons.profile),
-      label: AppLocalizationsString.profile.toUpperCase(),
+      label: AppStrings.profile.toUpperCase(),
     ),
 
 

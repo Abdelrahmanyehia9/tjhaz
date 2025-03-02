@@ -1,24 +1,24 @@
-import '../../utils/app_localization.dart';
+import '../../utils/app_strings.dart';
 
 class FirebaseAuthErrorHandler {
   static String getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'user-disabled':
-        return AppLocalizationsString.userDisabled;
+        return AppStrings.userDisabled;
       case 'invalid-credential':
-        return AppLocalizationsString.invalidCredential;
+        return AppStrings.invalidCredential;
       case 'too-many-requests':
-        return AppLocalizationsString.tooManyRequests;
+        return AppStrings.tooManyRequests;
       case 'network-request-failed':
-        return AppLocalizationsString.networkRequestFailed;
+        return AppStrings.networkRequestFailed;
       case 'email-already-in-use':
-        return AppLocalizationsString.emailAlreadyInUse;
+        return AppStrings.emailAlreadyInUse;
       case 'user-not-found':
-        return AppLocalizationsString.userNotFound;
+        return AppStrings.userNotFound;
       case 'weak-password':
-        return AppLocalizationsString.weakPassword;
+        return AppStrings.weakPassword;
       default:
-        return AppLocalizationsString.genericError;
+        return AppStrings.genericError;
     }
   }
 }

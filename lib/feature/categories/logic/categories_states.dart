@@ -12,7 +12,8 @@ class CategoriesStateLoading extends CategoriesStates{}
 class CategoriesStateSuccess extends CategoriesStates{
   final List<CategoryModel> categories ;
   const CategoriesStateSuccess(this.categories);
-
+  @override
+  List<Object> get props => [categories];
 }
 class CategoriesStateFailure extends CategoriesStates{
   final String errorMsg  ;

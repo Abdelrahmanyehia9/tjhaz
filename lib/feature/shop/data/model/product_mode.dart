@@ -1,5 +1,5 @@
 import 'package:tjhaz/core/extention/localized_map.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
 class ProductModel {
   final String id;

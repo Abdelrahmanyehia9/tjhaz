@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/reset_password_cubit.dart';
@@ -27,19 +27,19 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             AuthHeader(
               tittle: Text(
-                AppLocalizationsString.forgotPassword.toUpperCase(),
+                AppStrings.forgotPassword.toUpperCase(),
                 style: AppTypography.t24Bold.copyWith(color: AppColors.cWhite),
               ),
               description:
-                  AppLocalizationsString.weWillSendYouAnEmail,
+                  AppStrings.weWillSendYouAnEmail,
             ),
             AuthTextField(
               controller: context.read<ResetPasswordCubit>().emailController,
                 validator: AppValidators.validateEmail ,
-                labelText: AppLocalizationsString.email,
+                labelText: AppStrings.email,
                 icon: Icons.email_outlined),
             AuthButton(
-              tittle: AppLocalizationsString.send,
+              tittle: AppStrings.send,
               onPressed: () async{
 
                 if(context.read<ResetPasswordCubit>().resetPasswordKey.currentState!.validate()){

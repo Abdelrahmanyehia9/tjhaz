@@ -5,9 +5,9 @@ import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
 import '../../../../core/widgets/app_back_button.dart';
 
-class BookingHeadline extends StatelessWidget {
+class ReservationHeadline extends StatelessWidget {
   final String title ;
-  const BookingHeadline({super.key  , required this.title});
+  const ReservationHeadline({super.key  , required this.title});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../../../core/utils/app_localization.dart';
+import '../../../../core/utils/app_strings.dart';
 
 class HeadlineViewMore extends StatelessWidget {
   final String title ;
@@ -27,7 +27,7 @@ class HeadlineViewMore extends StatelessWidget {
               ? InkWell(
             onTap:  viewMoreOnTap,
                 child: Text(
-                            AppLocalizationsString.viewAll.toUpperCase(),
+                            AppStrings.viewAll.toUpperCase(),
                             style: AppTypography.t12Bold
                   .copyWith(color: AppColors.secondaryColor),
                           ),

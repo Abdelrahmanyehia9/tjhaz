@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/signup_states.dart';
@@ -68,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
         if (state is SignupStateFailure) {
           toast(
             type: ToastificationType.error,
-            tittle: AppLocalizationsString.signUpError,
+            tittle: AppStrings.signUpError,
             description: state.errorMsg,
             context: context,
           );
@@ -85,19 +85,19 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               AuthTextField(
                 controller: usernameController,
-                labelText: AppLocalizationsString.username,
+                labelText: AppStrings.username,
                 icon: Icons.person_outline,
                 validator: AppValidators.validateUsername,
               ),
               AuthTextField(
                 controller: emailController,
-                labelText: AppLocalizationsString.email,
+                labelText: AppStrings.email,
                 icon: Icons.email_outlined,
                 validator: AppValidators.validateEmail,
               ),
               AuthTextField(
                 controller: passwordController,
-                labelText: AppLocalizationsString.password,
+                labelText: AppStrings.password,
                 icon: Icons.lock_outline,
                 isPassword: true,
                 validator: AppValidators.validatePassword,
@@ -111,15 +111,15 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               AuthTextField(
                 controller: passwordConfirmController,
-                labelText: AppLocalizationsString.passwordConfirm,
+                labelText: AppStrings.passwordConfirm,
                 icon: Icons.lock_outline,
                 isPassword: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "${AppLocalizationsString.password} ${AppLocalizationsString.shouldNotBeEmpty}";
+                    return "${AppStrings.password} ${AppStrings.shouldNotBeEmpty}";
                   } else if (passwordController.text !=
                       passwordConfirmController.text) {
-                    return "${AppLocalizationsString.password} ${AppLocalizationsString.doesNotMatch}";
+                    return "${AppStrings.password} ${AppStrings.doesNotMatch}";
                   }
                   return null;
                 },
@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 24.0, bottom: 8),
                 child: AuthButton(
-                  tittle: AppLocalizationsString.signUp,
+                  tittle: AppStrings.signUp,
                   onPressed: () => validateThenSignup(context),
                 ),
               ),
@@ -150,15 +150,15 @@ class _SignupScreenState extends State<SignupScreen> {
           : Alignment.centerLeft,
       child: Wrap(
         children: [
-          Text(AppLocalizationsString.bySigningUp,
+          Text(AppStrings.bySigningUp,
               style: AppTypography.t14Normal),
           InkWell(
             child: Text(
-              AppLocalizationsString.privacyPolicy,
+              AppStrings.privacyPolicy,
               style: AppTypography.t14Bold,
             ),
           ),
-          Text(AppLocalizationsString.terms, style: AppTypography.t14Normal),
+          Text(AppStrings.terms, style: AppTypography.t14Normal),
         ],
       ),
     );

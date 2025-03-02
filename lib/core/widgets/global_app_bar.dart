@@ -6,7 +6,7 @@ import 'package:tjhaz/core/widgets/search_text_field.dart';
 import '../utils/constants.dart';
 import '../helpers/spacing.dart';
 import '../utils/screen_size.dart';
-import 'box_action_button.dart';
+import 'box_icon_button.dart';
 
 class GlobalAppBar extends StatelessWidget {
   const GlobalAppBar({super.key});

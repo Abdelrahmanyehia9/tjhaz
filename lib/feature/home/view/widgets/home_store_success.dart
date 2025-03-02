@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_router.dart';
-import '../../../../core/utils/app_localization.dart';
+import '../../../../core/utils/app_strings.dart';
 import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../data/models/home_model.dart';
@@ -18,8 +18,11 @@ class HomeStoreSuccess extends StatelessWidget {
     return Column(
       children: [
         HeadlineViewMore(
-          title: AppLocalizationsString.topStore,
+          title: AppStrings.topStore,
           hasViewMore: true,
+          viewMoreOnTap: (){
+            context.push(AppRouter.shopScreen) ;
+          },
         ),
         SizedBox(
           height: screenHeight(context) * .175,
@@ -30,6 +33,7 @@ class HomeStoreSuccess extends StatelessWidget {
                 imgUrl: items[index].imgUrl,
                 title: items[index].name!,
                 onTap: () {
+                  context.push(AppRouter.shopScreen , extra: index);
 
                 }),
           ),

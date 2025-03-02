@@ -28,7 +28,7 @@ const CardV1({super.key , this.onTap , required this.img});
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: CachedImageWidget(imgUrl: img)
+            child: CachedNetworkImageWidget(imgUrl: img)
           ),
         ),
       ),

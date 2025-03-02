@@ -13,7 +13,7 @@ class BoxIconButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8.w , vertical: 8.h),
       decoration: BoxDecoration(
         color: AppColors.secondaryColor,
-borderRadius: BorderRadius.circular(8)
+      borderRadius: BorderRadius.circular(8)
       ),
       child: Icon(icon , color: Colors.white,size: size ?? 20,),
     );

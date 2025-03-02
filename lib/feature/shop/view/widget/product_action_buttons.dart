@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -19,9 +19,9 @@ class ProductActionButtons extends StatelessWidget {
       padding: EdgeInsets.only(top: 24.0.h , bottom: 16.h),
       child:  Column(
         children: [
-          productActionButton(title: AppLocalizationsString.addToCart , context: context , onPressed: (){}) ,
+          productActionButton(title: AppStrings.addToCart , context: context , onPressed: (){}) ,
           verticalSpace(4) ,
-          productActionButton(title: AppLocalizationsString.buyNow , context: context , onPressed: (){} ) ,
+          productActionButton(title: AppStrings.buyNow , context: context , onPressed: (){} ) ,
         ],
       ),
     );

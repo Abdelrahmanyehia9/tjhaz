@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
-import 'package:tjhaz/core/utils/app_localization.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
 import '../styles/colors.dart';
 import '../styles/typography.dart';
@@ -29,7 +29,7 @@ class AppBackButton extends StatelessWidget {
             ),
             horizontalSpace(4),
             Text(
-              AppLocalizationsString.back,
+              AppStrings.back,
               style: textStyle ?? AppTypography.t12Bold
                   .copyWith(color: AppColors.primaryColor),
             )

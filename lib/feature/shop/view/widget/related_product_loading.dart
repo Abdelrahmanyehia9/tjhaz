@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/card_sizes.dart';
 import '../../../../core/utils/screen_size.dart';
-import '../../../../core/widgets/loading_shimmer.dart';
+import '../../../../core/widgets/shimmer_container.dart';
 
 class RelatedProductsLoading extends StatelessWidget {
   const RelatedProductsLoading({super.key});
@@ -15,7 +15,7 @@ class RelatedProductsLoading extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpace(16) ,
-        LoadingShimmerContainer(
+        ShimmerContainer(
           width: screenWidth(context) * .7,
           height: 24.h,
           radius: 4,
@@ -30,7 +30,7 @@ class RelatedProductsLoading extends StatelessWidget {
                 itemCount: 4 ,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) =>
-                    LoadingShimmerContainer(width: CardSizes.squareCard.width, height: CardSizes.squareCard.height , radius: 8,)
+                    ShimmerContainer(width: CardSizes.squareCard.width, height: CardSizes.squareCard.height , radius: 8,)
 
             ),
           ),

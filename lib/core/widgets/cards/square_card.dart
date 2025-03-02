@@ -9,7 +9,7 @@ import '../../routes/app_router.dart';
 import '../../styles/card_sizes.dart';
 import '../../styles/colors.dart';
 import '../../styles/typography.dart';
-import '../box_action_button.dart';
+import '../box_icon_button.dart';
 
 class SquareCard extends StatelessWidget {
   final EntertainmentDetailsModel model;

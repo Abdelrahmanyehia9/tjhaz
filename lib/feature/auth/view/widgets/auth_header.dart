@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import '../../../../core/utils/screen_size.dart';
-import '../../../../core/widgets/wavy_clipping.dart';
+import '../../../../core/styles/wavy_clipping.dart';
 
 class AuthHeader extends StatelessWidget {
   final Widget tittle  ;
