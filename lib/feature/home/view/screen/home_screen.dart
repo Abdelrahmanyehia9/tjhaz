@@ -7,7 +7,6 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_slider.dart';
-import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_states.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
@@ -26,6 +25,7 @@ import '../widgets/popular_destination_success.dart';
 
 
 class HomeScreen extends StatefulWidget {
+
   const HomeScreen({super.key});
 
   @override

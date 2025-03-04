@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
-import 'package:tjhaz/feature/booking/logic/get_reservation_date_states.dart';
+import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_date_states.dart';
 
 class GetReservedDatesCubit extends Cubit<GetReservedDatesStates> {
 

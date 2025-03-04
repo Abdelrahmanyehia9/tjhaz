@@ -12,8 +12,9 @@ import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
 import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
-import 'package:tjhaz/feature/booking/logic/get_reservation_date_cubit.dart';
-import 'package:tjhaz/feature/booking/logic/get_reservation_hours_cubit.dart';
+import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_date_cubit.dart';
+import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_hours_cubit.dart';
+import 'package:tjhaz/feature/booking/view/screen/add_ons_screen.dart';
 import 'package:tjhaz/feature/booking/view/screen/reservation_screen.dart';
 import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
@@ -52,6 +53,8 @@ class AppRouter {
   static const shopScreen = "/shopScreen" ;
   static const shopDetailsScreen = "/shopDetailsScreen" ;
   static const reservationScreen = "/reservationScreen" ;
+  static const addOnsScreen = "/addOnsScreen" ;
+
 
 
   static final GoRouter routes = GoRouter(
@@ -202,6 +205,14 @@ class AppRouter {
 
                   ],
                   child: ReservationScreen(model: model,)));
+        },
+      ),
+      GoRoute(
+        path: addOnsScreen,
+        pageBuilder: (context, state) {
+          final EntertainmentDetailsModel model  = state.extra as EntertainmentDetailsModel;
+          return fadingTransition(
+              child: AddOnsScreen(model: model,));
         },
       ),
 

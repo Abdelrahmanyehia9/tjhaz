@@ -8,6 +8,7 @@ class EntertainmentDetailsModel {
   final String location;
   final String description;
   final String entertainmentType;
+  final List<AddonsModel>? addOns ;
   final String? details;
   final int  availableFrom;
   final int availableTo ;
@@ -24,6 +25,7 @@ class EntertainmentDetailsModel {
    required this.availableFrom  ,
     required this.availableTo ,
     required this.minHoursToBooking ,
+    this.addOns ,
     required this.id,
     required this.name,
     required this.categoryID,
@@ -43,7 +45,9 @@ class EntertainmentDetailsModel {
   factory EntertainmentDetailsModel.fromJson(Map<String, dynamic> json) {
     return EntertainmentDetailsModel(
       id: json["id"] ?? '',
-      availableFrom:  json["available_from"] ?? 10,
+      addOns: json['addons'] != null
+          ? List<AddonsModel>.from(json['addons'].map((x) => AddonsModel.fromJson(x)))
+          : [], availableFrom:  json["available_from"] ?? 10,
       availableTo:  json["available_to"] ?? 22,
       minHoursToBooking:  json["min_hours_to_booking"] ?? 1,
       name: (json["name"] as Map<String, dynamic>).localized,
@@ -82,4 +86,17 @@ class EntertainmentDetailsModel {
       "comfort_Facilities": comfortFacilities,
     };
   }
+}
+
+
+
+class AddonsModel {
+  final String? title;
+  final String? img ;
+  AddonsModel(this.img  , this.title)  ;
+  factory AddonsModel.fromJson(Map<String, dynamic> json) {
+    return AddonsModel(json['image'] , (json['name']as Map<String , dynamic>).localized );
+  }
+
+
 }

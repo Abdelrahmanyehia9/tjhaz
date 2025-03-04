@@ -17,11 +17,13 @@ class FixedBottomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        disabledForegroundColor: Colors.grey,
           fixedSize: Size(screenWidth(context), 75.h),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           backgroundColor: AppColors.secondaryColor
       ),
-      child: child ?? Text(title??AppStrings.bookNow , style: AppTypography.t20Normal.copyWith(color: AppColors.cWhite),),
+      child: child ?? Text(title??AppStrings.bookNow , style: AppTypography.t20Normal,),
     );
   }
 }

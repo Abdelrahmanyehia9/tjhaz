@@ -44,12 +44,14 @@ class RectangularCategory extends StatelessWidget {
   final String name ;
   final String img ;
   final bool? isActive ;
-  const RectangularCategory({super.key ,required this.name , required this.img  , this.isActive});
+  final double spacing ;
+  final CrossAxisAlignment crossAxisAlignment ;
+  const RectangularCategory({super.key ,required this.name , required this.img  , this.isActive , this.crossAxisAlignment = CrossAxisAlignment.start  , this.spacing =  2 });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: crossAxisAlignment,
       children: [
         Container(
           width: 168.w,
@@ -62,10 +64,10 @@ class RectangularCategory extends StatelessWidget {
               border: isActive == true ? Border.all(color: AppColors.secondaryColor , width: 2): null
           ),
         ),
-        verticalSpace(2),
+        verticalSpace(spacing),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: Text(name.tr().toUpperCase() , style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor), ),
+          child: Text(name.toUpperCase() , style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor), ),
         )
       ],
     ) ;

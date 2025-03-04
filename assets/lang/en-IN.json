@@ -105,7 +105,7 @@
   "not_specified" : "Not Specified" ,
   "not_rated" : "Not Rated yet",
   "permission-denied": "You don't have permission to access this data.",
-  "unavailable": "Database service is currently unavailable. Try again later.",
+  "unavailable database": "Database service is currently unavailable. Try again later.",
   "not-found": "Requested data was not found.",
   "already-exists": "This data already exists.",
   "deadline-exceeded": "Operation took too long to complete. Try again later.",
@@ -115,6 +115,21 @@
   "invalid-argument": "Invalid data provided.",
   "internal": "Internal Firestore error. Try again later.",
   "aborted": "Operation was aborted due to concurrency issues.",
-  "failed-precondition": "Operation cannot be executed in the current system state."
-
+  "failed-precondition": "Operation cannot be executed in the current system state.",
+  "sun" : "SUN",
+  "mon" : "MON",
+  "tue" : "TUE",
+  "wed" : "WED",
+  "thu" : "THU",
+  "fri" : "FRI",
+  "sat" : "SAT",
+  "unavailable": "Unavailable",
+  "available": "Available",
+  "selected": "Selected",
+  "total": "Total",
+  "duration": "Duration",
+  "starting time": "Starting Time",
+  "pm"  : "PM",
+  "am" : "AM",
+  "all day": "All Day"
 }

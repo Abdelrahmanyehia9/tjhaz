@@ -85,7 +85,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                                 )
                                     : RectangularCategory(
                                   isActive: selectedIndex == index,
-                                  name: categories[index].title,
+                                  name: categories[index].title.tr(),
                                   img: categories[index].image!,
                                 ),
                               ),

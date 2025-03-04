@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/widgets/animation.dart';
 import '../styles/colors.dart';
 
 class AppCalender extends StatefulWidget {
@@ -61,7 +64,7 @@ class _AppCalenderState extends State<AppCalender> {
     _today = DateTime.now();
 
     int initialMonthIndex = _getMonthIndex(widget.initialMonth ?? DateFormat('MMM').format(_today).toLowerCase());
-    _focusedDate = DateTime(_today.year, initialMonthIndex, 1);
+    _focusedDate = DateTime(_today.year, initialMonthIndex, 1 );
 
     _minDate = DateTime(_today.year, 1, 1);
     _maxDate = DateTime(_today.year, 12, 31);
@@ -77,19 +80,19 @@ class _AppCalenderState extends State<AppCalender> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedMonth = DateFormat('MMMM yyyy').format(_focusedDate).toUpperCase();
+    String formattedMonth = DateFormat('MMM yyyy' ,AppConstants.currentLanguage).format(_focusedDate ).toUpperCase();
     int daysInMonth = DateTime(_focusedDate.year, _focusedDate.month + 1, 0).day;
     int firstWeekday = DateTime(_focusedDate.year, _focusedDate.month, 1).weekday;
     int emptyCells = firstWeekday % 7;
 
-    return SizedBox(
-      height: 360.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          verticalSpace(8),
-          Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        verticalSpace(8),
+        SlideFadeTransition(
+          index: 2,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
@@ -134,24 +137,29 @@ class _AppCalenderState extends State<AppCalender> {
               ),
             ],
           ),
-          _buildWeekDaysHeader(),
-          verticalSpace(8),
-          Expanded(child: _buildCalendarGrid(daysInMonth, emptyCells)),
-        ],
-      ),
+        ),
+        _buildWeekDaysHeader(),
+        verticalSpace(8),
+        Flexible(child: _buildCalendarGrid(daysInMonth, emptyCells)),
+        verticalSpace(8)
+      ],
     );
   }
 
   Widget _buildWeekDaysHeader() {
-    List<String> weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    List<String> weekDays = [AppStrings.sun, AppStrings.mon, AppStrings.tue, AppStrings.wed, AppStrings.thu, AppStrings.fri, AppStrings.sat];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: weekDays
           .map((day) => Expanded(
-        child: Center(
-          child: Text(
-            day,
-            style: AppTypography.t14Normal.copyWith(color: AppColors.secondaryColor),
+        child: SlideFadeTransition(
+          index: 1,
+          offsetY: -20,
+          child: Center(
+            child: Text(
+              day,
+              style: AppTypography.t11Normal.copyWith(color: AppColors.secondaryColor),
+            ),
           ),
         ),
       ))
@@ -192,26 +200,31 @@ class _AppCalenderState extends State<AppCalender> {
             }
           }
               : null,
-          child: Container(
-            width: 31.w,
-            height: 31.h,
-            margin: EdgeInsets.all(3.w),
-            decoration: BoxDecoration(
-              color: isSelected ? widget.selectedFillColor ?? AppColors.secondaryColor : isPast || isBooked ? widget.disabledFillColor ?? Colors.grey.shade300 : widget.enabledFillColor ?? Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-              border: Border.all(color:isPast || isBooked ? isSelected ? widget.selectedBorderColor ?? Colors.transparent : widget.reservedBorderColor ?? Colors.transparent : widget.borderColor ?? AppColors.secondaryColor, width: 1.w),
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              "$day",
-              style: AppTypography.t14Normal.copyWith(color: isSelected ? Colors.white: isBooked||isPast ? Colors.grey : AppColors.secondaryColor, fontWeight: FontWeight.bold),
+          child: SlideFadeTransition(
+            index: day,
+            offsetY: -40,
+            duration: Duration(milliseconds: 100),
+            child: Container(
+              width: 20.w,
+              height: 20.h,
+              margin: EdgeInsets.all(3.w),
+              decoration: BoxDecoration(
+                color: isSelected ? widget.selectedFillColor ?? AppColors.secondaryColor : isPast || isBooked ? widget.disabledFillColor ?? Colors.grey.shade300 : widget.enabledFillColor ?? Colors.white,
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(color:isPast || isBooked ? isSelected ? widget.selectedBorderColor ?? Colors.transparent : widget.reservedBorderColor ?? Colors.transparent : widget.borderColor ?? AppColors.secondaryColor, width: 1.w),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                "$day",
+                style: AppTypography.t12Normal.copyWith(color: isSelected ? Colors.white: isBooked||isPast ? Colors.grey : AppColors.secondaryColor, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
       );
     }
 
-    return GridView.count(crossAxisCount: 7, children: dayWidgets);
+    return GridView.count(crossAxisCount: 7,physics: NeverScrollableScrollPhysics(), shrinkWrap: true, children: dayWidgets ,);
   }
 }
 class CalenderIllustration extends StatelessWidget {
@@ -223,9 +236,9 @@ class CalenderIllustration extends StatelessWidget {
       padding:  EdgeInsets.symmetric(vertical: 12.0.h),
       child: Row(
         children: [
-          illustrationItem(fillColor:const Color(0xffE0E0E0),text: "Unavailable" , textColor:Colors.grey  ,  ) ,
-          illustrationItem(fillColor:const Color(0xffE0E0E0),text: "Available" , borderColor: AppColors.secondaryColor, textColor:AppColors.secondaryColor ,) ,
-          illustrationItem(fillColor:AppColors.secondaryColor,text: "Selected" , textColor:AppColors.secondaryColor ,) ,
+          illustrationItem(fillColor:const Color(0xffE0E0E0),text: AppStrings.unavailable , textColor:Colors.grey  ,  ) ,
+          illustrationItem(fillColor:const Color(0xffE0E0E0),text: AppStrings.available , borderColor: AppColors.secondaryColor, textColor:AppColors.secondaryColor ,) ,
+          illustrationItem(fillColor:AppColors.secondaryColor,text: AppStrings.selected , textColor:AppColors.secondaryColor ,) ,
         ],
       ),
     );

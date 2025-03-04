@@ -13,11 +13,7 @@ class GetReservedHoursLoading extends GetReservedHoursStates{
   const GetReservedHoursLoading();
 }
 class GetReservedHoursSuccess extends GetReservedHoursStates{
-
-  final  List<int>?  reservedHours  ;
-  const GetReservedHoursSuccess(this.reservedHours);
-  @override
-  List<Object> get props => [reservedHours??[]];
+  const GetReservedHoursSuccess();
 }
 class GetReservedHoursFailure extends GetReservedHoursStates{
   final String errorMsg ;

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
+
+  const AppStrings._() ;
   static String get email => "Email".tr();
   static String get password => "Password".tr();
   static String get login => "Login".tr();
@@ -78,7 +80,7 @@ class AppStrings {
   static String get notSpecified => "not_specified".tr();
   static String get notRated => "not_rated".tr();
   static String get fireStoreExPermissionDenied => "permission-denied".tr();
-  static String get fireStoreExeUnAvailable => "unavailable".tr();
+  static String get fireStoreExeUnAvailable => "unavailable database".tr();
   static String get fireStoreExNotFound => "Requested data was not found.".tr();
   static String get fireStoreExAlreadyExists => "already-exists".tr();
   static String get fireStoreExDeadlineExceeded => "deadline-exceeded".tr();
@@ -89,6 +91,22 @@ class AppStrings {
   static String get fireStoreExInternal => "internal".tr();
   static String get fireStoreExAborted => "aborted".tr();
   static String get fireStoreExFailedPrecondition => "failed-precondition".tr();
+  static String get sun => "sun".tr();
+  static String get mon => "mon".tr();
+  static String get tue => "tue".tr();
+  static String get wed => "wed".tr();
+  static String get thu => "thu".tr();
+  static String get fri => "fri".tr();
+  static String get sat => "sat".tr();
+  static String get unavailable => "unavailable".tr();
+  static String get available => "available".tr();
+  static String get selected => "selected".tr();
+  static String get total => "total".tr();
+  static String get duration => "duration".tr();
+  static String get startingTime => "starting time".tr();
+  static String get pm => "pm".tr();
+  static String get am => "am".tr();
+  static String get allDay => "all day".tr();
 
 
 

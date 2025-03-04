@@ -23,7 +23,7 @@ import 'firebase_options.dart';
 
 
 ///to do shared preference
-Locale currentLocale = Locale("en", "IN");
+Locale currentLocale = Locale("ar", "KW");
 
 void main() async {
 

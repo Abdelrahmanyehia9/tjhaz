@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tjhaz/core/utils/constants.dart';
 
-import '../../../../core/helpers/spacing.dart';
-import '../../../../core/styles/colors.dart';
-import '../../../../core/styles/typography.dart';
-import '../../../../core/utils/app_strings.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/styles/colors.dart';
+import '../../../../../core/styles/typography.dart';
+import '../../../../../core/utils/app_strings.dart';
 ///duration
 class DurationContainer extends StatelessWidget {
   final int pricePerHour;
@@ -69,7 +69,7 @@ class StartingHourContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isAvailable ? onTap : null,
+      onTap: !isAvailable ? onTap : null,
       child: Container(
         alignment: Alignment.center,
         width: 75.w,
@@ -79,7 +79,7 @@ class StartingHourContainer extends StatelessWidget {
                 ? AppColors.secondaryColor
                 : Color(0xffE0E0E0).withOpacity(0.46),
             borderRadius: BorderRadius.circular(6.r),
-            border: isAvailable
+            border: !isAvailable
                 ? Border.all(color: AppColors.secondaryColor)
                 : null),
         child: Text(
@@ -87,7 +87,7 @@ class StartingHourContainer extends StatelessWidget {
           style: AppTypography.t12Bold.copyWith(
               color: isSelected
                   ? Colors.white
-                  : !isAvailable
+                  : isAvailable
                       ? Colors.grey
                       : AppColors.secondaryColor),
         ),
@@ -127,7 +127,7 @@ final int price ;
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "All Day".toUpperCase(),
+                AppStrings.allDay.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: AppTypography.t10Normal.copyWith(
                   fontWeight: FontWeight.w900,

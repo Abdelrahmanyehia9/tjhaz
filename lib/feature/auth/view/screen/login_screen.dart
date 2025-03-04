@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
-import 'package:tjhaz/core/utils/screen_size.dart';
-import 'package:tjhaz/core/widgets/lottie_widget.dart';
+import 'package:tjhaz/core/widgets/app_toast.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
 import 'package:toastification/toastification.dart';
@@ -18,7 +16,6 @@ import '../../../../core/routes/app_router.dart';
 import '../widgets/auth_loading.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_button.dart';
-import '../widgets/auth_toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginStateFailure) {
-          toast(
+          appToast(
             context: context,
             type: ToastificationType.error,
             tittle: AppStrings.loginError,

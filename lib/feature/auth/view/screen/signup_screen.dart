@@ -7,11 +7,11 @@ import 'package:tjhaz/core/helpers/app_validation.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_toast.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_text_field.dart';
 import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/signup_states.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
-import 'package:tjhaz/feature/auth/view/widgets/auth_toast.dart';
 import 'package:toastification/toastification.dart';
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/routes/app_router.dart';
@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocListener<SignupCubit, SignupStates>(
       listener: (context, state) {
         if (state is SignupStateFailure) {
-          toast(
+          appToast(
             type: ToastificationType.error,
             tittle: AppStrings.signUpError,
             description: state.errorMsg,
