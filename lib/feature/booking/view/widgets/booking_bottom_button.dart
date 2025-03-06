@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
-
-import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/fixed_bottom_button.dart';
 
-class ReservationBottomButton extends StatelessWidget {
+class BookingBottomButton extends StatelessWidget {
   final String tittle ;
   final double totalPrice ;
   final GestureTapCallback ? onPressed ;
-  const ReservationBottomButton({super.key  ,required this.tittle ,required this.totalPrice  , this.onPressed  });
+  const BookingBottomButton({super.key  ,required this.tittle ,required this.totalPrice  , this.onPressed  });
 
   @override
   Widget build(BuildContext context) {

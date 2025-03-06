@@ -36,28 +36,33 @@ class AppErrorWidget extends StatelessWidget {
 }
 class EmptyList extends StatelessWidget {
   final String title ;
-  const EmptyList({super.key , required this.title});
+  final IconData?  icon ;
+  const EmptyList({super.key , required this.title , this.icon});
 
   @override
   Widget build(BuildContext context) {
     return  Column(
-
+crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
-        SizedBox(
+        icon ==null ? SizedBox(
             height: screenHeight(context)*.3,
-            child: SvgPicture.asset(AppConstants.empty)) ,
+            child: SvgPicture.asset(AppConstants.empty)) : Opacity(
+          opacity: 0.5,
+            child: Icon(icon , size: 150.sp , color: Color(0xfffffa994),)) ,
+        verticalSpace(8) ,
         Text.rich(
           textAlign: TextAlign.center,
-          style: AppTypography.t16Normal.copyWith(color: AppColors.primaryColor),
+          style: AppTypography.t16Light.copyWith(color: AppColors.primaryColor),
           TextSpan(
-              text: AppStrings.sorry,
+              text: AppStrings.sorry.toUpperCase(),
               children: [
                 TextSpan(
-                  text: "$title ",
+                  text: "$title ".toUpperCase(),
                 ),
                 TextSpan(
-                  text: AppStrings.notAvailableStayTuned,
+                  text: AppStrings.areEmpty.toUpperCase(),
                 ),
               ]
           ),

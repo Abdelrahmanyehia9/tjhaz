@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
               color: AppColors.secondaryColor,
               child: Center(
                 child: Text(
-                  "${((productModel.price/productModel.priceBeforeDiscount!)*100).toStringAsFixed(0)}% ${AppStrings.sale}".toUpperCase(),
+                  "${(100-((productModel.price/productModel.priceBeforeDiscount!)*100)).toStringAsFixed(0)}% ${AppStrings.sale}".toUpperCase(),
                   style:
                       AppTypography.t11Bold.copyWith(color: AppColors.cWhite),
                 ),

@@ -93,9 +93,10 @@ class EntertainmentDetailsModel {
 class AddonsModel {
   final String? title;
   final String? img ;
-  AddonsModel(this.img  , this.title)  ;
+  final String? price;
+  AddonsModel(this.img  , this.title , this.price)  ;
   factory AddonsModel.fromJson(Map<String, dynamic> json) {
-    return AddonsModel(json['image'] , (json['name']as Map<String , dynamic>).localized );
+    return AddonsModel(json['image'] , (json['name']as Map<String , dynamic>).localized , json['price'] );
   }
 
 

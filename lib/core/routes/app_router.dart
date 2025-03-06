@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
 import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
+import 'package:tjhaz/feature/booking/logic/booking/my_bookings_cubit.dart';
 import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_date_cubit.dart';
 import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_hours_cubit.dart';
 import 'package:tjhaz/feature/booking/view/screen/add_ons_screen.dart';
@@ -115,27 +117,43 @@ class AppRouter {
       ),
       GoRoute(
         path: homeLayout,
-        pageBuilder: (context, state) => fadingTransition(
-            child: MultiBlocProvider(providers: [
-
-          BlocProvider(
-              create: (context) =>
+        pageBuilder: (context, state) {
+          final int initialIndex = state.extra as int? ?? 0 ;
+          return fadingTransition(
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) =>
                   HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())
-                    ..getHomeTrips()),
-          BlocProvider(
-              create: (context) =>
-          CategoriesCubit( getIt.get<CategoryRepository>())..getCategoriesByParentId("1")),
-          BlocProvider(
-              create: (context) => HomeActivitiesCubit(
-                  homeRepository: getIt.get<HomeRepository>())
-                ..getHomeActivities()),
-          BlocProvider(
-              create: (context) => HomeStoresCubit(getIt.get<HomeRepository>())
-                ..getHomeStores()),
-          BlocProvider(
-              create: (context) =>
-                  BannerCubit(getIt.get<HomeRepository>())..getBanners()),
-        ], child: HomeLayout())),
+                    ..getHomeTrips(),
+                ),
+                BlocProvider(
+                  create: (context) => MyBookingsCubit(getIt.get<BookingRepository>())..getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid,),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                  CategoriesCubit(getIt.get<CategoryRepository>())..getCategoriesByParentId("1"),
+                ),
+                BlocProvider(
+                  create: (context) => HomeActivitiesCubit(
+                      homeRepository: getIt.get<HomeRepository>())
+                    ..getHomeActivities(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                  HomeStoresCubit(getIt.get<HomeRepository>())
+                    ..getHomeStores(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                  BannerCubit(getIt.get<HomeRepository>())
+                    ..getBanners(),
+                ),
+              ],
+              child: HomeLayout( ),
+            ),
+          );
+        },
       ),
       GoRoute(
         path: entertainmentDetailsScreen,

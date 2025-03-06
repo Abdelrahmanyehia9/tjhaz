@@ -8,7 +8,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
-import 'package:tjhaz/core/widgets/app_toast.dart';
+import 'package:tjhaz/core/widgets/app_message.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
 import 'package:toastification/toastification.dart';

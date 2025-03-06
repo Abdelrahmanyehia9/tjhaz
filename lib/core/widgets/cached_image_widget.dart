@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tjhaz/core/utils/constants.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
   final String imgUrl;
@@ -12,9 +13,12 @@ class CachedNetworkImageWidget extends StatelessWidget {
       imageUrl: imgUrl,
       fit: BoxFit.cover,
       placeholder: (context, url) => Container(
-        color: Colors.grey[300], // Placeholder background color
-        child: Center(
-          child: CircularProgressIndicator(), // Loading indicator
+        color: Colors.grey[200], // Placeholder background color
+        child: Opacity(
+          opacity: 0.7,
+          child: Center(
+            child: Image.asset(AppConstants.splashLogo) // Loading indicator
+          ),
         ),
       ),
       errorWidget: (context  ,url  , error) =>Container(

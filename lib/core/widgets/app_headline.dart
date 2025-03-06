@@ -8,7 +8,8 @@ import 'app_back_button.dart';
 class AppHeadline extends StatelessWidget {
   final String tittle ;
   final TextStyle? textStyle ;
-  const AppHeadline({super.key , required this.tittle , this.textStyle});
+  final bool hasBackButton;
+  const AppHeadline({super.key , required this.tittle , this.textStyle  ,this.hasBackButton =true });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AppHeadline extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.0.h, bottom: 10.h),
       child: Row(
         children: [
-          AppBackButton(),
+         hasBackButton ?  AppBackButton()  :SizedBox(),
           Spacer(),
           Text(
             tittle.toUpperCase(),

@@ -142,8 +142,6 @@
   "end": "End",
   "status": "Status",
   "pending": "Pending",
-  "completed": "Completed",
-  "cancelled": "Cancelled",
   "total price": "Total Price",
   "cancel": "Cancel",
   "hrs": "Hrs",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/helpers/time_helper.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/booking/view/widgets/reservation/containers.dart';
 import 'package:tjhaz/feature/booking/view/widgets/reservation/headlines.dart';
@@ -49,7 +50,7 @@ class _SelectStartingTimeState extends State<SelectStartingTime> {
                     return SlideFadeTransition(
                       index: index,
                       child: StartingHourContainer(
-                        time: formatTime(timeSlot),
+                        time: TimeHelper.convertTime(timeSlot),
                         onTap: () {
                         widget.onTimeSelected(index) ;
                         },
@@ -91,13 +92,4 @@ class _SelectStartingTimeState extends State<SelectStartingTime> {
           ),
         ),
       );
-  String formatTime(int time) {
-    if (time >= 12) {
-      int hour = (time > 12) ? time - 12 : 12;
-      return "${hour.toString().padLeft(2, '0')}:00 ${AppStrings.pm}";
-    } else {
-      int hour = (time == 0) ? 12 : time;
-      return "${hour.toString().padLeft(2, '0')}:00 ${AppStrings.am}";
-    }
-  }
 }

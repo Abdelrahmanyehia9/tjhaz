@@ -61,7 +61,8 @@ class _ShopScreenState extends State<ShopScreen> {
                   builder: (context, state) {
                     if (state is VendorsStatesSuccess) {
                       List<VendorModel> vendors = state.vendors;
-
+                      vendors.insert(0, vendors.removeAt(activeIndex.value)) ;
+                      activeIndex.value = 0 ;
                       return SizedBox(
                         height: 110.h,
                         child: ValueListenableBuilder<int>(
@@ -81,7 +82,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                   },
                                   child: RectangularCategory(
                                     isActive: selectedIndex == index,
-                                    name: vendor.name.tr(),
+                                    name: vendor.name,
                                     img: vendor.images.first,
                                   ),
                                 );

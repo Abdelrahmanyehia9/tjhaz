@@ -12,6 +12,7 @@ class AppConstants {
   static const String disconnected ="assets/images/disconnected.svg" ;
   static const String error ="assets/images/error.svg" ;
   static const String crownIcon ="assets/images/crown.png" ;
+  static const String refreshLoading ="assets/images/refreshLoading.json" ;
   static String currentLanguage = currentLocale.languageCode.toUpperCase();
   static List<Map<String, String>> categories = [
     {

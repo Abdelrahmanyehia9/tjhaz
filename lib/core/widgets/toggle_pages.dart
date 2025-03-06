@@ -21,7 +21,7 @@ class TogglePages extends StatefulWidget {
   final Color? selectedBackgroundColors;
 
   final TextStyle? unSelectedTextStyle;
-
+final void Function(int)? onTap ;
   final TextStyle? selectedTextStyle;
 
   final double? vSpace;
@@ -32,6 +32,7 @@ class TogglePages extends StatefulWidget {
       required this.title,
       this.width,
       this.isScroll,
+        this.onTap ,
       this.height,
       this.unSelectedBackgroundColors,
       this.selectedBackgroundColors,
@@ -60,6 +61,7 @@ class _TogglePagesState extends State<TogglePages> {
     return Column(
       children: [
         FlutterToggleTab(
+
           width: widget.width ?? 90.w,
           isScroll: widget.isScroll ?? false,
           borderRadius: 8,
@@ -80,6 +82,8 @@ class _TogglePagesState extends State<TogglePages> {
             setState(() {
               _tabTextIndexSelected = index;
             });
+            widget.onTap != null ? widget.onTap!(index) : null ;
+
           },
         ),
         verticalSpace(widget.vSpace ?? 12),

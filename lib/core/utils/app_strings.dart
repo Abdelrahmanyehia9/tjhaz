@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 class AppStrings {
 
   const AppStrings._() ;
-  static String get email => "Email".tr();
+  static  String get email => "Email".tr();
   static String get password => "Password".tr();
   static String get login => "Login".tr();
   static String get signUp => "Sign up".tr();
@@ -58,7 +58,7 @@ class AppStrings {
   static String get wild => "Wild".tr();
   static String get sorry => "Sorry".tr();
   static String get somethingWentWrong => "Something went wrong".tr();
-  static String get notAvailableStayTuned => "are not available at the moment. Stay tuned for more soon!".tr();
+  static String get areEmpty => "are empty".tr();
   static String get userDisabled => "user_disabled".tr();
   static String get invalidCredential => "invalid_credential".tr();
   static String get tooManyRequests => "too_many_requests".tr();
@@ -85,7 +85,7 @@ class AppStrings {
   static String get fireStoreExAlreadyExists => "already-exists".tr();
   static String get fireStoreExDeadlineExceeded => "deadline-exceeded".tr();
   static String get fireStoreExResourceExhausted => "resource-exhausted".tr();
-  static String get fireStoreExCancelled => "cancelled".tr();
+  static String get fireStoreExCancelled => "request-cancelled".tr();
   static String get fireStoreExDataLoss => "data-loss".tr();
   static String get fireStoreExInvalidArgument => "invalid-argument".tr();
   static String get fireStoreExInternal => "internal".tr();
@@ -107,6 +107,22 @@ class AppStrings {
   static String get pm => "pm".tr();
   static String get am => "am".tr();
   static String get allDay => "all day".tr();
+  static String get checkout => "checkout".tr();
+  static String get addons => "addons".tr();
+  static String get bookingFailed => "booking failed".tr();
+  static String get bookingSuccess => "booking success".tr();
+  static String get havePendingBooking => "have pending booking".tr();
+  static String get bookingConfirmed => "booking confirmed".tr();
+  static String get date => "date".tr();
+  static String get end => "end".tr();
+  static String get status => "status".tr();
+  static String get pending => "pending".tr();
+  static String get completed => "completed".tr();
+  static String get cancelled => "cancelled".tr();
+  static String get totalPrice => "total price".tr();
+  static String get cancel => "cancel".tr();
+  static String get hrs => "hrs".tr();
+  static String get all => "all".tr();
 
 
 

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
+import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_back_button.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
+import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import '../../../../core/helpers/icon_helper.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -91,43 +93,43 @@ class EntertainmentFacilities extends StatelessWidget {
               horizontalSpace(16),
               InkWell(
                   onTap: () {
-                    showModalBottomSheet(context: context,
-                        builder: (context) =>  Container(
-                          width: screenWidth(context),
-                          color: AppColors.cWhite,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
-                                    child: Text(AppStrings.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
-                                  ),
-                                  Wrap(
-                                      spacing: 16.w,
-                                      runSpacing: 16.h,
-                                      children: List.generate(
-                                          facilitiesComfortable.length,
-                                              (item) =>
-                                              FacilitiesContainer(
-                                                  icon: IconHelper.getFacilitiesIcon(fac[item]),
-                                                  title: fac[item].tr()))),
-                            
-                                ],
-                              ) ,
-                              Padding(
-                                padding:  EdgeInsets.symmetric(vertical: 8.0),
-                                child: AuthButton(tittle: "close", onPressed: (){
-                                  context.pop() ;
-                                }),
-                              )
-                            
-                            ],),
-                          ),
-                        ),);
+
+                    // showModalBottomSheet(context: context, builder: (context) =>  Container(
+                    //       width: screenWidth(context),
+                    //       color: AppColors.cWhite,
+                    //       child: SingleChildScrollView(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //           children: [
+                    //           Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.center,
+                    //             children: [
+                    //               Padding(
+                    //                 padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
+                    //                 child: Text(AppStrings.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
+                    //               ),
+                    //               Wrap(
+                    //                   spacing: 16.w,
+                    //                   runSpacing: 16.h,
+                    //                   children: List.generate(
+                    //                       facilitiesComfortable.length,
+                    //                           (item) =>
+                    //                           FacilitiesContainer(
+                    //                               icon: IconHelper.getFacilitiesIcon(fac[item]),
+                    //                               title: fac[item].tr()))),
+                    //
+                    //             ],
+                    //           ) ,
+                    //           Padding(
+                    //             padding:  EdgeInsets.symmetric(vertical: 8.0),
+                    //             child: AuthButton(tittle: "close", onPressed: (){
+                    //               context.pop() ;
+                    //             }),
+                    //           )
+                    //
+                    //         ],),
+                    //       ),
+                    //     ),);
                   },
                   child: seeMore()),
             ],

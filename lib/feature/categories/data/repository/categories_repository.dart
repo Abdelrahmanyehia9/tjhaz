@@ -20,7 +20,6 @@ class CategoryRepository{
         for(var item in response.docs){
           subcategories.add(CategoryModel(id: item["id"], title: (item["name"]as Map<String,dynamic>).localized, pID: "3"  , image: item["images"][0] )) ;
         }
-        print(subcategories.length) ;
       } else {
         final response =  await firestore.collection(FireStoreConstants.categoriesCollection).where("pID",isEqualTo: iD).get() ;
          for(var item in response.docs){
@@ -29,7 +28,6 @@ class CategoryRepository{
       }
       return left(subcategories) ;
     }catch(e){
-      print(e.toString()) ;
       return right(e.firestoreErrorMessage) ;
 
     }

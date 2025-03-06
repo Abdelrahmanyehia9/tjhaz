@@ -82,44 +82,6 @@ class AllCategoriesScreen extends StatelessWidget {
                           }
                         },
                       )
-                    // : BlocBuilder<VendorCubit, VendorsStates>(
-                    //     builder: (context, state) {
-                    //       if (state is VendorsStatesSuccess) {
-                    //         print(state.vendors.length);
-                    //         List<VendorModel> vendors = state.vendors;
-                    //         return Expanded(
-                    //           child: Padding(
-                    //             padding: EdgeInsets.symmetric(
-                    //                 horizontal: 8.0.w, vertical: 8.h),
-                    //             child: GridView.builder(
-                    //               gridDelegate:
-                    //                   SliverGridDelegateWithFixedCrossAxisCount(
-                    //                 crossAxisCount: 2,
-                    //                 childAspectRatio: 107.w / 85.h,
-                    //                 crossAxisSpacing: 8,
-                    //                 mainAxisSpacing: 8,
-                    //               ),
-                    //               itemCount: vendors.length,
-                    //               itemBuilder: (context, index) {
-                    //                 VendorModel vendor = state.vendors[index];
-                    //                 CategoryModel categoryModel = CategoryModel(
-                    //                     id: vendor.id,
-                    //                     title: vendor.name,
-                    //                     pID: "3");
-                    //                 return categoryBox(category: categoryModel);
-                    //               },
-                    //             ),
-                    //           ),
-                    //         );
-                    //       } else if (state is VendorsStatesFailure) {
-                    //         return AppErrorWidget(
-                    //           error: state.error,
-                    //         );
-                    //       } else {
-                    //         return CategoriesLoadingShimmer();
-                    //       }
-                    //     },
-                    //   ),
               ],
             ),
           ),

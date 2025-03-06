@@ -1,17 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class BookingsModel {
+class BookingModel extends Equatable {
+  final String name;
   final String bookingId;
   final Timestamp createdAt;
-  final Timestamp date;
-  final Timestamp startTime;
+  final String? location;
+  final int? guests;
+  final String imgUrl;
+  final String date;
+  final int startTime;
+  final String catID;
   final int numOfHours;
   final String entertainmentID;
   final String status;
-  final double totalPrice;
+  double? totalPrice;
   final String userId;
 
-  BookingsModel({
+  BookingModel({
+    required this.name,
+    required this.imgUrl,
+    this.guests,
+    required this.catID,
+    this.location,
     required this.bookingId,
     required this.createdAt,
     required this.date,
@@ -19,34 +30,58 @@ class BookingsModel {
     required this.numOfHours,
     required this.entertainmentID,
     required this.status,
-    required this.totalPrice,
+    this.totalPrice,
     required this.userId,
   });
 
-  factory BookingsModel.fromJson(Map<String , dynamic> json) {
-    return BookingsModel(
-      bookingId: json["bookingId"],
+  factory BookingModel.fromJson(Map<String, dynamic> json) {
+    return BookingModel(
+      name: json["name"] as String,
+      bookingId: json["bookingId"] as String,
+      imgUrl: json["image"] as String,
+      catID: json["categoryId"] as String,
+      guests: json["guests"] != null ? json["guests"] as int : null,
+      location: json["location"] != null ? json["location"] as String : null,
       createdAt: json['createdAT'] as Timestamp,
-      date: json['date'] as Timestamp,
-      startTime: json['startTime'] as Timestamp,
+      date: json['date'] as String,
+      startTime: json['startTime'] as int,
       numOfHours: json['numOfHours'] as int,
       entertainmentID: json['entertainmentID'] as String,
       status: json['status'] as String,
-      totalPrice: double.parse(json['totalPrice'].toString()),
+      totalPrice: json['totalPrice'] != null ? double.tryParse(json['totalPrice'].toString()) ?? 0.0 : 0.0,
       userId: json['userId'] as String,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(id) {
     return {
+      "bookingId": id,
       "createdAT": createdAt,
       "date": date,
       "startTime": startTime,
-      "endTime": numOfHours,
+      "name": name,
       "entertainmentID": entertainmentID,
       "status": status,
-      "totalPrice": totalPrice.toString(),
+      "totalPrice": totalPrice != null ? totalPrice.toString() : "0.0",
       "userId": userId,
+      "image": imgUrl,
+      "location": location ?? "Unknown",
+      "numOfHours": numOfHours,
+      "guests": guests ?? 0,
+      "categoryId": catID,
     };
   }
+
+  @override
+  List<Object?> get props => [
+    bookingId,
+    createdAt,
+    date,
+    startTime,
+    numOfHours,
+    entertainmentID,
+    status,
+    totalPrice,
+    userId
+  ];
 }

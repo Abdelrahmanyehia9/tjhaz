@@ -11,7 +11,7 @@ class AuthLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(width: screenWidth(context),height: screenHeight(context),
-      color: AppColors.primaryColor,
+      color: Colors.black.withOpacity(0.4),
       child: LottieAnimation(
 
       ),

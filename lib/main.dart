@@ -10,8 +10,10 @@ import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/widgets/lottie_widget.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
+import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
+import 'package:toastification/toastification.dart';
 import 'core/routes/app_router.dart';
 import 'feature/booking/data/model/reservation_model.dart';
 import 'feature/categories/data/repository/categories_repository.dart';
@@ -63,22 +65,25 @@ class TjhazApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) =>
               EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
+          BlocProvider(create: (context) => AddNewBookingCubit(getIt.get<BookingRepository>())),
 
         ],
-        child: MaterialApp.router(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: ThemeData(
-            scaffoldBackgroundColor: AppColors.scaffoldBackground,
-            primaryColor: AppColors.primaryColor,
-            splashColor: Colors.transparent,
-            fontFamily: 'alex',
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
+        child: ToastificationWrapper(
+          child: MaterialApp.router(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: ThemeData(
+              scaffoldBackgroundColor: AppColors.scaffoldBackground,
+              primaryColor: AppColors.primaryColor,
+              splashColor: Colors.transparent,
+              fontFamily: 'alex',
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+            ),
+            debugShowCheckedModeBanner: false,
+            routerConfig: AppRouter.routes,
           ),
-          debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter.routes,
         ),
       ),
     );
