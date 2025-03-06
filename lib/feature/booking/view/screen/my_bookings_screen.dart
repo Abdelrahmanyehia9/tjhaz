@@ -28,7 +28,7 @@ class MyBookingsScreen extends StatelessWidget {
             ),
             TogglePages(
               width: 100.w,
-              pages: List.generate(4, (_)=> RefreshableWidget(child: MyBookingsList())) ,
+              pages: List.generate(4, (index)=> MyBookingsList(id: index,)) ,
               title: [
                 AppStrings.all,
                 AppStrings.trips,
@@ -36,7 +36,7 @@ class MyBookingsScreen extends StatelessWidget {
                 AppStrings.activities
               ],
               onTap: (index) {
-                context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: index.toString()) ;
+                context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: index == 0 ? null : index.toString()) ;
               },
             )
           ],

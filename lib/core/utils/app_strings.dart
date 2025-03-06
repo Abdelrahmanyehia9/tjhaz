@@ -123,6 +123,9 @@ class AppStrings {
   static String get cancel => "cancel".tr();
   static String get hrs => "hrs".tr();
   static String get all => "all".tr();
+  static String get bookingCancellation => "booking cancellation".tr();
+  static String get areYouSureYouWantToCancel => "are you sure you want to cancel".tr();
+  static String get confirm => "confirm".tr();
 
 
 

@@ -46,11 +46,13 @@ class _HomeLayoutState extends State<HomeLayout> {
       bottomNavigationBar: SizedBox(
         height: 80.h,
         child: BottomNavigationBar(
+          iconSize: 28.sp,
           unselectedLabelStyle: AppTypography.t10light,
           selectedLabelStyle: AppTypography.t12Normal,
           backgroundColor: AppColors.primaryColor,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey.shade200,
+          showUnselectedLabels: false,
+          unselectedItemColor: Colors.grey.shade400,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: [

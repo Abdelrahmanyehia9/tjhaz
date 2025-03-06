@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tjhaz/core/widgets/app_message.dart';
+import 'package:tjhaz/core/widgets/refresh_idecator.dart';
+import 'package:tjhaz/feature/booking/view/widgets/bookings/booking_dialoge.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/app_icon.dart';
 import '../../../../../core/styles/colors.dart';
@@ -16,7 +17,8 @@ import '../../../logic/booking/my_bookings_states.dart';
 import 'my_booking_item_components.dart';
 
 class MyBookingsList extends StatelessWidget {
-  const MyBookingsList({super.key});
+  final int id ;
+  const MyBookingsList({super.key , required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -26,18 +28,28 @@ class MyBookingsList extends StatelessWidget {
           builder: (context, state) {
             if (state is MyBookingsStatesSuccess) {
               return state.bookings.isEmpty
-                  ? EmptyList(
-                title: AppStrings.bookings,
-                icon: AppIcons.noBooking,
-              )
-                  : ListView.separated(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) =>
-                    myBookingItem(state.bookings[index], context),
-                separatorBuilder: (context, index) => verticalSpace(12),
-                itemCount: state.bookings.length,
-              );
+                  ? RefreshableWidget(
+                onRefresh: (){
+                  context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: id == 0 ? null : id.toString()) ;
+                },
+                    child: EmptyList(
+                                    title: AppStrings.bookings,
+                                    icon: AppIcons.noBooking,
+                                  ),
+                  )
+                  : RefreshableWidget(
+                onRefresh: (){
+                  context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: id == 0 ? null : id.toString()) ;
+                },
+                    child: ListView.separated(
+                                    shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                      myBookingItem(state.bookings[index], context),
+                                    separatorBuilder: (context, index) => verticalSpace(12),
+                                    itemCount: state.bookings.length,
+                                  ),
+                  );
             } else if (state is MyBookingsStatesFailure) {
               return AppErrorWidget(error: state.message);
             } else {
@@ -111,13 +123,7 @@ class MyBookingsList extends StatelessWidget {
             ),
           SlidableAction(
             onPressed: (slidContext) {
-              appDialog(context: context, title: "Booking Cancellation", contentMsg: "Are you really want to cancel this booking ?" ,
-                  onConfirmed:  (){
-
-                    context.read<MyBookingsCubit>().cancelBooking(bookingId: booking.bookingId , userId: booking.userId) ;
-                    context.pop() ;
-
-                  }) ;
+             bookingDialog(context, booking) ;
             },
             backgroundColor: AppColors.secondaryColor,
             foregroundColor: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:toastification/toastification.dart';
 
 import '../styles/colors.dart';
@@ -28,8 +29,8 @@ appDialog({required BuildContext context  ,Color? backgroundColor ,required Stri
     builder: (_) => AlertDialog(
       backgroundColor: AppColors.cWhite,
 
-      title: Text(title ,textAlign: TextAlign.center, style: AppTypography.t14Bold.copyWith(color: AppColors.secondaryColor),),
-      content: Text(contentMsg , textAlign: TextAlign.center , style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),),
+      title: Text(title , style: AppTypography.t14Bold.copyWith(color: AppColors.secondaryColor),),
+      content: Text(contentMsg ,style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),),
       actions: [
         TextButton(
 
@@ -40,7 +41,7 @@ appDialog({required BuildContext context  ,Color? backgroundColor ,required Stri
               overlayColor: Colors.transparent,
 
             ),
-            child: Text("Back" , style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),)),
+            child: Text(AppStrings.cancel , style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),)),
         ElevatedButton(
 
             onPressed: onConfirmed ,
@@ -49,6 +50,6 @@ appDialog({required BuildContext context  ,Color? backgroundColor ,required Stri
                 foregroundColor: Colors.white ,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))
             ),
-            child: Text("Confirm" , style: AppTypography.t12Normal)),
+            child: Text(AppStrings.confirm , style: AppTypography.t12Normal)),
       ],
     ));

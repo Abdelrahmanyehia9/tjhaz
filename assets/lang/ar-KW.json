@@ -25,7 +25,7 @@
   "At least 8 characters ": "على الأقل 8 أحرف",
   "search": "بحث",
   "trips": "الرحلات",
-  "Kashta": "كشْتة",
+  "Kashta": "كاشتا",
   "activities": "الأنشطة",
   "stores": "المتاجر",
   "popular_destinations": "الوجهات الشهيرة",
@@ -147,5 +147,8 @@
   "total price": "السعر الكلي",
   "cancel": "إلغاء",
   "hrs": "ساعات",
-  "all": "الكل"
+  "all": "الكل",
+  "booking cancellation": "الغاء الحجز",
+  "are you sure you want to cancel": "هل أنت متأكد أنك تريد إلغاء الحجز؟",
+  "confirm": "تأكيد"
 }

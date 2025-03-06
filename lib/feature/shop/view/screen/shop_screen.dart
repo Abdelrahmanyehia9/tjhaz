@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/shop/logic/products_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/vendors_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/vendors_states.dart';
@@ -48,57 +49,64 @@ class _ShopScreenState extends State<ShopScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const GlobalAppBar(),
-                AppHeadline(tittle: AppStrings.stores),
-                BlocBuilder<VendorCubit, VendorsStates>(
-                  builder: (context, state) {
-                    if (state is VendorsStatesSuccess) {
-                      List<VendorModel> vendors = state.vendors;
-                      vendors.insert(0, vendors.removeAt(activeIndex.value)) ;
-                      activeIndex.value = 0 ;
-                      return SizedBox(
-                        height: 110.h,
-                        child: ValueListenableBuilder<int>(
-                          valueListenable: activeIndex,
-                          builder: (_, selectedIndex, __) {
-                            return ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: vendors.length,
-                              separatorBuilder: (context, _) => horizontalSpace(16),
-                              itemBuilder: (context, index) {
-                                final vendor = vendors[index];
-                                return InkWell(
-                                  onTap: () {
-                                    activeIndex.value = index;
-                                    vendorName.value = vendor.name;
-                                    context.read<ProductsCubit>().getAllProductByVendorID(vendor.id);
-                                  },
-                                  child: RectangularCategory(
-                                    isActive: selectedIndex == index,
-                                    name: vendor.name,
-                                    img: vendor.images.first,
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                ),
-                verticalSpace(16),
-                ProductsGrid(vendorName: vendorName,)
+        child: RefreshableWidget(
+          onRefresh: (){
+            final vendors = (context.read<VendorCubit>().state as VendorsStatesSuccess).vendors;
+            context.read<ProductsCubit>().getAllProductByVendorID(vendors[activeIndex.value].id);
 
-              ],
+          },
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const GlobalAppBar(),
+                  AppHeadline(tittle: AppStrings.stores),
+                  BlocBuilder<VendorCubit, VendorsStates>(
+                    builder: (context, state) {
+                      if (state is VendorsStatesSuccess) {
+                        List<VendorModel> vendors = state.vendors;
+                        vendors.insert(0, vendors.removeAt(activeIndex.value)) ;
+                        activeIndex.value = 0 ;
+                        return SizedBox(
+                          height: 110.h,
+                          child: ValueListenableBuilder<int>(
+                            valueListenable: activeIndex,
+                            builder: (_, selectedIndex, __) {
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: vendors.length,
+                                separatorBuilder: (context, _) => horizontalSpace(16),
+                                itemBuilder: (context, index) {
+                                  final vendor = vendors[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      activeIndex.value = index;
+                                      vendorName.value = vendor.name;
+                                      context.read<ProductsCubit>().getAllProductByVendorID(vendor.id);
+                                    },
+                                    child: RectangularCategory(
+                                      isActive: selectedIndex == index,
+                                      name: vendor.name,
+                                      img: vendor.images.first,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                  verticalSpace(16),
+                  ProductsGrid(vendorName: vendorName,)
+
+                ],
+              ),
             ),
           ),
         ),

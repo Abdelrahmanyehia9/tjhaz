@@ -6,6 +6,7 @@ import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/cards/square_card.dart';
 import 'package:tjhaz/core/widgets/cards/trip_card.dart';
+import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/categories/data/model/cateory_model.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 import 'package:tjhaz/feature/categories/logic/categories_states.dart';
@@ -48,102 +49,107 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GlobalAppBar(),
-                AppHeadline(tittle: parentTitle),
-                BlocConsumer<CategoriesCubit, CategoriesStates>(
-                  builder: (context, state) {
-                    if (state is CategoriesStateSuccess) {
-                      List<CategoryModel> categories = state.categories;
-                      categories.insert(0, categories.removeAt(activeIndex.value));
-                      activeIndex.value = 0;
-                      return categories.isNotEmpty
-                          ? SizedBox(
-                        height: 110.h,
-                        child: ValueListenableBuilder<int>(
-                          valueListenable: activeIndex,
-                          builder: (_, selectedIndex, __) {
-                            return ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              controller: scrollController,
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () {
-                                  activeIndex.value = index;
-                                  subCategoryTitle.value = categories[index].title;
-                                  searchItemsByID(context, categories[index].id);
-                                },
-                                child: categories.first.image == null
-                                    ? CircularCategory(
-                                  isActive: selectedIndex == index,
-                                  name: categories[index].title,
-                                )
-                                    : RectangularCategory(
-                                  isActive: selectedIndex == index,
-                                  name: categories[index].title.tr(),
-                                  img: categories[index].image!,
+        child: RefreshableWidget(
+          onRefresh: (){
+
+            context.read<CategoriesCubit>().getCategoriesByParentId(widget.parentCategory["id"]!);          },
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GlobalAppBar(),
+                  AppHeadline(tittle: parentTitle),
+                  BlocConsumer<CategoriesCubit, CategoriesStates>(
+                    builder: (context, state) {
+                      if (state is CategoriesStateSuccess) {
+                        List<CategoryModel> categories = state.categories;
+                        categories.insert(0, categories.removeAt(activeIndex.value));
+                        activeIndex.value = 0;
+                        return categories.isNotEmpty
+                            ? SizedBox(
+                          height: 110.h,
+                          child: ValueListenableBuilder<int>(
+                            valueListenable: activeIndex,
+                            builder: (_, selectedIndex, __) {
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                controller: scrollController,
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    activeIndex.value = index;
+                                    subCategoryTitle.value = categories[index].title;
+                                    searchItemsByID(context, categories[index].id);
+                                  },
+                                  child: categories.first.image == null
+                                      ? CircularCategory(
+                                    isActive: selectedIndex == index,
+                                    name: categories[index].title,
+                                  )
+                                      : RectangularCategory(
+                                    isActive: selectedIndex == index,
+                                    name: categories[index].title.tr(),
+                                    img: categories[index].image!,
+                                  ),
                                 ),
-                              ),
-                              separatorBuilder: (context, state) => horizontalSpace(16),
-                              itemCount: categories.length,
-                            );
-                          },
-                        ),
-                      )
-                          : Container();
-                    } else if (state is CategoriesStateLoading) {
-                      return EntertainmentCategoriesLoading();
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                  listener: (context, state) {
-                    if (state is CategoriesStateSuccess) {
-                      Future.microtask(() {
-                        if (context.mounted) {
-                          subCategoryTitle.value = state.categories[activeIndex.value].title;
-                          context
-                              .read<EntertainmentCubit>()
-                              .getEntertainmentsByCatID(state.categories[activeIndex.value].id);
-                        }
-                      });
-                    }
-                  },
-                ),
-                verticalSpace(16),
-                BlocBuilder<EntertainmentCubit, EntertainmentsStates>(
-                  builder: (context, state) {
-                    if (state is EntertainmentItemsSuccess) {
-                      return state.items.isNotEmpty
-                          ? GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.items.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: CardSizes.tripCard.width / CardSizes.tripCard.height,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16.w,
-                          mainAxisSpacing: 16.h,
-                        ),
-                        itemBuilder: (context, index) => computeGridSize(state.items[index]),
-                      )
-                          : ValueListenableBuilder<String>(
-                        valueListenable: subCategoryTitle,
-                        builder: (_, title, __) => EmptyList(title: title.tr()),
-                      );
-                    } else if (state is EntertainmentItemsFailure) {
-                      return AppErrorWidget(error: state.errorMsg);
-                    } else {
-                      return EntertainmentGridLoading();
-                    }
-                  },
-                ),
-              ],
+                                separatorBuilder: (context, state) => horizontalSpace(16),
+                                itemCount: categories.length,
+                              );
+                            },
+                          ),
+                        )
+                            : Container();
+                      } else if (state is CategoriesStateLoading) {
+                        return EntertainmentCategoriesLoading();
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                    listener: (context, state) {
+                      if (state is CategoriesStateSuccess) {
+                        Future.microtask(() {
+                          if (context.mounted) {
+                            subCategoryTitle.value = state.categories[activeIndex.value].title;
+                            context
+                                .read<EntertainmentCubit>()
+                                .getEntertainmentsByCatID(state.categories[activeIndex.value].id);
+                          }
+                        });
+                      }
+                    },
+                  ),
+                  verticalSpace(16),
+                  BlocBuilder<EntertainmentCubit, EntertainmentsStates>(
+                    builder: (context, state) {
+                      if (state is EntertainmentItemsSuccess) {
+                        return state.items.isNotEmpty
+                            ? GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.items.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: CardSizes.tripCard.width / CardSizes.tripCard.height,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16.w,
+                            mainAxisSpacing: 16.h,
+                          ),
+                          itemBuilder: (context, index) => computeGridSize(state.items[index]),
+                        )
+                            : ValueListenableBuilder<String>(
+                          valueListenable: subCategoryTitle,
+                          builder: (_, title, __) => EmptyList(title: title.tr()),
+                        );
+                      } else if (state is EntertainmentItemsFailure) {
+                        return AppErrorWidget(error: state.errorMsg);
+                      } else {
+                        return EntertainmentGridLoading();
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -13,6 +13,7 @@ import '../../../../../core/widgets/app_message.dart';
 import '../../../../../core/widgets/icon_and_text.dart';
 import '../../../data/model/bookings_model.dart';
 import '../../../logic/booking/my_bookings_cubit.dart';
+import 'booking_dialoge.dart';
 
 class MyBookingInfo extends StatelessWidget {
   final BookingModel booking;
@@ -210,11 +211,7 @@ class MyBookingCancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        appDialog(context: context, title: "Booking Cancellation", contentMsg: "Are you really want to cancel this booking ?" ,
-            onConfirmed:  (){
-              context.read<MyBookingsCubit>().cancelBooking(bookingId: booking.bookingId , userId: booking.userId) ;
-              context.pop() ;
-            }) ;
+        bookingDialog(context  , booking) ;
         },
       child: Container(
         margin: EdgeInsets.all(8),

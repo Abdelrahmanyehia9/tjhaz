@@ -147,7 +147,10 @@
   "total price": "Total Price",
   "cancel": "Cancel",
   "hrs": "Hrs",
-  "all": "All"
+  "all": "All",
+  "booking cancellation": "Booking Cancellation",
+  "are you sure you want to cancel": "Are you sure you want to cancel this booking?",
+  "confirm": "Confirm"
 
 
 }

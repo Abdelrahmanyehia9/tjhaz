@@ -7,6 +7,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_slider.dart';
+import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
 import 'package:tjhaz/feature/home/logic/banners_states.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
@@ -35,76 +36,84 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GlobalAppBar(),
-            //categories
-            Padding(
-              padding:  EdgeInsets.symmetric(vertical: 16.0.h),
-              child: homeCategories(context),
-            ),
-            //banners
-            BlocBuilder<BannerCubit, BannersStates>(
-              builder: (context, state) {
-                if (state is BannersStatesSuccess) {
-                  List<String> imgList = state.banners.map((item)=>item.image).toList();
-                  return state.banners.isNotEmpty? AppSlider(imageList: imgList, height: screenHeight(context)*0.225,)
-                      : SizedBox();
+    return RefreshableWidget(
+      onRefresh: (){
+        context.read<HomeActivitiesCubit>().getHomeActivities() ;
+        context.read<HomeTripsCubit>().getHomeTrips() ;
+        context.read<BannerCubit>().getBanners() ;
+        context.read<HomeStoresCubit>().getHomeStores() ;
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GlobalAppBar(),
+              //categories
+              Padding(
+                padding:  EdgeInsets.symmetric(vertical: 16.0.h),
+                child: homeCategories(context),
+              ),
+              //banners
+              BlocBuilder<BannerCubit, BannersStates>(
+                builder: (context, state) {
+                  if (state is BannersStatesSuccess) {
+                    List<String> imgList = state.banners.map((item)=>item.image).toList();
+                    return state.banners.isNotEmpty? AppSlider(imageList: imgList, height: screenHeight(context)*0.225,)
+                        : SizedBox();
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              ),
+              verticalSpace(8),
+
+              ///trips
+              BlocBuilder<HomeTripsCubit, HomeTripsStates>(
+                  builder: (context, state) {
+                if (state is HomeTripsStatesSuccess) {
+                  return PopularDestinationSuccess(
+                    items: state.trips,
+                  );
+                } else if (state is HomeTripsStatesFailure) {
+                  return AppErrorWidget(
+                    error: state.errorMsg,
+                  );
                 } else {
-                  return SizedBox();
+                  return const ShimmerListV1();
                 }
-              },
-            ),
-            verticalSpace(8),
+              }),
 
-            ///trips
-            BlocBuilder<HomeTripsCubit, HomeTripsStates>(
-                builder: (context, state) {
-              if (state is HomeTripsStatesSuccess) {
-                return PopularDestinationSuccess(
-                  items: state.trips,
-                );
-              } else if (state is HomeTripsStatesFailure) {
-                return AppErrorWidget(
-                  error: state.errorMsg,
-                );
-              } else {
-                return const ShimmerListV1();
-              }
-            }),
+              ///activities
+              BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
+                  builder: (context, state) {
+                if (state is HomeActivitiesStatesSuccess) {
+                  return HomeActivitiesSuccess(items: state.activities);
+                } else if (state is HomeActivitiesStatesFailure) {
+                  return AppErrorWidget(
+                    error: state.errorMsg,
+                  );
+                } else {
+                  return const ShimmerListV2();
+                }
+              }),
 
-            ///activities
-            BlocBuilder<HomeActivitiesCubit, HomeActivitiesStates>(
-                builder: (context, state) {
-              if (state is HomeActivitiesStatesSuccess) {
-                return HomeActivitiesSuccess(items: state.activities);
-              } else if (state is HomeActivitiesStatesFailure) {
-                return AppErrorWidget(
-                  error: state.errorMsg,
-                );
-              } else {
-                return const ShimmerListV2();
-              }
-            }),
-
-            ///stores
-            BlocBuilder<HomeStoresCubit, HomeStoreStates>(
-                builder: (context, state) {
-              if (state is HomeStoreStatesSuccess) {
-                return HomeStoreSuccess(items: state.stores);
-              } else if (state is HomeStoreStatesFailure) {
-                return AppErrorWidget(
-                  error: state.error,
-                );
-              } else {
-                return const ShimmerListV2();
-              }
-            }),
-          ],
+              ///stores
+              BlocBuilder<HomeStoresCubit, HomeStoreStates>(
+                  builder: (context, state) {
+                if (state is HomeStoreStatesSuccess) {
+                  return HomeStoreSuccess(items: state.stores);
+                } else if (state is HomeStoreStatesFailure) {
+                  return AppErrorWidget(
+                    error: state.error,
+                  );
+                } else {
+                  return const ShimmerListV2();
+                }
+              }),
+            ],
+          ),
         ),
       ),
     );
