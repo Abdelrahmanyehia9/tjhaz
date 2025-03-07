@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/DI/dependency_injection.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/styles/app_icon.dart';
+import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import '../../../booking/view/screen/my_bookings_screen.dart';
 import '../../../profile/view/screen/profile_screen.dart';
 import '../../../categories/view/screen/all_categories_screen.dart';
@@ -32,6 +36,11 @@ class _HomeLayoutState extends State<HomeLayout> {
         _selectedIndex = index;
       });
     }
+  }
+  @override
+  void initState() {
+context.read<AnonymousUserCubit>().checkAnonymousUser() ;
+super.initState();
   }
 
   @override

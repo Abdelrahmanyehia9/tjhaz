@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/routes/app_router.dart';
@@ -31,6 +33,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
   ];
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,16 +72,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    OnBoardingButtons(onPressed: (){
-                      GoRouter.of(context).push(AppRouter.authScreen) ;
+                    OnBoardingButtons(onPressed: ()async{
+                      GoRouter.of(context).go(AppRouter.authScreen) ;
+                      await SharedPrefHelper.setBool(SharedPrefConstants.isFirstTime, false) ;
                     } , isSkip: true,) ,
-                    OnBoardingButtons( onPressed: () {
+                    OnBoardingButtons( onPressed: ()  async{
                       if (_currentPage < onboardingData.length - 1) {
                         _pageController.nextPage(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.ease);
                       } else {
-                        GoRouter.of(context).push(AppRouter.authScreen) ;
+
+                        GoRouter.of(context).go(AppRouter.authScreen) ;
+                        await SharedPrefHelper.setBool(SharedPrefConstants.isFirstTime, false) ;
+
                       }
                     },),
                   ],

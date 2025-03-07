@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +5,6 @@ import 'package:tjhaz/core/DI/dependency_injection.dart';
 import 'package:tjhaz/feature/auth/data/repository/login_repo.dart';
 import 'package:tjhaz/feature/auth/data/repository/sign_up_repository.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
-import 'package:tjhaz/feature/auth/logic/reset_password_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
 import 'package:tjhaz/feature/auth/view/screen/auth_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
@@ -33,6 +31,9 @@ import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import 'package:tjhaz/feature/introduction/view/screen/onboarding_screen.dart';
 import 'package:tjhaz/feature/introduction/view/screen/splash_screen.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
+import 'package:tjhaz/feature/auth/logic/logout_cubit.dart';
+import 'package:tjhaz/feature/profile/logic/personal_info_cubit.dart';
+import 'package:tjhaz/feature/profile/view/screen/personal_info_screen.dart';
 import 'package:tjhaz/feature/shop/data/model/product_mode.dart';
 import 'package:tjhaz/feature/shop/data/repository/shop_repository.dart';
 import 'package:tjhaz/feature/shop/logic/products_cubit.dart';
@@ -42,21 +43,24 @@ import 'package:tjhaz/feature/shop/view/screen/shop_details_screen.dart';
 import 'package:tjhaz/feature/shop/view/screen/shop_screen.dart';
 import '../../feature/entertainment/view/screen/entertainment_details_screen.dart';
 import 'navigation_transitions.dart';
+
+
+
 class AppRouter {
-  static const splashScreen = "/splash";
+  static const splashScreen = "/";
   static const onBoardingScreen = "/onBoardingScreen";
   static const authScreen = "/authScreen";
   static const forgetPasswordPage = "/forgetPasswordScreen";
   static const confirmOtpScreen = "/confirmOtpScreen";
   static const setupNewPasswordScreen = "/setupNewPassword";
-  static const homeLayout = "/";
+  static const homeLayout = "/homeLayout";
   static const entertainmentDetailsScreen = "/entertainmentDetailsScreen";
   static const entertainmentScreen = "/entertainmentScreen";
   static const shopScreen = "/shopScreen" ;
   static const shopDetailsScreen = "/shopDetailsScreen" ;
   static const reservationScreen = "/reservationScreen" ;
   static const addOnsScreen = "/addOnsScreen" ;
-
+ static const personalInfoScreen = "/personalInfoScreen" ;
 
 
   static final GoRouter routes = GoRouter(
@@ -78,7 +82,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                   create: (context) => LoginCubit(
-                      LoginRepo(firebaseAuth: getIt<FirebaseAuth>()))),
+                      getIt.get<LoginRepo>() )),
               BlocProvider(
                   create: (context) => SignupCubit(SignUpRepository(
                       auth: getIt<FirebaseAuth>(),
@@ -91,28 +95,21 @@ class AppRouter {
       GoRoute(
         path: forgetPasswordPage,
         pageBuilder: (context, state) => fadingTransition(
-          child: BlocProvider(
-            create: (context) => ResetPasswordCubit(),
+
             child: ForgetPasswordScreen(),
-          ),
+
         ),
       ),
       GoRoute(
         path: confirmOtpScreen,
         pageBuilder: (context, state) => fadingTransition(
-          child: BlocProvider(
-            create: (context) => ResetPasswordCubit(),
-            child: OtpConfirmScreen(),
-          ),
+          child: OtpConfirmScreen(),
         ),
       ),
       GoRoute(
         path: setupNewPasswordScreen,
         pageBuilder: (context, state) => fadingTransition(
-          child: BlocProvider(
-            create: (context) => ResetPasswordCubit(),
-            child: SetupNewPassword(),
-          ),
+          child: SetupNewPassword(),
         ),
       ),
       GoRoute(
@@ -126,6 +123,9 @@ class AppRouter {
                   create: (context) =>
                   HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())
                     ..getHomeTrips(),
+                ),
+                BlocProvider(
+                  create: (context) => LogoutCubit(getIt.get<LoginRepo>())
                 ),
                 BlocProvider(
                   create: (context) => MyBookingsCubit(getIt.get<BookingRepository>())..getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid,),
@@ -231,6 +231,15 @@ class AppRouter {
           final EntertainmentDetailsModel model  = state.extra as EntertainmentDetailsModel;
           return fadingTransition(
               child: AddOnsScreen(model: model,));
+        },
+      ),
+      GoRoute(
+        path: personalInfoScreen,
+        pageBuilder: (context, state) {
+          return fadingTransition(
+              child: BlocProvider(
+                create: (context)=>GetPersonalInfoCubit(getIt.get<UserRepository>()),
+                  child: PersonalInfoScreen()));
         },
       ),
 

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class AppIcons {
+  const AppIcons._();
   static const String _fontFamily = 'appIcon';
   static const IconData star = IconData(0xe97a, fontFamily: _fontFamily);
   static const IconData xIcon = IconData(0xe97b, fontFamily: _fontFamily);

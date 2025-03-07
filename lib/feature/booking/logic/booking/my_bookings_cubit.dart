@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 
@@ -21,11 +22,12 @@ class MyBookingsCubit extends Cubit<MyBookingsStates> {
   Future<void>cancelBooking({required String bookingId ,required String userId})async{
    safeEmit(MyBookingsStatesLoading()) ;
 try {
-  final response = await bookingRepository.cancelBooking(bookingId);
+   await bookingRepository.cancelBooking(bookingId);
   await getAllBookingsByCategory(userId: userId) ;
 }
 catch(e){
-  emit(MyBookingsStatesFailure(e.toString())) ;
+  print(e.toString()) ;
+  emit(MyBookingsStatesFailure(e.firebaseErrorMessage)) ;
 }
   }
 }

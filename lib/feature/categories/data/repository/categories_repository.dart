@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/database/remote/firestore_errorHandler.dart';
-import 'package:tjhaz/core/extention/firestore_error_message.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/feature/categories/data/model/cateory_model.dart';
 
@@ -28,7 +28,7 @@ class CategoryRepository{
       }
       return left(subcategories) ;
     }catch(e){
-      return right(e.firestoreErrorMessage) ;
+      return right(e.firebaseErrorMessage) ;
 
     }
 

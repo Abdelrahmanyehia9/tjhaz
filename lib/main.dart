@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +13,10 @@ import 'package:tjhaz/core/widgets/lottie_widget.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
+import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
 import 'package:toastification/toastification.dart';
+import 'core/database/local/shared_prefrences_helper.dart';
 import 'core/routes/app_router.dart';
 import 'feature/booking/data/model/reservation_model.dart';
 import 'feature/categories/data/repository/categories_repository.dart';
@@ -30,9 +33,9 @@ Locale currentLocale = Locale("ar", "KW");
 void main() async {
 
 
-
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await SharedPrefHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -65,6 +68,8 @@ class TjhazApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) =>
               EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
+          BlocProvider(create: (context) =>
+              AnonymousUserCubit(getIt.get<FirebaseAuth>())),
           BlocProvider(create: (context) => AddNewBookingCubit(getIt.get<BookingRepository>())),
 
         ],

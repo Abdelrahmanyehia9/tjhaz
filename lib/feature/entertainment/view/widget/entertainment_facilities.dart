@@ -94,42 +94,46 @@ class EntertainmentFacilities extends StatelessWidget {
               InkWell(
                   onTap: () {
 
-                    // showModalBottomSheet(context: context, builder: (context) =>  Container(
-                    //       width: screenWidth(context),
-                    //       color: AppColors.cWhite,
-                    //       child: SingleChildScrollView(
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //           children: [
-                    //           Column(
-                    //             crossAxisAlignment: CrossAxisAlignment.center,
-                    //             children: [
-                    //               Padding(
-                    //                 padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
-                    //                 child: Text(AppStrings.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
-                    //               ),
-                    //               Wrap(
-                    //                   spacing: 16.w,
-                    //                   runSpacing: 16.h,
-                    //                   children: List.generate(
-                    //                       facilitiesComfortable.length,
-                    //                           (item) =>
-                    //                           FacilitiesContainer(
-                    //                               icon: IconHelper.getFacilitiesIcon(fac[item]),
-                    //                               title: fac[item].tr()))),
-                    //
-                    //             ],
-                    //           ) ,
-                    //           Padding(
-                    //             padding:  EdgeInsets.symmetric(vertical: 8.0),
-                    //             child: AuthButton(tittle: "close", onPressed: (){
-                    //               context.pop() ;
-                    //             }),
-                    //           )
-                    //
-                    //         ],),
-                    //       ),
-                    //     ),);
+                    showModalBottomSheet(context: context, builder: (context) =>  Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.cWhite ,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8.r) , topRight: Radius.circular(8.r))
+                      ),
+                          width: screenWidth(context),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
+                                    child: Text(AppStrings.comfortFacilities , style: AppTypography.t20Normal.copyWith(color: AppColors.primaryColor),),
+                                  ),
+                                  Wrap(
+                                      spacing: 16.w,
+                                      runSpacing: 16.h,
+                                      children: List.generate(
+                                          facilitiesComfortable.length,
+                                              (item) =>
+                                              FacilitiesContainer(
+                                                  icon: IconHelper.getFacilitiesIcon(fac[item]),
+                                                  title: fac[item].tr()))),
+
+                                ],
+                              ) ,
+                              Padding(
+                                padding:  EdgeInsets.symmetric(vertical: 8.0),
+                                child: AuthButton(tittle: "CLOSE", onPressed: (){
+                                  context.pop() ;
+                                }),
+                              )
+
+                            ],),
+                          ),
+                        ),);
                   },
                   child: seeMore()),
             ],

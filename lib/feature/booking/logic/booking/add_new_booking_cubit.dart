@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tjhaz/core/extention/firestore_error_message.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/booking/data/model/bookings_model.dart';
@@ -29,7 +29,7 @@ class AddNewBookingCubit extends Cubit<AddNewBookingState>{
     catch(e){
       final String error  ;
       if(e is FirebaseException){
-        error = e.firestoreErrorMessage ;
+        error = e.firebaseErrorMessage ;
       }
       else{
         error = e.toString() ;

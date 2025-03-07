@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tjhaz/core/extention/firestore_error_message.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import '../../../../core/database/remote/fireStore_constants.dart';
 import '../model/bookings_model.dart';
 
@@ -28,9 +28,9 @@ class BookingRepository {
         return left(List<int>.from(reservedDays));
       }
 
-      return left(null); // If the type is incorrect
+      return left(null);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
   Future<Either<List<int>?, String>> getReservedHoursByEnterID(
@@ -60,7 +60,7 @@ class BookingRepository {
 
       return left(null);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
   Future<bool>hasPendingBooking(String userID)async{
@@ -87,7 +87,7 @@ class BookingRepository {
       return left(allBookings) ;
     }catch(e){
       print(e.toString()) ;
-      return right(e.firestoreErrorMessage) ;
+      return right(e.firebaseErrorMessage) ;
     }
 
 

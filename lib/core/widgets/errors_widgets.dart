@@ -20,7 +20,7 @@ class AppErrorWidget extends StatelessWidget {
       child: Padding(
         padding:  EdgeInsets.all(18.0.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
                 height: screenHeight(context)*.3,

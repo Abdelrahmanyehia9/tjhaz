@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/database/remote/firestore_errorHandler.dart';
-import 'package:tjhaz/core/extention/firestore_error_message.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 
 class EntertainmentRepository {
@@ -19,7 +19,7 @@ class EntertainmentRepository {
           .fromJson(result.data()!);
       return left(entertainment);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
 
@@ -35,7 +35,7 @@ class EntertainmentRepository {
       }
       return left(entertainments);
     } catch (e) {
-      return right(e.firestoreErrorMessage)  ;
+      return right(e.firebaseErrorMessage)  ;
     }
   }
 

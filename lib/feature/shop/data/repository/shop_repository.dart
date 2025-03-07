@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
-import 'package:tjhaz/core/extention/firestore_error_message.dart';
+import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
 
 import '../model/product_mode.dart';
@@ -21,7 +21,7 @@ class ShopRepository {
       }).toList();
       return left(vendors);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
 
@@ -35,7 +35,7 @@ class ShopRepository {
       }).toList();
       return left(products);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
   Future<Either<List<ProductModel>, String>> getAllProductsByVendorID(
@@ -51,7 +51,7 @@ class ShopRepository {
       return left(products);
     } catch (e) {
       print(e.toString()) ;
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
   Future<Either<List<ProductModel>, String>> getRelatedProducts(ProductModel model) async {
@@ -65,7 +65,7 @@ class ShopRepository {
       }).where((product) => product.id != model.id).toList();;
       return left(products);
     } catch (e) {
-      return right(e.firestoreErrorMessage);
+      return right(e.firebaseErrorMessage);
     }
   }
 }

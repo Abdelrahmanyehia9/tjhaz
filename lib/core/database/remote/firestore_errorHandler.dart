@@ -27,6 +27,8 @@ class FirestoreErrorHandler {
         return AppStrings.fireStoreExAborted;
       case 'failed-precondition':
         return AppStrings.fireStoreExFailedPrecondition;
+      case "timeout":
+        return "time Out";
       default:
         return AppStrings.genericError;
     }

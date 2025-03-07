@@ -7,13 +7,15 @@ import '../../../../core/utils/screen_size.dart';
 class AuthButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String tittle;
-  final bool isDisabled; // Optional parameter
+  final bool isDisabled;
+  final Color bgColor ;
 
   const AuthButton({
     super.key,
     required this.tittle,
     required this.onPressed,
-    this.isDisabled = false, // Default value is false
+    this.isDisabled = false,
+this.bgColor = AppColors.primaryColor  , // Default value is false
   });
 
   @override
@@ -23,7 +25,7 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isDisabled ? null : onPressed, // Disable button if isDisabled is true
         style: ElevatedButton.styleFrom(
-          backgroundColor: isDisabled ? AppColors.cMediumGrey : AppColors.primaryColor, // Change color if disabled
+          backgroundColor: isDisabled ? AppColors.cMediumGrey : bgColor, // Change color if disabled
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           fixedSize: Size(screenWidth(context), 50.h),
         ),

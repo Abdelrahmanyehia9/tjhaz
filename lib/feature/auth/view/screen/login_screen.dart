@@ -76,7 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               AuthButton(
                 tittle: AppStrings.continueAsGuest,
-                onPressed: () {},
+                onPressed: () async{
+                  overlayPortalController.show() ;
+                  await context.read<LoginCubit>().loginAnonymous() ;
+                  overlayPortalController.hide() ;
+                },
               ),
             ],
           ),

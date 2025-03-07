@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
-import 'package:tjhaz/feature/auth/logic/reset_password_cubit.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -24,7 +23,6 @@ class _OtpConfirmScreenState extends State<OtpConfirmScreen> {
   late TextEditingController otp  ;
   @override
   void initState() {
-otp = context.read<ResetPasswordCubit>().otpController ;
     super.initState();
   }
   @override
@@ -66,7 +64,6 @@ otp = context.read<ResetPasswordCubit>().otpController ;
         appContext: context,
         length: 4,
 
-        controller: context.read<ResetPasswordCubit>().otpController,
         animationType: AnimationType.scale,
         pinTheme: PinTheme(
 
