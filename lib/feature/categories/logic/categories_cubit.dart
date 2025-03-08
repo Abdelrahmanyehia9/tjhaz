@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
 import 'package:tjhaz/feature/categories/logic/categories_states.dart';
 import 'package:tjhaz/feature/shop/data/repository/shop_repository.dart';

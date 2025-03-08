@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
   final String imgUrl;
@@ -17,7 +17,7 @@ class CachedNetworkImageWidget extends StatelessWidget {
         child: Opacity(
           opacity: 0.7,
           child: Center(
-            child: Image.asset(AppConstants.splashLogo) // Loading indicator
+            child: Image.asset(AppAssets.splashLogo) // Loading indicator
           ),
         ),
       ),

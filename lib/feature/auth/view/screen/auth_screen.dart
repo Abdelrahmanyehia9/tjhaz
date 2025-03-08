@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/auth/view/screen/login_screen.dart';
 import 'package:tjhaz/feature/auth/view/screen/signup_screen.dart';
@@ -16,7 +16,7 @@ class AuthScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AuthHeader(tittle: Image.asset(AppConstants.appLogo)) ,
+            AuthHeader(tittle: Image.asset(AppAssets.appLogo)) ,
              TogglePages(pages: [LoginScreen() , SignupScreen()] , title: [AppStrings.login , AppStrings.signUp],)
           ],
         ),

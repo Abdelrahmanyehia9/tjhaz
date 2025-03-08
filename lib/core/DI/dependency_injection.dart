@@ -5,6 +5,7 @@ import 'package:tjhaz/feature/auth/data/repository/login_repo.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
 import 'package:tjhaz/feature/entertainment/data/repository/entertainment_repository.dart';
+import 'package:tjhaz/feature/favorite/data/repository/favorite_repository.dart';
 import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
 import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
 import 'package:tjhaz/feature/shop/data/repository/shop_repository.dart';
@@ -23,6 +24,7 @@ getIt.registerLazySingleton<FirebaseFirestore>(() => firestore);
   getIt.registerLazySingleton<EntertainmentRepository>(()=> EntertainmentRepository(firestore:  getIt.get<FirebaseFirestore>())  ) ;
   getIt.registerLazySingleton<ShopRepository>(()=> ShopRepository(firestore:  getIt.get<FirebaseFirestore>())  ) ;
   getIt.registerLazySingleton<BookingRepository>(()=> BookingRepository(getIt.get<FirebaseFirestore>())  ) ;
+  getIt.registerLazySingleton<FavoriteRepository>(()=> FavoriteRepository(getIt.get<FirebaseFirestore>())  ) ;
 
 
 }

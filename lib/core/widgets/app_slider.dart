@@ -69,7 +69,7 @@ class _AppSliderState extends State<AppSlider> {
         ),
         Positioned(
             bottom: 8.h,right: 8.w,
-            child: widget.addToFavourite ==true ?  BoxIconButton(icon: Icons.favorite):SizedBox()   )
+            child: widget.addToFavourite ==true ?  FavouriteIcon():SizedBox()   )
 
 
       ],

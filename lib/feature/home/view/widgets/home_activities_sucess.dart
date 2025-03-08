@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/utils/app_strings.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../../entertainment/logic/entertainment_details_cubit.dart';
 import '../../../entertainment/logic/entertainment_details_states.dart';

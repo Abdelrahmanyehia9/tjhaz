@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
-import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/core/widgets/box_icon_button.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/shop/view/widget/product_quantiy.dart';
@@ -69,8 +67,10 @@ class ProductCard extends StatelessWidget {
         Positioned(
             top: 12.h,
             right: 12.h,
-            child: BoxIconButton(
-              icon: Icons.favorite,
+            child: FavouriteIcon(
+              onTap: (){
+
+              },
               size: 16.sp,
             )),
         productModel.priceBeforeDiscount != null ? Positioned(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         height: screenHeight(context),
         alignment: Alignment.center,
         color: AppColors.cWhite,
-        child: Image.asset(AppConstants.splashLogo),
+        child: Image.asset(AppAssets.splashLogo),
       ),
     );
   }

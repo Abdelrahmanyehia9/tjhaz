@@ -1,50 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tjhaz/core/DI/dependency_injection.dart';
-import 'package:tjhaz/feature/auth/data/repository/login_repo.dart';
-import 'package:tjhaz/feature/auth/data/repository/sign_up_repository.dart';
-import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
-import 'package:tjhaz/feature/auth/logic/signup_cubit.dart';
-import 'package:tjhaz/feature/auth/view/screen/auth_screen.dart';
-import 'package:tjhaz/feature/auth/view/screen/forget_password_screen.dart';
-import 'package:tjhaz/feature/auth/view/screen/otp_confirm.dart';
-import 'package:tjhaz/feature/auth/view/screen/setup_new_password.dart';
-import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
-import 'package:tjhaz/feature/booking/logic/booking/my_bookings_cubit.dart';
-import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_date_cubit.dart';
-import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_hours_cubit.dart';
-import 'package:tjhaz/feature/booking/view/screen/add_ons_screen.dart';
-import 'package:tjhaz/feature/booking/view/screen/reservation_screen.dart';
-import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
-import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
-import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
-import 'package:tjhaz/feature/entertainment/data/repository/entertainment_repository.dart';
-import 'package:tjhaz/feature/entertainment/logic/entertainment_cubit.dart';
-import 'package:tjhaz/feature/entertainment/view/screen/entertainment_screen.dart';
-import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
-import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
-import 'package:tjhaz/feature/home/logic/home_activities_cubit.dart';
-import 'package:tjhaz/feature/home/logic/home_store_cubit.dart';
-import 'package:tjhaz/feature/home/logic/home_trips_cubit.dart';
-import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
-import 'package:tjhaz/feature/introduction/view/screen/onboarding_screen.dart';
-import 'package:tjhaz/feature/introduction/view/screen/splash_screen.dart';
-import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
-import 'package:tjhaz/feature/auth/logic/logout_cubit.dart';
-import 'package:tjhaz/feature/profile/logic/personal_info_cubit.dart';
-import 'package:tjhaz/feature/profile/view/screen/personal_info_screen.dart';
-import 'package:tjhaz/feature/shop/data/model/product_mode.dart';
-import 'package:tjhaz/feature/shop/data/repository/shop_repository.dart';
-import 'package:tjhaz/feature/shop/logic/products_cubit.dart';
-import 'package:tjhaz/feature/shop/logic/related_products_cubit.dart';
-import 'package:tjhaz/feature/shop/logic/vendors_cubit.dart';
-import 'package:tjhaz/feature/shop/view/screen/shop_details_screen.dart';
-import 'package:tjhaz/feature/shop/view/screen/shop_screen.dart';
-import '../../feature/entertainment/view/screen/entertainment_details_screen.dart';
-import 'navigation_transitions.dart';
-
-
+import 'index.dart';
 
 class AppRouter {
   static const splashScreen = "/";
@@ -61,20 +15,24 @@ class AppRouter {
   static const reservationScreen = "/reservationScreen" ;
   static const addOnsScreen = "/addOnsScreen" ;
  static const personalInfoScreen = "/personalInfoScreen" ;
+ static const favoriteScreen = "/favoriteScreen" ;
 
 
   static final GoRouter routes = GoRouter(
     routes: [
+      ///splash
       GoRoute(
         path: splashScreen,
         pageBuilder: (context, state) =>
             fadingTransition(child: SplashScreen()),
       ),
+      ///onboarding
       GoRoute(
         path: onBoardingScreen,
         pageBuilder: (context, state) =>
             fadingTransition(child: OnboardingScreen()),
       ),
+      ///auth
       GoRoute(
         path: authScreen,
         pageBuilder: (context, state) => fadingTransition(
@@ -92,6 +50,7 @@ class AppRouter {
           ),
         ),
       ),
+      ///forget password
       GoRoute(
         path: forgetPasswordPage,
         pageBuilder: (context, state) => fadingTransition(
@@ -100,18 +59,21 @@ class AppRouter {
 
         ),
       ),
+      ///confirm otp
       GoRoute(
         path: confirmOtpScreen,
         pageBuilder: (context, state) => fadingTransition(
           child: OtpConfirmScreen(),
         ),
       ),
+      ///setup new password
       GoRoute(
         path: setupNewPasswordScreen,
         pageBuilder: (context, state) => fadingTransition(
           child: SetupNewPassword(),
         ),
       ),
+      ///home
       GoRoute(
         path: homeLayout,
         pageBuilder: (context, state) {
@@ -155,14 +117,7 @@ class AppRouter {
           );
         },
       ),
-      GoRoute(
-        path: entertainmentDetailsScreen,
-        pageBuilder: (context, state) {
-          final model = state.extra as EntertainmentDetailsModel;
-          return fadingTransition(
-              child: EntertainmentDetailsScreen(model: model));
-        },
-      ),
+      ///entertainment
       GoRoute(
         path: entertainmentScreen,
         pageBuilder: (context, state) {
@@ -173,8 +128,8 @@ class AppRouter {
             child: MultiBlocProvider(
               providers: [
                 BlocProvider(
-                    create: (context) =>
-                    CategoriesCubit( getIt.get<CategoryRepository>() ) ,),
+                  create: (context) =>
+                      CategoriesCubit( getIt.get<CategoryRepository>() ) ,),
 
                 BlocProvider(create: (context) {
                   return EntertainmentCubit(
@@ -189,6 +144,17 @@ class AppRouter {
           );
         },
       ),
+
+      ///entertainment  details
+      GoRoute(
+        path: entertainmentDetailsScreen,
+        pageBuilder: (context, state) {
+          final model = state.extra as EntertainmentDetailsModel;
+          return fadingTransition(
+              child: EntertainmentDetailsScreen(model: model));
+        },
+      ),
+      ///shop
       GoRoute(
         path: shopScreen,
         pageBuilder: (context, state) {
@@ -201,6 +167,7 @@ class AppRouter {
                 child: ShopScreen(activeCategory: activeCategory))  );
         },
       ),
+      ///shop details
       GoRoute(
         path: shopDetailsScreen,
         pageBuilder: (context, state) {
@@ -210,6 +177,7 @@ class AppRouter {
               child: ShopDetailsScreen(model: model)));
         },
       ),
+      ///reservation
       GoRoute(
         path: reservationScreen,
         pageBuilder: (context, state) {
@@ -225,6 +193,7 @@ class AppRouter {
                   child: ReservationScreen(model: model,)));
         },
       ),
+      ///add ons
       GoRoute(
         path: addOnsScreen,
         pageBuilder: (context, state) {
@@ -233,13 +202,22 @@ class AppRouter {
               child: AddOnsScreen(model: model,));
         },
       ),
+      ///profile
       GoRoute(
         path: personalInfoScreen,
         pageBuilder: (context, state) {
           return fadingTransition(
               child: BlocProvider(
-                create: (context)=>GetPersonalInfoCubit(getIt.get<UserRepository>()),
+                create: (context)=>PersonalInfoCubit(getIt.get<UserRepository>()),
                   child: PersonalInfoScreen()));
+        },
+      ),
+      ///favorite
+      GoRoute(
+        path: favoriteScreen,
+        pageBuilder: (context, state) {
+          return fadingTransition(
+              child: FavoriteScreen());
         },
       ),
 

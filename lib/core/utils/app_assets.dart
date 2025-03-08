@@ -1,7 +1,8 @@
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/main.dart';
 
-class AppConstants {
+class AppAssets {
+  const AppAssets._();
   static const String appLogo = "assets/images/logo.png";
   static const String splashLogo = "assets/images/splash.png";
   static const String catActivities = "assets/icons/activities.svg";
@@ -13,15 +14,5 @@ class AppConstants {
   static const String error ="assets/images/error.svg" ;
   static const String crownIcon ="assets/images/crown.png" ;
   static const String refreshLoading ="assets/images/refreshLoading.json" ;
-  static String currentLanguage = currentLocale.languageCode.toUpperCase();
-  static List<Map<String, String>> categories = [
-    {
-      "image": catTrips,
-      "title": AppStrings.trips,
-      "id": "1"
-    },
-    {"image": catWild, "title": AppStrings.wild, "id": "2"},
-    {"image": catActivities, "title": AppStrings.activities, "id": "3"},
-    {"image": catShopping, "title": AppStrings.stores, "id": "shopping"}
-  ];
+
 }

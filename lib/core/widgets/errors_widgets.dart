@@ -6,7 +6,7 @@ import '../helpers/spacing.dart';
 import '../styles/colors.dart';
 import '../styles/typography.dart';
 import '../utils/app_strings.dart';
-import '../utils/constants.dart';
+import '../utils/app_assets.dart';
 import '../utils/screen_size.dart';
 
 class AppErrorWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class AppErrorWidget extends StatelessWidget {
           children: [
             SizedBox(
                 height: screenHeight(context)*.3,
-                child: SvgPicture.asset(isDisconnected == true  ? AppConstants.disconnected : AppConstants.error )) ,
+                child: SvgPicture.asset(isDisconnected == true  ? AppAssets.disconnected : AppAssets.error )) ,
             verticalSpace(16) ,
             Text(error == null ? AppStrings.somethingWentWrong:"$error ",overflow: TextOverflow.ellipsis,
               style: AppTypography.t16Normal.copyWith(color: AppColors.primaryColor),)
@@ -48,7 +48,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
 
         icon ==null ? SizedBox(
             height: screenHeight(context)*.3,
-            child: SvgPicture.asset(AppConstants.empty)) : Opacity(
+            child: SvgPicture.asset(AppAssets.empty)) : Opacity(
           opacity: 0.5,
             child: Icon(icon , size: 150.sp , color: Color(0xfffffa994),)) ,
         verticalSpace(8) ,

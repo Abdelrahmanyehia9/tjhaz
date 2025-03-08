@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/colors.dart';
@@ -150,7 +150,7 @@ final int price ;
           right: 0,
           child: SizedBox(
               height: 18.h,
-              child: Image.asset(AppConstants.crownIcon ))
+              child: Image.asset(AppAssets.crownIcon ))
         ),
       ],
     );

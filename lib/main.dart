@@ -14,6 +14,8 @@ import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
+import 'package:tjhaz/feature/favorite/data/repository/favorite_repository.dart';
+import 'package:tjhaz/feature/favorite/logic/add_to_favorite_cubit.dart';
 import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
 import 'package:toastification/toastification.dart';
 import 'core/database/local/shared_prefrences_helper.dart';
@@ -71,6 +73,7 @@ class TjhazApp extends StatelessWidget {
           BlocProvider(create: (context) =>
               AnonymousUserCubit(getIt.get<FirebaseAuth>())),
           BlocProvider(create: (context) => AddNewBookingCubit(getIt.get<BookingRepository>())),
+          BlocProvider(create: (context) => AddToFavoriteCubit(getIt.get<FavoriteRepository>())),
 
         ],
         child: ToastificationWrapper(

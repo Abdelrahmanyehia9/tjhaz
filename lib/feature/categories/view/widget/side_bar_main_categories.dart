@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 
 import '../../../../core/styles/colors.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/app_assets.dart';
 import '../../logic/categories_cubit.dart';
 
 class SideBarMainCategories extends StatefulWidget {

@@ -1,4 +1,5 @@
-import '../utils/constants.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
+
 
 extension LocalizedMap on Map<String, dynamic>? {
   String get localized {

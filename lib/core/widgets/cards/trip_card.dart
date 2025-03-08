@@ -46,7 +46,7 @@ class TripCardItem extends StatelessWidget {
                 ) ,
                 Positioned(
                     top: 8.h, right: 6.h,
-                    child: BoxIconButton(icon: Icons.favorite , size: 16,))
+                    child: FavouriteIcon( size: 16,))
               ],
             ) ,
             verticalSpace(8),

@@ -24,7 +24,9 @@ class ShimmerListV1 extends StatelessWidget {
         ),
         verticalSpace(8),
         // state.trips.length>4?showMoreDistButton(context):SizedBox(),
-        showMoreDistButton(context)
+        showMoreDistButton(context) ,
+        verticalSpace(8),
+
       ],
     ) ;;
   }
@@ -63,9 +65,9 @@ class ShimmerListV2 extends StatelessWidget {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ShimmerContainer(width: screenWidth(context)*.425, height: screenHeight(context)*.11 , radius: 8,),
+        ShimmerContainer(width: screenWidth(context)*.425, height: screenHeight(context)*.13 , radius: 8,),
         verticalSpace(8),
-        ShimmerContainer(width: screenWidth(context)*.425, height: 20.h , radius: 4,),
+        ShimmerContainer(width: screenWidth(context)*.425, height: 22.h , radius: 4,),
         Spacer(),
       ],
     ),

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
-import 'package:tjhaz/core/utils/constants.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/widgets/animation.dart';
 import '../styles/colors.dart';
 

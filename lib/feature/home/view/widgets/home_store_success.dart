@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/utils/app_strings.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/screen_size.dart';
 import '../../data/models/home_model.dart';
 import 'home_cards.dart';

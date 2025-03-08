@@ -1,29 +1,34 @@
 import 'package:equatable/equatable.dart';
 
-import '../../auth/data/models/user_model.dart';
 
-abstract class GetPersonalInfoStates  extends Equatable {
-  const GetPersonalInfoStates();
+abstract class PersonalInfoStates   {
+  const PersonalInfoStates();
 
-  @override
-  List<Object> get props => [];
-}
-class GetPersonalInfoInitial extends GetPersonalInfoStates {}
-class GetPersonalInfoLoading extends GetPersonalInfoStates {
 
 }
-class GetPersonalInfoSuccess extends GetPersonalInfoStates {
-  final UserModel userModel ;
+class PersonalInfoInitial extends PersonalInfoStates {}
 
-  const GetPersonalInfoSuccess(this.userModel);
-  @override
-  // TODO: implement props
-  List<Object> get props => [userModel];
+class GetPersonalInfoLoading extends PersonalInfoStates {
+
 }
-class GetPersonalInfoFailure extends GetPersonalInfoStates {
+class GetPersonalInfoSuccess extends PersonalInfoStates {
+
+}
+class GetPersonalInfoFailure extends PersonalInfoStates {
   final String errorMsg ;
 
   const GetPersonalInfoFailure(this.errorMsg);
-  @override
-  List<Object> get props => [errorMsg];
+
 }
+
+
+
+class UpdatePersonalInfoSuccess extends PersonalInfoStates {}
+class UpdatePersonalInfoFailure extends PersonalInfoStates {
+  final String errorMsg ;
+
+  const UpdatePersonalInfoFailure(this.errorMsg);
+
+}
+
+

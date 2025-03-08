@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tjhaz/core/utils/constants.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
-import '../../../feature/entertainment/view/screen/entertainment_details_screen.dart';
+import 'package:tjhaz/feature/favorite/data/model/favorite_model.dart';
+import 'package:tjhaz/feature/favorite/logic/add_to_favorite_cubit.dart';
 import '../../routes/app_router.dart';
 import '../../styles/card_sizes.dart';
 import '../../styles/colors.dart';
@@ -74,8 +76,11 @@ class SquareCard extends StatelessWidget {
         Positioned(
             top: 8.h,
             right: 6.h,
-            child: BoxIconButton(
-              icon: Icons.favorite,
+            child: FavouriteIcon(
+              onTap: (){
+                FavoriteModel favModel = FavoriteModel( model, Timestamp.now()) ;
+                context.read<AddToFavoriteCubit>().addToFavorite(favoriteModel: favModel) ;
+              },
               size: 16,
             ))
       ],
