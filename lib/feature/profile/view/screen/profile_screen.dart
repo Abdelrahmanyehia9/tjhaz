@@ -59,10 +59,14 @@ super.initState();
                       context.go(AppRouter.authScreen) ;
                     },),
                     ProfileButton(text: "reset password" , visible: !isAnonymous ,icon:  Icons.lock),
-                    ProfileButton(text: "My Favorites" ,visible: true ,icon:  Icons.favorite),
+                    ProfileButton(text: "My Favorites" ,visible: true ,icon:  Icons.favorite , onPressed: (){
+                      context.push(AppRouter.favoriteScreen) ;
+                    },),
                     ProfileButton(text: "contact us"  ,visible: true ,icon:  Icons.support_agent),
                     ProfileButton(text: "my orders", visible: !isAnonymous  ,icon:  Icons.receipt),
-                    ProfileButton(text: "my bookings", visible: !isAnonymous  ,icon:  Icons.calendar_today),
+                    ProfileButton(text: "my bookings", visible: !isAnonymous  ,icon:  Icons.calendar_today , onPressed: (){
+                      context.push(AppRouter.homeLayout , extra: 2) ;
+                    },),
                     ProfileButton(text: "about us", visible: true   ,icon:  Icons.contact_support),
                     BlocListener<LogoutCubit , LogoutStates>(
                       listener: (context , state){

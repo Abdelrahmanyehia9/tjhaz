@@ -28,7 +28,7 @@ class ShopDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppBackButton(),
-                AppSlider(imageList: model.images ,height: screenHeight(context)*.3,addToFavourite: true,),
+                AppSlider(imageList: model.images ,id: model.id,),
                 productTitle(),
                 ProductActionButtons(),
                 description(

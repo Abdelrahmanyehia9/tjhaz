@@ -1,23 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
-import 'package:tjhaz/feature/favorite/data/model/favorite_model.dart';
-import 'package:tjhaz/feature/favorite/logic/add_to_favorite_cubit.dart';
+import '../../../feature/favorite/view/widgets/add_to_favorite.dart';
 import '../../routes/app_router.dart';
 import '../../styles/card_sizes.dart';
 import '../../styles/colors.dart';
 import '../../styles/typography.dart';
-import '../box_icon_button.dart';
 
-class SquareCard extends StatelessWidget {
+class SquareCard extends StatefulWidget {
   final EntertainmentDetailsModel model;
 
   const SquareCard({super.key, required this.model});
 
+  @override
+  State<SquareCard> createState() => _SquareCardState();
+}
+
+class _SquareCardState extends State<SquareCard> {
+  @override
+  void initState() {
+super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,7 +30,7 @@ class SquareCard extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            context.push(AppRouter.entertainmentDetailsScreen, extra: model);
+            context.push(AppRouter.entertainmentDetailsScreen, extra: widget.model);
           },
           child: Container(
             alignment: Alignment.bottomLeft,
@@ -36,7 +41,7 @@ class SquareCard extends StatelessWidget {
                 image: DecorationImage(
                     colorFilter:
                         ColorFilter.mode(Colors.black45, BlendMode.darken),
-                    image: CachedNetworkImageProvider(model.images.first),
+                    image: CachedNetworkImageProvider(widget.model.images.first),
                     fit: BoxFit.cover)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -45,12 +50,12 @@ class SquareCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.name,
+                    widget.model.name,
                     style: AppTypography.t12Normal
                         .copyWith(color: AppColors.cWhite),
                   ),
                   Text(
-                    "${model.price} KWD",
+                    "${widget.model.price} KWD",
                     style: AppTypography.t10light
                         .copyWith(color: AppColors.cWhite),
                   ),
@@ -62,7 +67,7 @@ class SquareCard extends StatelessWidget {
                         size: 8,
                       ),
                       Text(
-                        model.location ,
+                        widget.model.location ,
                         style: AppTypography.t10light
                             .copyWith(color: AppColors.cWhite),
                       ),
@@ -76,13 +81,8 @@ class SquareCard extends StatelessWidget {
         Positioned(
             top: 8.h,
             right: 6.h,
-            child: FavouriteIcon(
-              onTap: (){
-                FavoriteModel favModel = FavoriteModel( model, Timestamp.now()) ;
-                context.read<AddToFavoriteCubit>().addToFavorite(favoriteModel: favModel) ;
-              },
-              size: 16,
-            ))
+            child:AddToFavorite(id: widget.model.id,)
+        )
       ],
     );
   }

@@ -34,8 +34,7 @@ class EntertainmentDetailsScreen extends StatelessWidget {
               children: [
                 AppBackButton(),
                 AppSlider(
-                  height: screenHeight(context) * .3,
-                    imageList: model.images  , addToFavourite: true,   ),
+                    imageList: model.images  ,id: model.id,   ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8),
                   child: Text(

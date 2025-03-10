@@ -1,23 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 
-import '../../feature/favorite/view/widgets/add_to_favorite.dart';
 
-class AppSlider extends StatefulWidget {
+class BannerSlider extends StatefulWidget {
   final List<String> imageList;
-  final String id ;
 
 
-  const AppSlider({super.key, required this.imageList , required this.id} );
+  const BannerSlider({super.key, required this.imageList ,} );
 
   @override
-  State<AppSlider> createState() => _AppSliderState();
+  State<BannerSlider> createState() => _BannerSliderState();
 }
 
-class _AppSliderState extends State<AppSlider> {
+class _BannerSliderState extends State<BannerSlider> {
   int currentIndex = 0 ;
 
   @override
@@ -31,7 +28,7 @@ class _AppSliderState extends State<AppSlider> {
 
             options: CarouselOptions(
 
-              height: screenHeight(context)*.3,
+              height: screenHeight(context)*.225 ,
               // Adjust the height as needed
               autoPlay: true,
               enlargeCenterPage: true,
@@ -48,10 +45,10 @@ class _AppSliderState extends State<AppSlider> {
             ),
             items: widget.imageList.map((imageUrl) {
               return ClipRRect(
-                borderRadius: BorderRadius.circular(8), // Rounded corners
-                child: SizedBox(width: double.infinity,
-                  child: CachedNetworkImageWidget(imgUrl: imageUrl),
-                )
+                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                  child: SizedBox(width: double.infinity,
+                    child: CachedNetworkImageWidget(imgUrl: imageUrl),
+                  )
               );
             }).toList(),
           ),

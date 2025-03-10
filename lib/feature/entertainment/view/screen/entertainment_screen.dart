@@ -17,6 +17,7 @@ import 'package:tjhaz/core/widgets/global_app_bar.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/widgets/errors_widgets.dart';
 import '../../../categories/view/widget/categories_containers.dart';
+import '../widget/entertainment_grid.dart';
 import '../widget/entertainment_loading.dart';
 
 class EntertainmentScreen extends StatefulWidget {
@@ -125,18 +126,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                     builder: (context, state) {
                       if (state is EntertainmentItemsSuccess) {
                         return state.items.isNotEmpty
-                            ? GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.items.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: CardSizes.tripCard.width / CardSizes.tripCard.height,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 16.w,
-                            mainAxisSpacing: 16.h,
-                          ),
-                          itemBuilder: (context, index) => computeGridSize(state.items[index]),
-                        )
+                            ? EntertainmentGrid(items: state.items,)
                             : ValueListenableBuilder<String>(
                           valueListenable: subCategoryTitle,
                           builder: (_, title, __) => EmptyList(title: title.tr()),
@@ -144,7 +134,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                       } else if (state is EntertainmentItemsFailure) {
                         return AppErrorWidget(error: state.errorMsg);
                       } else {
-                        return EntertainmentGridLoading();
+                        return GridLoading();
                       }
                     },
                   ),
@@ -159,10 +149,6 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
 
   Future<void> searchItemsByID(BuildContext context, String id) async {
     await context.read<EntertainmentCubit>().getEntertainmentsByCatID(id);
-  }
-
-  Widget computeGridSize(EntertainmentDetailsModel model) {
-    return model.facilities != null ? TripCardItem(model: model) : SquareCard(model: model);
   }
 
   @override

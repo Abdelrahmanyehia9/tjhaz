@@ -5,8 +5,8 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
 import 'package:tjhaz/core/widgets/shimmer_container.dart';
 
-class EntertainmentGridLoading extends StatelessWidget {
-  const EntertainmentGridLoading({super.key});
+class GridLoading extends StatelessWidget {
+  const GridLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

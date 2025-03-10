@@ -14,35 +14,35 @@ class MyBookingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: CheckAnonymous(
-
-          ifNotAnonymous: Column(
-            children: [
-              Padding(
-                padding:  EdgeInsets.symmetric(vertical: 16.0.h),
-                child: AppHeadline(
-                  tittle: AppStrings.bookings,
-                  hasBackButton: false,
+    return AnonymousScreen(
+      ifNotAnonymous: Scaffold(
+        body: SafeArea(
+          child:  Column(
+              children: [
+                Padding(
+                  padding:  EdgeInsets.symmetric(vertical: 16.0.h),
+                  child: AppHeadline(
+                    tittle: AppStrings.bookings,
+                    hasBackButton: false,
+                  ),
                 ),
-              ),
-              TogglePages(
-                width: 100.w,
-                pages: List.generate(4, (index)=> MyBookingsList(id: index,)) ,
-                title: [
-                  AppStrings.all,
-                  AppStrings.trips,
-                  AppStrings.wild,
-                  AppStrings.activities
-                ],
-                onTap: (index) {
-                  context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: index == 0 ? null : index.toString()) ;
-                },
-              )
-            ],
+                TogglePages(
+                  width: 100.w,
+                  pages: List.generate(4, (index)=> MyBookingsList(id: index,)) ,
+                  title: [
+                    AppStrings.all,
+                    AppStrings.trips,
+                    AppStrings.wild,
+                    AppStrings.activities
+                  ],
+                  onTap: (index) {
+                    context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: index == 0 ? null : index.toString()) ;
+                  },
+                )
+              ],
+            ),
           ),
-        ),
+        
       ),
     );
   }

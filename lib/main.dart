@@ -12,20 +12,17 @@ import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/widgets/lottie_widget.dart';
 import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
-import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/favorite/data/repository/favorite_repository.dart';
-import 'package:tjhaz/feature/favorite/logic/add_to_favorite_cubit.dart';
-import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
+import 'package:tjhaz/feature/favorite/logic/add_or_remove_to_favorite_cubit.dart';
+import 'package:tjhaz/feature/favorite/logic/get_all_favorite_cubit.dart';
 import 'package:toastification/toastification.dart';
 import 'core/database/local/shared_prefrences_helper.dart';
 import 'core/routes/app_router.dart';
-import 'feature/booking/data/model/reservation_model.dart';
-import 'feature/categories/data/repository/categories_repository.dart';
-import 'feature/categories/logic/categories_cubit.dart';
+
+import 'feature/entertainment/data/model/entertainment_details_model.dart';
 import 'feature/entertainment/data/repository/entertainment_repository.dart';
 import 'feature/entertainment/logic/entertainment_details_cubit.dart';
-import 'feature/shop/data/model/product_mode.dart';
 import 'firebase_options.dart';
 
 
@@ -33,7 +30,32 @@ import 'firebase_options.dart';
 Locale currentLocale = Locale("ar", "KW");
 
 void main() async {
+  EntertainmentDetailsModel model = EntertainmentDetailsModel(
+      availableFrom: 12,
+      availableTo: 10,
+      minHoursToBooking: 1,
+      id: "id",
+      name: "diving",
+      categoryID: "8",
+      location: "location",
+      description: "description",
+      entertainmentType: "1",
+      facilities: {
+        "area":"120",
+        "bathroom":2 ,
+        "bedroom":2,
+        "captin":"Egyptian",
+        "guests":4 ,
+        "halls":1 ,
 
+
+      },
+      comfortFacilities: ["AC", "Wifi" , "TV" , "Sound System"],
+      images: ["https://www.sunrise-divers.com/wp-content/uploads/2017/02/diver-fish-clear-water.jpg" , "https://imgds360live.s3.amazonaws.com/storefront/3179043/7646062514_1672706356_3179043.jpg"],
+      price: 56,
+      guests: 4,
+      rates: "4.2",
+      ratingCount: 234) ;
 
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -72,8 +94,12 @@ class TjhazApp extends StatelessWidget {
               EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
           BlocProvider(create: (context) =>
               AnonymousUserCubit(getIt.get<FirebaseAuth>())),
-          BlocProvider(create: (context) => AddNewBookingCubit(getIt.get<BookingRepository>())),
-          BlocProvider(create: (context) => AddToFavoriteCubit(getIt.get<FavoriteRepository>())),
+          BlocProvider(create: (context) =>
+              AddNewBookingCubit(getIt.get<BookingRepository>())),
+          BlocProvider(create: (context) =>
+              AddOrRemoveToFavoriteCubit(getIt.get<FavoriteRepository>())),
+          BlocProvider(create: (context) =>
+              GetAllFavoriteCubit(getIt.get<FavoriteRepository>())..get()),
 
         ],
         child: ToastificationWrapper(
@@ -99,8 +125,8 @@ class TjhazApp extends StatelessWidget {
 }
 
 
-Future<void> addItem(ReservationModel model) async {
+Future<void> addItem(EntertainmentDetailsModel model) async {
   await FirebaseFirestore.instance.collection(
-      FireStoreConstants.entertainment).doc("CdK1PomBcxVqBasGOALx").collection(FireStoreConstants.reservationCollection).doc(DateTime.now().month.toString()).set(model.toJson()) ;
+      FireStoreConstants.entertainment).add(model.toJson()) ;
 }
 

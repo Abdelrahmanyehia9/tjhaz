@@ -1,3 +1,4 @@
+
 import 'index.dart';
 
 class AppRouter {
@@ -112,7 +113,7 @@ class AppRouter {
                     ..getBanners(),
                 ),
               ],
-              child: HomeLayout( ),
+              child: HomeLayout(initialIndex: initialIndex, ),
             ),
           );
         },

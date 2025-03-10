@@ -21,6 +21,7 @@ import 'package:tjhaz/feature/home/view/widgets/home_activities_sucess.dart';
 import 'package:tjhaz/feature/home/view/widgets/home_store_success.dart';
 import '../../../../core/widgets/errors_widgets.dart';
 import '../../../../core/widgets/global_app_bar.dart';
+import '../widgets/banner_slider.dart';
 import '../widgets/home_category_item.dart';
 import '../widgets/home_shimmer.dart';
 import '../widgets/popular_destination_success.dart';
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, state) {
                   if (state is BannersStatesSuccess) {
                     List<String> imgList = state.banners.map((item)=>item.image).toList();
-                    return state.banners.isNotEmpty? AppSlider(imageList: imgList, height: screenHeight(context)*0.225,)
+                    return state.banners.isNotEmpty? BannerSlider(imageList: imgList,)
                         : SizedBox();
                   } else {
                     return SizedBox();

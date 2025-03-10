@@ -5,6 +5,7 @@ import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
+import 'package:tjhaz/feature/favorite/view/widgets/add_to_favorite.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/card_sizes.dart';
 import '../../../../../core/styles/colors.dart';
@@ -46,7 +47,7 @@ class TripCardItem extends StatelessWidget {
                 ) ,
                 Positioned(
                     top: 8.h, right: 6.h,
-                    child: FavouriteIcon( size: 16,))
+                    child: AddToFavorite(id:model.id,))
               ],
             ) ,
             verticalSpace(8),

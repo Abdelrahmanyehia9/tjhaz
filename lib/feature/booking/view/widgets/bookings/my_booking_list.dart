@@ -41,6 +41,7 @@ class MyBookingsList extends StatelessWidget {
                 onRefresh: (){
                   context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: id == 0 ? null : id.toString()) ;
                 },
+
                     child: ListView.separated(
                                     shrinkWrap: true,
                                     physics: BouncingScrollPhysics(),

@@ -14,7 +14,8 @@ import '../../../categories/view/screen/all_categories_screen.dart';
 import '../../../home/view/screen/home_screen.dart';
 
 class HomeLayout extends StatefulWidget {
-  const HomeLayout({super.key});
+  final int initialIndex ;
+  const HomeLayout({super.key , this.initialIndex = 0});
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -22,6 +23,8 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
    int _selectedIndex = 0 ;
+
+
 
   final List<Widget> _pages = [
     const HomeScreen(),
@@ -39,6 +42,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   }
   @override
   void initState() {
+    _selectedIndex = widget.initialIndex ;
 context.read<AnonymousUserCubit>().checkAnonymousUser() ;
 super.initState();
   }

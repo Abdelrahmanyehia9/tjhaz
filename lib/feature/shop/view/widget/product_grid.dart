@@ -43,7 +43,7 @@ class ProductsGrid extends StatelessWidget {
         } else if (state is ProductsStatesFailure) {
           return AppErrorWidget(error: state.error);
         }
-        return const EntertainmentGridLoading();
+        return const GridLoading();
       },
     ) ;
   }
