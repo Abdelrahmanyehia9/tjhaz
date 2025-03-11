@@ -8,14 +8,6 @@ class ProductsCubit extends Cubit<ProductsStates>{
 
   ProductsCubit(this.shopRepository):super(ProductsStatesInitial()) ;
 
-Future<void>getAllProduct()async{
- final results = await shopRepository.getAllProducts();
- results.fold((products){
-   safeEmit(ProductsStatesSuccess(products)) ;
- }, (error){
-   safeEmit(ProductsStatesFailure(error)) ;
- }) ;
-}
 Future<void>getAllProductByVendorID(vendorId)async{
  final results = await shopRepository.getAllProductsByVendorID(vendorId);
  results.fold((products){

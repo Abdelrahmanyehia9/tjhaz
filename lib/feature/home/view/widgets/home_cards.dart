@@ -22,7 +22,7 @@ const CardV1({super.key , this.onTap , required this.img});
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             image: DecorationImage(
-              image: CachedNetworkImageProvider(img),
+              image: NetworkImage(img),
               fit: BoxFit.cover,
             ),
           ),

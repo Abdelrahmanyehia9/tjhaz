@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/routes/index.dart';
@@ -14,11 +16,8 @@ class FavoriteRepository {
 
 
   Future<void> addToFavorites({required String itemID}) async {
-    final response = await firestore.collection(
-        FireStoreConstants.userCollection).where(
-        "userID", isEqualTo: AppConstants.currentUserID).get().timeout(
-        Duration(seconds: 10));
-    final item = await response.docs.first.reference.collection(
+    final item = await firestore.collection(
+        FireStoreConstants.userCollection).doc(SharedPrefHelper.getString(SharedPrefConstants.currentUserId)).collection(
         FireStoreConstants.favoriteCollection).doc(itemID).get();
     if (!item.exists) {
       item.reference.set(FavoriteModel(Timestamp.now()).toJson()).timeout(

@@ -34,9 +34,9 @@ class UserDataHelper {
 
   static Future<Either<UserModel, String>> fetchUserFromFirestore(String userID , FirebaseFirestore firestore ) async {
     try {
-      final snapshot = await firestore.collection(FireStoreConstants.userCollection).where("userID" , isEqualTo: userID).get().timeout(Duration(seconds: 10));
-      if (snapshot.docs.isEmpty) return right("User not found");
-      final userModel = UserModel.fromJson(snapshot.docs.first.data());
+      final snapshot = await firestore.collection(FireStoreConstants.userCollection).doc(userID).get().timeout(Duration(seconds: 10));
+      if (!snapshot.exists) return right("User not found");
+      final userModel = UserModel.fromJson(snapshot.data()!);
       await saveUserToLocal(userModel);
       return left(userModel);
     } catch (e) {

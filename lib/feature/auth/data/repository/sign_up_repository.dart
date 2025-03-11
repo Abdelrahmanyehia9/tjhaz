@@ -17,7 +17,7 @@ Future<Either<UserCredential , String>>signUpUsingEmailAndPassword({required Str
   try{
     UserCredential credential = await auth.createUserWithEmailAndPassword(email: email, password: password) ;
     UserModel userModel = UserModel(uID: credential.user!.uid, username: username, emailAddress: email);
-    await userRepository.addNewUser(userModel: userModel) ;
+    await userRepository.addNewUserToFirestore(userModel: userModel) ;
     return left(credential);
   }
   catch (e) {return right(e.firebaseErrorMessage);}

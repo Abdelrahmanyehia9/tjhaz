@@ -73,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
             context: context,
           );
         } else if (state is SignupStateSuccess) {
-          GoRouter.of(context).push(AppRouter.homeScreen);
+          GoRouter.of(context).push(AppRouter.homeLayout);
         }
       },
       child: OverlayPortal(

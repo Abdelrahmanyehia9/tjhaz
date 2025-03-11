@@ -24,6 +24,7 @@ class HomeActivitiesSuccess extends StatelessWidget {
     return Column(
       children: [
         HeadlineViewMore(title: AppStrings.topActivities,hasViewMore: true,viewMoreOnTap:(){
+          print("🔥 Current Context: ${context.findAncestorWidgetOfExactType<MaterialApp>()}");
           context.push(AppRouter.entertainmentScreen , extra: {"parent":AppConstants.categories[2] }) ;
         } ,),
         SizedBox(

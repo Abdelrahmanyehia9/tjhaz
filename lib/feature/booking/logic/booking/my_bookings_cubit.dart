@@ -14,9 +14,9 @@ class MyBookingsCubit extends Cubit<MyBookingsStates> {
     emit(MyBookingsStatesLoading()) ;
     final response = await bookingRepository.getAllBookingsByCategory(userId , category) ;
     response.fold((l) {
-      emit(MyBookingsStatesSuccess(l)) ;
+      safeEmit(MyBookingsStatesSuccess(l)) ;
     }, (r) {
-      emit(MyBookingsStatesFailure(r)) ;
+      safeEmit(MyBookingsStatesFailure(r)) ;
     }) ;
   }
   Future<void>cancelBooking({required String bookingId ,required String userId})async{
@@ -27,7 +27,7 @@ try {
 }
 catch(e){
   print(e.toString()) ;
-  emit(MyBookingsStatesFailure(e.firebaseErrorMessage)) ;
+  safeEmit(MyBookingsStatesFailure(e.firebaseErrorMessage)) ;
 }
   }
 }

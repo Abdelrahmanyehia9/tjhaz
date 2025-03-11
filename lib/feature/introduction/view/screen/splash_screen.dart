@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
       GoRouter.of(context).go(AppRouter.onBoardingScreen);
     } else {
       if (isLoggedIn) {
-        GoRouter.of(context).go(AppRouter.homeLayout);
+        GoRouter.of(context).go(AppRouter.homeScreen);
       } else {
         GoRouter.of(context).go(AppRouter.authScreen);
       }

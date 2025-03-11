@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 
 import 'package:tjhaz/core/routes/index.dart';
 
@@ -10,15 +12,9 @@ class FavoriteDataHelper {
   const FavoriteDataHelper._();
   static final FavoriteDataHelper instance = FavoriteDataHelper._();
   Future<List<String>> getFavoritesIdsInFirestore(FirebaseFirestore firestore) async {
-    final userResponse = await firestore
+    final favoriteResponse = await firestore
         .collection(FireStoreConstants.userCollection)
-        .where("userID", isEqualTo: AppConstants.currentUserID)
-        .get()
-        .timeout(Duration(seconds: 10));
-
-
-    final favoriteResponse = await userResponse.docs.first
-        .reference
+.doc(SharedPrefHelper.getString(SharedPrefConstants.currentUserId))
         .collection(FireStoreConstants.favoriteCollection)
         .orderBy("addedDate")
         .get()

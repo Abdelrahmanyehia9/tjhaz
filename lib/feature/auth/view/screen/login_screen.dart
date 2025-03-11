@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
             description: state.errorMsg,
           );
         } else if (state is LoginStateSuccess) {
-          GoRouter.of(context).push(AppRouter.homeLayout);
+          GoRouter.of(context).push(AppRouter.homeScreen);
         }
       },
       child: OverlayPortal(

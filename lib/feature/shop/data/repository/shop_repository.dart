@@ -25,21 +25,9 @@ class ShopRepository {
     }
   }
 
-  Future<Either<List<ProductModel>, String>> getAllProducts() async {
-    try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection(FireStoreConstants.productCollection)
-          .get();
-      List<ProductModel> products = snapshot.docs.map((doc) {
-        return ProductModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).toList();
-      return left(products);
-    } catch (e) {
-      return right(e.firebaseErrorMessage);
-    }
-  }
   Future<Either<List<ProductModel>, String>> getAllProductsByVendorID(
-      String vendorId) async {
+      String vendorId)
+  async {
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection(FireStoreConstants.productCollection)

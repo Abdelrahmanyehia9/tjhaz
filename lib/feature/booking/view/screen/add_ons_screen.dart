@@ -41,11 +41,11 @@ class _AddOnsScreenState extends State<AddOnsScreen> {
         listener: (context , state){
           if (state is AddNewBookingSuccess) {
             appToast(type: ToastificationType.success, tittle: AppStrings.bookingSuccess, description: state.message) ;
-            context.go(AppRouter.homeLayout) ;
+            context.go(AppRouter.bookingsScreen) ;
 
           }else if (state is AddNewBookingFailure) {
             appToast(type: ToastificationType.error, tittle: AppStrings.bookingFailed, description:state.message) ;
-            context.go(AppRouter.homeLayout) ;
+            context.go(AppRouter.homeScreen) ;
 
           }
 
@@ -115,7 +115,7 @@ class _AddOnsScreenState extends State<AddOnsScreen> {
   }
 
   double _calculateTotalPrice() {
-    return selectedAddOns.fold(context.read<AddNewBookingCubit>().totalPrice??0, (total, index) {
+    return selectedAddOns.fold(context.read<AddNewBookingCubit>().totalPrice, (total, index) {
       return total + double.parse(widget.model.addOns![index].price!);
     });
   }

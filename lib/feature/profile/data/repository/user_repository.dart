@@ -11,33 +11,37 @@ import '../../../../core/database/remote/fireStore_constants.dart';
 import '../../../auth/data/repository/user_data_helper.dart';
 import '../../../auth/data/models/user_model.dart';
 
-class UserRepository{
+class UserRepository {
+  final FirebaseFirestore firestore;
 
-  final FirebaseFirestore firestore  ;
   UserRepository({required this.firestore});
-  Future<Either<DocumentReference<Map<String, dynamic>>, String>>addNewUser({required UserModel userModel})async {
+
+  Future<void> addNewUserToFirestore({required UserModel userModel}) async {
+    await firestore
+        .collection(FireStoreConstants.userCollection)
+        .doc(userModel.uID)
+        .set(userModel.toJson());
+  }
+
+  Future<Either<UserModel, String>> getUserInfo(
+      {required String userID}) async {
+    final localUser = UserDataHelper.getLocalUser(userID);
+    if (localUser != null) return left(localUser);
+    return await UserDataHelper.fetchUserFromFirestore(userID, firestore);
+  }
+
+  Future<Either<UserModel, String>> editUserInfo(
+      {required UserModel userModel}) async {
     try {
-      DocumentReference<Map<String, dynamic>> user = await firestore.collection(
-          FireStoreConstants.userCollection).add(userModel.toJson());
-      return left(user);
+      await firestore
+          .collection(FireStoreConstants.userCollection)
+          .doc(userModel.uID)
+          .update(userModel.toJson())
+          .timeout(Duration(seconds: 10));
+      await UserDataHelper.saveUserToLocal(userModel);
+      return left(userModel);
     } catch (e) {
       return right(e.firebaseErrorMessage);
     }
-  }
-  Future<Either<UserModel, String>> getUserInfo({required String userID }) async {
-    final localUser = UserDataHelper.getLocalUser(userID );
-    if (localUser != null) return left(localUser);
-    return await UserDataHelper.fetchUserFromFirestore(userID , firestore);
-  }
-
-  Future<Either<UserModel, String>>editUserInfo({required UserModel userModel})async{
-try{
-  final response = await firestore.collection(FireStoreConstants.userCollection).where("userID",isEqualTo: userModel.uID).get();
-   await response.docs.first.reference.update(userModel.toJson()).timeout(Duration(seconds: 10)) ;
-   await UserDataHelper.saveUserToLocal(userModel) ;
-   return left(userModel) ;
-}catch(e){
-  return right(e.firebaseErrorMessage) ;
-  }
   }
 }

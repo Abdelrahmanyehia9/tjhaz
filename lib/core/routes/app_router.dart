@@ -1,4 +1,3 @@
-
 import 'index.dart';
 
 class AppRouter {
@@ -8,16 +7,19 @@ class AppRouter {
   static const forgetPasswordPage = "/forgetPasswordScreen";
   static const confirmOtpScreen = "/confirmOtpScreen";
   static const setupNewPasswordScreen = "/setupNewPassword";
-  static const homeLayout = "/homeLayout";
+  static const homeScreen = "/home";
+  static const categoriesScreen = "/categories";
+  static const bookingsScreen = "/bookings";
+  static const profileScreen = "/profile";
+  static const cartScreen = "/cartScreen";
   static const entertainmentDetailsScreen = "/entertainmentDetailsScreen";
   static const entertainmentScreen = "/entertainmentScreen";
-  static const shopScreen = "/shopScreen" ;
-  static const shopDetailsScreen = "/shopDetailsScreen" ;
-  static const reservationScreen = "/reservationScreen" ;
-  static const addOnsScreen = "/addOnsScreen" ;
- static const personalInfoScreen = "/personalInfoScreen" ;
- static const favoriteScreen = "/favoriteScreen" ;
-
+  static const shopScreen = "/shopScreen";
+  static const shopDetailsScreen = "/shopDetailsScreen";
+  static const reservationScreen = "/reservationScreen";
+  static const addOnsScreen = "/addOnsScreen";
+  static const personalInfoScreen = "/personalInfoScreen";
+  static const favoriteScreen = "/favoriteScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
@@ -51,74 +53,109 @@ class AppRouter {
           ),
         ),
       ),
-      ///forget password
+     ///auth related
       GoRoute(
         path: forgetPasswordPage,
         pageBuilder: (context, state) => fadingTransition(
-
-            child: ForgetPasswordScreen(),
-
+          child: ForgetPasswordScreen(),
         ),
       ),
-      ///confirm otp
       GoRoute(
         path: confirmOtpScreen,
         pageBuilder: (context, state) => fadingTransition(
           child: OtpConfirmScreen(),
         ),
       ),
-      ///setup new password
+
       GoRoute(
         path: setupNewPasswordScreen,
         pageBuilder: (context, state) => fadingTransition(
           child: SetupNewPassword(),
         ),
       ),
-      ///home
+
+     ///shell routing of home
+      ShellRoute(
+        builder: (context, state, child) {
+          return HomeLayoutShell(child: child);
+        },
+
+        routes: [
+          GoRoute(
+            path: AppRouter.homeScreen,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) =>
+                    HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())
+                      ..getHomeTrips(),
+                  ),
+                  BlocProvider(
+                    create: (context) => HomeActivitiesCubit(
+                        homeRepository: getIt.get<HomeRepository>())
+                      ..getHomeActivities(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                    HomeStoresCubit(getIt.get<HomeRepository>())
+                      ..getHomeStores(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                    BannerCubit(getIt.get<HomeRepository>())
+                      ..getBanners(),
+                  ),
+                ],
+                child: HomeScreen(),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: AppRouter.categoriesScreen,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: BlocProvider(
+                create: (context) => CategoriesCubit(getIt.get<CategoryRepository>())
+                  ..getCategoriesByParentId("1"),
+                child: AllCategoriesScreen(),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: AppRouter.bookingsScreen,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: BlocProvider(
+                create: (context) => MyBookingsCubit(getIt.get<BookingRepository>())
+                  ..getAllBookingsByCategory(
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                  ),
+                child: MyBookingsScreen(),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: AppRouter.profileScreen,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: BlocProvider(
+                create: (context) => LogoutCubit(getIt.get<LoginRepo>()),
+                child: ProfileScreen(),
+              ),
+            ),
+          ),
+        ],
+      ),
       GoRoute(
-        path: homeLayout,
+        path: cartScreen,
         pageBuilder: (context, state) {
-          final int initialIndex = state.extra as int? ?? 0 ;
           return fadingTransition(
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) =>
-                  HomeTripsCubit(homeRepository: getIt.get<HomeRepository>())
-                    ..getHomeTrips(),
-                ),
-                BlocProvider(
-                  create: (context) => LogoutCubit(getIt.get<LoginRepo>())
-                ),
-                BlocProvider(
-                  create: (context) => MyBookingsCubit(getIt.get<BookingRepository>())..getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid,),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                  CategoriesCubit(getIt.get<CategoryRepository>())..getCategoriesByParentId("1"),
-                ),
-                BlocProvider(
-                  create: (context) => HomeActivitiesCubit(
-                      homeRepository: getIt.get<HomeRepository>())
-                    ..getHomeActivities(),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                  HomeStoresCubit(getIt.get<HomeRepository>())
-                    ..getHomeStores(),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                  BannerCubit(getIt.get<HomeRepository>())
-                    ..getBanners(),
-                ),
-              ],
-              child: HomeLayout(initialIndex: initialIndex, ),
+            child: BlocProvider(
+              create: (context) => CartCubit(getIt.get<CartRepository>())..getMyCartItems(),
+              child: CartScreen(),
             ),
           );
         },
       ),
-      ///entertainment
+
       GoRoute(
         path: entertainmentScreen,
         pageBuilder: (context, state) {
@@ -130,8 +167,7 @@ class AppRouter {
               providers: [
                 BlocProvider(
                   create: (context) =>
-                      CategoriesCubit( getIt.get<CategoryRepository>() ) ,),
-
+                      CategoriesCubit( getIt.get<CategoryRepository>() ),),
                 BlocProvider(create: (context) {
                   return EntertainmentCubit(
                       getIt.get<EntertainmentRepository>());
@@ -146,7 +182,6 @@ class AppRouter {
         },
       ),
 
-      ///entertainment  details
       GoRoute(
         path: entertainmentDetailsScreen,
         pageBuilder: (context, state) {
@@ -155,27 +190,29 @@ class AppRouter {
               child: EntertainmentDetailsScreen(model: model));
         },
       ),
-      ///shop
+      /// shopScreen
       GoRoute(
         path: shopScreen,
         pageBuilder: (context, state) {
-          final int? activeCategory = state.extra as int?;
-          return fadingTransition(child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(create: (context)=> VendorCubit(getIt.get<ShopRepository>())..getAllVendors()),
-                  BlocProvider(create: (context)=> ProductsCubit(getIt.get<ShopRepository>())),
-                ],
-                child: ShopScreen(activeCategory: activeCategory))  );
+          return fadingTransition(
+              child: MultiBlocProvider(
+                  providers: [
+                    BlocProvider(create: (context) => VendorCubit(getIt.get<ShopRepository>())..getAllVendors()) ,
+                    BlocProvider(create: (context)=> ProductsCubit(getIt.get<ShopRepository>()))
+                  ],
+
+                  child: ShopScreen()));
         },
       ),
-      ///shop details
+      /// singleProductView
       GoRoute(
         path: shopDetailsScreen,
         pageBuilder: (context, state) {
-          final model = state.extra as ProductModel;
-          return fadingTransition(child: BlocProvider(
-              create: (context) =>RelatedProductsCubit(getIt.get<ShopRepository>()) ,
-              child: ShopDetailsScreen(model: model)));
+          final ProductModel model = state.extra as ProductModel;
+          return fadingTransition(
+              child: BlocProvider(
+                create: (context)=>RelatedProductsCubit(getIt.get<ShopRepository>()),
+                  child: ShopDetailsScreen(model: model)));
         },
       ),
       ///reservation
@@ -186,34 +223,34 @@ class AppRouter {
           return fadingTransition(
               child: MultiBlocProvider(
                   providers: [
-                    BlocProvider( create: (context)=>GetReservedDatesCubit(getIt.get<BookingRepository>()),) ,
-                    BlocProvider( create: (context)=>GetReservedHoursCubit(getIt.get<BookingRepository>()),) ,
 
-
+                    BlocProvider(create: (context)=> GetReservedHoursCubit(getIt.get<BookingRepository>())) ,
+                    BlocProvider(create: (context)=> GetReservedDatesCubit(getIt.get<BookingRepository>())),
                   ],
-                  child: ReservationScreen(model: model,)));
+
+                  child: ReservationScreen(model: model)));
         },
       ),
-      ///add ons
       GoRoute(
         path: addOnsScreen,
         pageBuilder: (context, state) {
-          final EntertainmentDetailsModel model  = state.extra as EntertainmentDetailsModel;
+          final EntertainmentDetailsModel model = state.extra as EntertainmentDetailsModel;
           return fadingTransition(
-              child: AddOnsScreen(model: model,));
+              child: AddOnsScreen(model: model)
+
+          )
+          ;
         },
       ),
-      ///profile
       GoRoute(
         path: personalInfoScreen,
         pageBuilder: (context, state) {
           return fadingTransition(
               child: BlocProvider(
-                create: (context)=>PersonalInfoCubit(getIt.get<UserRepository>()),
+                  create: (context)=> PersonalInfoCubit(getIt.get<UserRepository>()),
                   child: PersonalInfoScreen()));
         },
       ),
-      ///favorite
       GoRoute(
         path: favoriteScreen,
         pageBuilder: (context, state) {
@@ -221,7 +258,6 @@ class AppRouter {
               child: FavoriteScreen());
         },
       ),
-
 
 
     ],

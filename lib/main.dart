@@ -27,35 +27,9 @@ import 'firebase_options.dart';
 
 
 ///to do shared preference
-Locale currentLocale = Locale("ar", "KW");
+Locale currentLocale = Locale("en", "IN");
 
 void main() async {
-  EntertainmentDetailsModel model = EntertainmentDetailsModel(
-      availableFrom: 12,
-      availableTo: 10,
-      minHoursToBooking: 1,
-      id: "id",
-      name: "diving",
-      categoryID: "8",
-      location: "location",
-      description: "description",
-      entertainmentType: "1",
-      facilities: {
-        "area":"120",
-        "bathroom":2 ,
-        "bedroom":2,
-        "captin":"Egyptian",
-        "guests":4 ,
-        "halls":1 ,
-
-
-      },
-      comfortFacilities: ["AC", "Wifi" , "TV" , "Sound System"],
-      images: ["https://www.sunrise-divers.com/wp-content/uploads/2017/02/diver-fish-clear-water.jpg" , "https://imgds360live.s3.amazonaws.com/storefront/3179043/7646062514_1672706356_3179043.jpg"],
-      price: 56,
-      guests: 4,
-      rates: "4.2",
-      ratingCount: 234) ;
 
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -93,13 +67,16 @@ class TjhazApp extends StatelessWidget {
           BlocProvider(create: (context) =>
               EntertainmentDetailsCubit(getIt.get<EntertainmentRepository>())),
           BlocProvider(create: (context) =>
-              AnonymousUserCubit(getIt.get<FirebaseAuth>())),
+              AnonymousUserCubit(getIt.get<FirebaseAuth>())..checkAnonymousUser()),
           BlocProvider(create: (context) =>
               AddNewBookingCubit(getIt.get<BookingRepository>())),
           BlocProvider(create: (context) =>
               AddOrRemoveToFavoriteCubit(getIt.get<FavoriteRepository>())),
           BlocProvider(create: (context) =>
-              GetAllFavoriteCubit(getIt.get<FavoriteRepository>())..get()),
+          GetAllFavoriteCubit(getIt.get<FavoriteRepository>())..get()),
+          BlocProvider(
+              create: (context)=> AddNewBookingCubit(getIt.get<BookingRepository>()),
+            )
 
         ],
         child: ToastificationWrapper(
@@ -129,4 +106,3 @@ Future<void> addItem(EntertainmentDetailsModel model) async {
   await FirebaseFirestore.instance.collection(
       FireStoreConstants.entertainment).add(model.toJson()) ;
 }
-

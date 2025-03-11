@@ -23,7 +23,7 @@ class MyBookingsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 575.h,
+      height: 550.h,
       child: BlocBuilder<MyBookingsCubit, MyBookingsStates>(
           builder: (context, state) {
             if (state is MyBookingsStatesSuccess) {

@@ -65,7 +65,7 @@ super.initState();
                     ProfileButton(text: "contact us"  ,visible: true ,icon:  Icons.support_agent),
                     ProfileButton(text: "my orders", visible: !isAnonymous  ,icon:  Icons.receipt),
                     ProfileButton(text: "my bookings", visible: !isAnonymous  ,icon:  Icons.calendar_today , onPressed: (){
-                      context.push(AppRouter.homeLayout , extra: 2) ;
+                      context.push(AppRouter.bookingsScreen ,) ;
                     },),
                     ProfileButton(text: "about us", visible: true   ,icon:  Icons.contact_support),
                     BlocListener<LogoutCubit , LogoutStates>(

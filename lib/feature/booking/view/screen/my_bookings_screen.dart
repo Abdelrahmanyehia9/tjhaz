@@ -20,10 +20,10 @@ class MyBookingsScreen extends StatelessWidget {
           child:  Column(
               children: [
                 Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 16.0.h),
+                  padding:  EdgeInsets.symmetric( horizontal: 16.w),
                   child: AppHeadline(
                     tittle: AppStrings.bookings,
-                    hasBackButton: false,
+                    hasBackButton: true,
                   ),
                 ),
                 TogglePages(

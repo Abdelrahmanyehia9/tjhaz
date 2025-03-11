@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,19 +12,16 @@ import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
 import 'package:tjhaz/feature/profile/logic/personal_info_cubit.dart';
 import 'package:tjhaz/feature/profile/logic/personal_info_state.dart';
 import 'package:toastification/toastification.dart';
-
 import '../../../../core/database/local/shared_prefrences_constants.dart';
 import '../../../../core/database/local/shared_prefrences_helper.dart';
 import '../../../../core/widgets/app_message.dart';
 import '../../../auth/data/models/user_model.dart';
-
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
 
   @override
   State<PersonalInfoScreen> createState() => _PersonalInfoScreenState();
 }
-
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
@@ -60,12 +58,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               if (state is GetPersonalInfoSuccess ||
                   state is UpdatePersonalInfoSuccess ||
                   state is UpdatePersonalInfoFailure) {
-                print(SharedPrefHelper.getString(
-                    SharedPrefConstants.currentUserName));
-                print(SharedPrefHelper.getString(
-                    SharedPrefConstants.currentUserEmail));
-                print(SharedPrefHelper.getString(
-                    SharedPrefConstants.currentUserBirthDate));
                 UserModel userModel =
                     context.read<PersonalInfoCubit>().userModel!;
                 return Column(
@@ -79,8 +71,17 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                               hint: userModel.username,
                               controller: userNameController),
                           textFormFieldOfPersonalInfo(
+                            onTap: (){
+                              showDatePicker(
+
+                                initialEntryMode: DatePickerEntryMode.calendar,
+                                  context: context, firstDate: DateTime(1900), lastDate: DateTime.now(), initialDate: DateTime.now()).then((value) {
+                                  value == null ? null : birthDateController.text = DateFormat('yyyy-MM-dd').format(value) ;
+                              }) ;
+                            },
                               hint: userModel.birthDate ??
                                   "No Birthdate Provided",
+                              keyboardType: TextInputType.none,
                               controller: birthDateController),
                           textFormFieldOfPersonalInfo(
                             hint: userModel.emailAddress,
@@ -117,10 +118,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   }
 
   Widget textFormFieldOfPersonalInfo({
+    GestureTapCallback? onTap ,
     required String hint,
     bool enabled = true,
     TextEditingController? controller,
     String? Function(String?)? validator,
+    TextInputType? keyboardType,
     void Function(String)? onChanged,
   }) {
     return Padding(
@@ -132,9 +135,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
           onChanged: onChanged,
           validator: validator,
           cursorColor: AppColors.secondaryColor,
+          onTap: onTap,
+          keyboardType: keyboardType,
           style:
               AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
           decoration: InputDecoration(
+
             hintText: hint,
             hintStyle: AppTypography.t12Normal.copyWith(
               color:
@@ -142,11 +148,23 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             ),
             enabled: enabled,
             filled: !enabled,
+
             fillColor: AppColors.secondaryColor.withOpacity(0.1),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.secondaryColor),
+              borderSide: BorderSide(color: AppColors.primaryColor),
             ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: AppColors.primaryColor),
+            ),
+
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: AppColors.primaryColor , width: 1.5),
+            ),
+
+
           ),
         ),
       ),
