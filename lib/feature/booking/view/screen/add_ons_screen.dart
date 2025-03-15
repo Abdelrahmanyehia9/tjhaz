@@ -15,8 +15,6 @@ import 'package:tjhaz/feature/booking/view/widgets/booking_bottom_button.dart';
 import 'package:tjhaz/feature/categories/view/widget/categories_containers.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:toastification/toastification.dart';
-
-import '../../logic/booking/my_bookings_cubit.dart';
 import '../widgets/reservation/headlines.dart';
 
 class AddOnsScreen extends StatefulWidget {

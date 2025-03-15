@@ -45,8 +45,6 @@ export 'package:tjhaz/feature/shop/view/screen/shop_screen.dart';
 export '../../feature/entertainment/view/screen/entertainment_details_screen.dart';
 export 'navigation_transitions.dart';
 export '../../feature/booking/view/screen/my_bookings_screen.dart';
-export '../../feature/cart/data/repository/cart_repository.dart';
-export '../../feature/cart/logic/cart_cubit.dart';
 export '../../feature/cart/view/screen/cart_screen.dart';
 export '../../feature/categories/view/screen/all_categories_screen.dart';
 export '../../feature/home/view/screen/home_screen.dart';

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:tjhaz/core/extention/localized_map.dart';
+import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
+import 'package:tjhaz/feature/cart/view/widgets/product_quantiy.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../../shop/view/widget/product_quantiy.dart';
 
 class CartItem extends StatelessWidget {
   final bool isSelected ;
-  const CartItem({super.key , this.isSelected = true});
+  final CartModel cartModel ;
+  const CartItem({super.key , this.isSelected = true   , required this.cartModel});
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +58,8 @@ class CartItem extends StatelessWidget {
                         width: 60.w,
                         height: 60.h,
                         child: Image.network(
-                          "https://blackfinrods.com/cdn/shop/files/83a2a377aa88f329decd76c3c95a8284.jpg?v=1721878718&width=1440",
-                          fit: BoxFit.cover,
+                          cartModel.itemImage
+                          ,fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -66,12 +68,12 @@ class CartItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "WATER WALKWAY".toUpperCase(),
+                          cartModel.itemName.localized.toUpperCase(),
                           style: AppTypography.t12Bold
                               .copyWith(color: AppColors.primaryColor),
                         ),
                         Text(
-                          "89.000 KWD".toUpperCase(),
+                          "${cartModel.itemPrice} KWD".toUpperCase(),
                           style: AppTypography.t12Normal
                               .copyWith(color: AppColors.primaryColor),
                         ),
@@ -83,7 +85,7 @@ class CartItem extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.h , horizontal: 12.w),
-                child: ProductQuantity(size: 12),
+                child: ProductQuantity(size: 12, cartModel: cartModel,),
               )
             ],
           )

@@ -76,7 +76,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             height: screenHeight(context)*.3,
             child: SvgPicture.asset(AppAssets.empty)) : Opacity(
           opacity: 0.5,
-            child: Icon(icon , size: 150.sp , color: Color(0xfffffa994),)) ,
+            child: Icon(icon , size: 150.sp , color: Color(0xffffa994),)) ,
         verticalSpace(8) ,
         Text.rich(
           textAlign: TextAlign.center,

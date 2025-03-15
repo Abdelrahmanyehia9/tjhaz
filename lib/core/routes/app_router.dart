@@ -1,3 +1,7 @@
+import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
+import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
+import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
+
 import 'index.dart';
 
 class AppRouter {
@@ -66,7 +70,6 @@ class AppRouter {
           child: OtpConfirmScreen(),
         ),
       ),
-
       GoRoute(
         path: setupNewPasswordScreen,
         pageBuilder: (context, state) => fadingTransition(
@@ -77,7 +80,9 @@ class AppRouter {
      ///shell routing of home
       ShellRoute(
         builder: (context, state, child) {
-          return HomeLayoutShell(child: child);
+          return BlocProvider(
+              create: (context)=>AnonymousUserCubit(getIt.get<FirebaseAuth>())..checkAnonymousUser(),
+              child: HomeLayoutShell(child: child));
         },
 
         routes: [
@@ -144,14 +149,12 @@ class AppRouter {
           ),
         ],
       ),
+      ///cart
       GoRoute(
         path: cartScreen,
         pageBuilder: (context, state) {
           return fadingTransition(
-            child: BlocProvider(
-              create: (context) => CartCubit(getIt.get<CartRepository>())..getMyCartItems(),
-              child: CartScreen(),
-            ),
+            child: CartScreen(),
           );
         },
       ),
@@ -194,6 +197,7 @@ class AppRouter {
       GoRoute(
         path: shopScreen,
         pageBuilder: (context, state) {
+          final int? activeCat = state.extra as int? ;
           return fadingTransition(
               child: MultiBlocProvider(
                   providers: [
@@ -201,7 +205,7 @@ class AppRouter {
                     BlocProvider(create: (context)=> ProductsCubit(getIt.get<ShopRepository>()))
                   ],
 
-                  child: ShopScreen()));
+                  child: ShopScreen(activeCategory: activeCat,)));
         },
       ),
       /// singleProductView

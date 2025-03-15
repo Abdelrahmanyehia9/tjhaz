@@ -86,8 +86,6 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
 
   @override
   Widget build(BuildContext context) {
-    print("Current child: ${widget.child}");
-    print("Selected Index: $_selectedIndex");
     return Scaffold(
       body: SafeArea(child: widget.child),
       bottomNavigationBar: SizedBox(

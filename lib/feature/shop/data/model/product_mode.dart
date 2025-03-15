@@ -3,17 +3,19 @@ import 'package:tjhaz/core/utils/app_strings.dart';
 
 class ProductModel {
   final String id;
-  final String description;
+  final Map<String  ,dynamic> description;
   final bool? featured;
   final List<String> images;
-  final String name;
+  final Map<String  , dynamic> name;
   final String vendor;
+  final int inStock ;
   final double price;
   final double? priceBeforeDiscount;
   final List<String>? tags;
 
   ProductModel({
     required this.id,
+    required this.inStock ,
     required this.description,
     this.featured,
     required this.images,
@@ -27,10 +29,11 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] ,
-      description: (json['description'] as Map<String, dynamic>).localized ,
+      inStock: json['inStock'] ?? 100  ,
+      description: json['description']  ,
       featured: json['featured'] as bool?,
       images: (json['images'] as List<dynamic>).map((e) => e.toString()).toList() ,
-      name: (json['name'] as Map<String, dynamic>).localized,
+      name: json['name'] ,
       vendor: json['parent_id'],
       price: (json['price'] is num) ? (json['price'] as num).toDouble() : double.tryParse(json['price']?.toString() ?? '0') ?? 0.0,
       priceBeforeDiscount: (json['price_before_discount'] is num)
@@ -49,6 +52,7 @@ class ProductModel {
       'id': id,
       'description': description,
       'featured': featured,
+      "inStock": inStock,
       'images': images,
       'name': name,
       'parent_id': vendor,

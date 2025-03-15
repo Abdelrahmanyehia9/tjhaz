@@ -9,6 +9,7 @@ class FireStoreConstants{
  static const String bookingsCollection = "bookings" ;
  static const String reservationCollection = "reservation" ;
  static const String favoriteCollection = "favorites" ;
+ static const String cartCollection = "cart" ;
 
 
 

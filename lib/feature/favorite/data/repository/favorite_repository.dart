@@ -22,10 +22,17 @@ class FavoriteRepository {
     if (!item.exists) {
       item.reference.set(FavoriteModel(Timestamp.now()).toJson()).timeout(
           Duration(seconds: 10));
-    }else{
+    }
+  }
+  Future<void> removeFromFavorites({required String itemID}) async {
+    final item = await firestore.collection(
+        FireStoreConstants.userCollection).doc(SharedPrefHelper.getString(SharedPrefConstants.currentUserId)).collection(
+        FireStoreConstants.favoriteCollection).doc(itemID).get();
+    if (item.exists) {
       item.reference.delete().timeout(Duration(seconds: 10));
     }
   }
+
   Future<Either<List<EntertainmentDetailsModel>, String>> getAllFavorites() async {
     try {
       List<String> ids = await FavoriteDataHelper.instance.getFavoritesIdsInFirestore(firestore) ;

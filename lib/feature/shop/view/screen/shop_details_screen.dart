@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
+import 'package:tjhaz/core/routes/index.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/widgets/app_slider.dart';
-import 'package:tjhaz/feature/shop/data/model/product_mode.dart';
-import 'package:tjhaz/feature/shop/view/widget/product_quantiy.dart';
 import 'package:tjhaz/feature/shop/view/widget/related_products.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../../../core/utils/screen_size.dart';
 import '../../../../core/widgets/app_back_button.dart';
 import '../widget/product_action_buttons.dart';
 
@@ -30,9 +30,11 @@ class ShopDetailsScreen extends StatelessWidget {
                 AppBackButton(),
                 AppSlider(imageList: model.images ,id: model.id,),
                 productTitle(),
-                ProductActionButtons(),
+                ProductActionButtons(
+                  productModel: model,
+                ),
                 description(
-                  model.description,
+                  model.description.localized,
                 ),
                 verticalSpace(16),
                 RelatedProducts(productModel: model)
@@ -50,7 +52,7 @@ class ShopDetailsScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 16.0.h, bottom: 8.h),
             child: Text(
-              model.name,
+              model.name[AppConstants.currentLanguage.toUpperCase()]!,
 
               style:
                   AppTypography.t20Bold.copyWith(color: AppColors.primaryColor),
@@ -82,9 +84,7 @@ class ShopDetailsScreen extends StatelessWidget {
                           ])),
                 ],
               ),
-              ProductQuantity(
-                size: 16,
-              )
+
             ],
           ),
         ],

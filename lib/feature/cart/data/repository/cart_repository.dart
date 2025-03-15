@@ -4,36 +4,70 @@ import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
+import 'package:tjhaz/feature/cart/data/model/cart_model_constants.dart';
 
 class CartRepository {
   final FirebaseFirestore firestore;
 
-  const CartRepository(this.firestore);
+  final  CollectionReference<Map<String, dynamic>> cartCollection = FirebaseFirestore.instance.collection(FireStoreConstants.userCollection).doc(AppConstants.currentUserID).collection(FireStoreConstants.cartCollection);
 
-  Future<Either<List<CartModel>, String>> getAllItemsInCart() async {
+   CartRepository(this.firestore);
+
+  Future<Either<int, String>> getQuantityOfItemInCart(String modelId) async {
     try {
-      List<CartModel> cartItems = [];
-      final response = await firestore
-          .collection(FireStoreConstants.userCollection)
-          .where("userId", isEqualTo: AppConstants.currentUserID)
-          .get();
-      final cartResponse =
-          await response.docs.first.reference.collection("cart").get();
-      for (var item in cartResponse.docs) {
-        cartItems.add(CartModel.fromJson(item.data()));
-      }
-      return left(cartItems);
+       final snapshot = await cartCollection.doc(modelId).get() ;
+        if(snapshot.exists){
+          return left(snapshot.data()![CartModelConstants.quantity]);
+        }else{
+          return left(0);
+        }
     } catch (e) {
       return right(e.firebaseErrorMessage);
     }
   }
+  Future<Either<void, String>>quantityUpdate(bool isIncrement , String itemID)async{
+    try{
+      await cartCollection.doc(itemID).update({CartModelConstants.quantity : FieldValue.increment(isIncrement ? 1 : -1)}) ;
+return left(null) ;
+    }catch(e){
 
-  // Future<void> addItemsToCart({required CartModel model}) async {
-  //   await firestore
-  //       .collection(FireStoreConstants.userCollection)
-  //       .doc(AppConstants.currentUserID)
-  //       .collection("cart")
-  //       .doc(model.id)
-  //       .set(model.toJson());
-  // }
+      return right(e.firebaseErrorMessage) ;
+    }
+  }
+  Future<Either<void, String>> addItemToCart({required CartModel cartModel}) async {
+    try {
+      await cartCollection
+          .doc(cartModel.itemID)
+          .set(cartModel.toJson());
+      return left(null);
+    } catch (e) {
+      return right(e.firebaseErrorMessage);
+    }
+  }
+  Future<Either<void, String>> removeItemFromCart({required String itemID}) async {
+    try {
+      await cartCollection
+          .doc(itemID)
+          .delete();
+      return left(null);
+    } catch (e) {
+      return right(e.firebaseErrorMessage);
+    }
+  }
+  Future<Either<List<CartModel> , String>> getCartItems()  async{
+    List<CartModel> cartItems = [] ;
+    try{
+      final response  = await cartCollection.orderBy(CartModelConstants.cartAddedDate).get() ;
+      for(var item in response.docs){
+        cartItems.add(CartModel.fromJson(item.data())) ;
+      }
+      return left(cartItems) ;
+
+    }catch(e){
+      return right(e.firebaseErrorMessage) ;
+    }
+
+
+
+  }
 }

@@ -1,23 +1,27 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
 import 'package:tjhaz/feature/cart/logic/cart_states.dart';
+import '../data/model/cart_model.dart';
 
 class CartCubit extends Cubit<CartStates>{
-  List<CartModel> items = []  ;
-
- final  CartRepository cartRepository ;
-   CartCubit(this.cartRepository):super(CartStatesInitial()) ;
-
- Future<void>getMyCartItems()async{
-   final res = await cartRepository.getAllItemsInCart() ;
-res.fold((items){
-  this.items =  items ;
-}, (error){
-  print(error) ;
-}) ;
+  final CartRepository cartRepository ;
+  List<CartModel> cartItems = [] ;
+  CartCubit(this.cartRepository) : super(CartStatesInitial()) ;
 
 
 
- }
+  Future<void> getCartItems()async{
+    safeEmit(CartStatesLoading()) ;
+    final result = await cartRepository.getCartItems() ;
+    result.fold((items){
+      cartItems = items ;
+      safeEmit(CartStatesSuccess()) ;
+    }, (error)=>safeEmit(CartStatesFailure(error))) ;
+
+  }
+
+
+
+
 }
