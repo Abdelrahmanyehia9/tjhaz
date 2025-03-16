@@ -14,6 +14,7 @@ import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/screen_size.dart';
+import '../../../../core/widgets/app_message.dart';
 import '../../data/models/home_model.dart';
 import 'home_cards.dart';
 import 'headline_view_more.dart';
@@ -65,10 +66,13 @@ class PopularDestinationSuccess extends StatelessWidget {
   }
 
   Widget showMoreDistButton(BuildContext context) => ElevatedButton(
-        onPressed: () {
-          context.push(AppRouter.entertainmentScreen,
-              extra: {"parent": AppConstants.categories[0]});
-        },
+        // onPressed: () {
+        //   context.push(AppRouter.entertainmentScreen,
+        //       extra: {"parent": AppConstants.categories[0]});
+        // },
+    onPressed: (){
+      appBottomSheet(context: context) ;
+    },
         style: ElevatedButton.styleFrom(
           overlayColor: Colors.transparent,
           backgroundColor: Colors.transparent,

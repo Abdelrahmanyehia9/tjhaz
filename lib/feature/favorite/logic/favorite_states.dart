@@ -14,4 +14,8 @@ class GetFavoriteStatesFailure extends FavoriteStates{
   const GetFavoriteStatesFailure(this.error) ;
 }
 class AddOrRemoveToFavoriteSuccess extends FavoriteStates{}
+class AddOrRemoveToFavoriteLoading extends FavoriteStates{
+  final String loadingID ;
+  const AddOrRemoveToFavoriteLoading(this.loadingID)   ;
+}
 class AddOrRemoveToFavoriteFailure extends FavoriteStates{}

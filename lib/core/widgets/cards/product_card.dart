@@ -13,6 +13,7 @@ import 'package:tjhaz/core/widgets/box_icon_button.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
 import 'package:tjhaz/feature/cart/view/widgets/product_quantiy.dart';
+import 'package:tjhaz/feature/favorite/view/widgets/add_to_favorite.dart';
 
 import '../../../feature/shop/data/model/product_mode.dart';
 
@@ -81,9 +82,8 @@ class ProductCard extends StatelessWidget {
         Positioned(
             top: 12.h,
             right: 12.h,
-            child: FavouriteIcon(
-              onTap: () {},
-              size: 16.sp,
+            child: AddToFavorite(
+              id: productModel.id,
             )),
         productModel.priceBeforeDiscount != null
             ? Positioned(

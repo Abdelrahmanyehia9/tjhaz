@@ -7,7 +7,8 @@ class FavouriteIcon extends StatelessWidget {
   final double? size;
   final GestureTapCallback? onTap;
   final bool isFavorite ;
-  const FavouriteIcon({super.key  ,this.size , this.onTap , this.isFavorite = false});
+  final bool isLoading ;
+  const FavouriteIcon({super.key  ,this.size , this.onTap , this.isFavorite = false , this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,12 @@ class FavouriteIcon extends StatelessWidget {
           color: AppColors.secondaryColor,
         borderRadius: BorderRadius.circular(8)
         ),
-        child: Icon(isFavorite ?Icons.remove:AppIcons.favorite , color: Colors.white,size: size ?? 20,),
+        child: isLoading?SizedBox(
+          width: 14.h,
+          height: 14.h,
+
+            child: CircularProgressIndicator(color: Colors.white,
+            strokeWidth: 1,)):Icon( isFavorite ?Icons.remove:AppIcons.favorite , color: Colors.white,size: size ?? 20,),
       ),
     );
   }

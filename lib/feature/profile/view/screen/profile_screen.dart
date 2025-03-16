@@ -55,12 +55,11 @@ super.initState();
                     ProfileButton(text: "personal info"  , visible: !isAnonymous ,icon:  Icons.person , onPressed: (){
                       context.push(AppRouter.personalInfoScreen , ) ;
                     },),
-                    ProfileButton(text: "Login" , visible: isAnonymous ,icon:  Icons.login , filled: true, onPressed: ()async{
-                      await context.read<LogoutCubit>().logout() ;
+                    ProfileButton(text: "Login" , visible: isAnonymous ,icon:  Icons.login , filled: true, onPressed: (){
                      if(context.mounted) context.go(AppRouter.authScreen) ;
                     },),
                     ProfileButton(text: "reset password" , visible: !isAnonymous ,icon:  Icons.lock),
-                    ProfileButton(text: "My Favorites" ,visible: true ,icon:  Icons.favorite , onPressed: (){
+                    ProfileButton(text: "My Favorites" ,visible: !isAnonymous ,icon:  Icons.favorite , onPressed: (){
                       context.push(AppRouter.favoriteScreen) ;
                     },),
                     ProfileButton(text: "contact us"  ,visible: true ,icon:  Icons.support_agent),

@@ -10,6 +10,7 @@ class AppConstants{
 const AppConstants._();
 
   static String currentLanguage = currentLocale.languageCode.toUpperCase();
+  static bool isAnonymous = SharedPrefHelper.getBool(SharedPrefConstants.isAnonymous)?? true;
   static String? currentUserID = SharedPrefHelper.getString(SharedPrefConstants.currentUserId) ;
   static List<Map<String, String>> categories = [
     {

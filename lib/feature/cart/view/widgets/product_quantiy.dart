@@ -86,10 +86,9 @@ class _ProductQuantityState extends State<ProductQuantity> {
 
                   context.loaderOverlay.show();
                   await cubit.updateItemQuantity(false, widget.cartModel.itemID);
-                  if (quantity == 1 && context.mounted) {
-                    await context.read<CartCubit>().getCartItems() ;
-                  }
                   if (context.mounted) context.loaderOverlay.hide();
+
+
 
                 } : null,
                 child: Padding(

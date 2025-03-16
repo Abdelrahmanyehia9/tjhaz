@@ -14,5 +14,6 @@ class AppAssets {
   static const String error ="assets/images/error.svg" ;
   static const String crownIcon ="assets/images/crown.png" ;
   static const String refreshLoading ="assets/images/refreshLoading.json" ;
+  static const String seaTrip ="assets/images/d3.jpg" ;
 
 }

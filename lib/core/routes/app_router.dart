@@ -149,6 +149,7 @@ class AppRouter {
           ),
         ],
       ),
+      ///shell routing for auth
       ///cart
       GoRoute(
         path: cartScreen,

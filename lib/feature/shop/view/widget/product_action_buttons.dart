@@ -64,7 +64,6 @@ class _ProductActionButtonsState extends State<ProductActionButtons> {
                           cartModel: model) ;
 
                       setState(() {
-
                       });
                       if (context.mounted) context.loaderOverlay.hide();
                     })

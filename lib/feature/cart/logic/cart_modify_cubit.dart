@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
 import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
-import 'cart_cubit.dart';
 import 'cart_modify_states.dart';
 
 class CartModifyCubit extends Cubit<CartModifyStates> {
@@ -40,10 +39,10 @@ class CartModifyCubit extends Cubit<CartModifyStates> {
     }) ;
   }
   Future<void>removeItemFromCart({required String itemID})async{
-    quantityMap[itemID] = 0 ;
     final result = await cartRepository.removeItemFromCart(itemID: itemID) ;
     result.fold((_) {
       safeEmit(AddOrRemoveItemsToCartSuccess("Item Removed SuccessFully"));
+      quantityMap[itemID] = 0 ;
     }, (error)=>safeEmit(AddOrRemoveItemsToCartFailure(error))) ;
   }
 

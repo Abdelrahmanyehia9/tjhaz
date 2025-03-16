@@ -66,7 +66,11 @@ class _AppSliderState extends State<AppSlider> {
             ),
           ),
         ),
-
+        Positioned(
+          bottom: 8.h,
+          right: 8.w,
+          child: AddToFavorite(id: widget.id,),
+        ),
 
       ],
     );

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
+import 'package:tjhaz/core/widgets/app_message.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/app_icon.dart';
 import '../../../../core/styles/colors.dart';
@@ -70,6 +74,12 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
 
   void _onItemTapped(int index) {
     // Handle cart navigation as a special case with push
+  if (SharedPrefHelper.getBool(SharedPrefConstants.isAnonymous) == true && (index  == 2 || index == 3  )){
+    appBottomSheet(context: context) ;
+
+
+
+  }else{
     if (index == 3) {
       context.push(AppRouter.cartScreen);
       return;
@@ -82,6 +92,7 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
         _selectedIndex = index;
       });
     }
+  }
   }
 
   @override

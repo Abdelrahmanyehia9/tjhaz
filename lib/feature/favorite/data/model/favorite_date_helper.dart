@@ -29,7 +29,7 @@ class FavoriteDataHelper {
     }
     return ids;
   }
-  Future <List<EntertainmentDetailsModel>> fetchFavoritesDate(List<String> favIds , FirebaseFirestore firestore) async {
+  Future <List<EntertainmentDetailsModel>> fetchFavoritesEntertainments(List<String> favIds , FirebaseFirestore firestore) async {
 
 
     List<EntertainmentDetailsModel> favorites = [];
@@ -45,6 +45,27 @@ class FavoriteDataHelper {
       if (entertainmentResponse.docs.isNotEmpty) {
         final entertainmentData = entertainmentResponse.docs.first.data();
         favorites.add(EntertainmentDetailsModel.fromJson(entertainmentData));
+      }
+    }
+
+    return favorites;
+  }
+  Future <List<ProductModel>> fetchFavoriteProducts(List<String> favIds , FirebaseFirestore firestore) async {
+
+
+    List<ProductModel> favorites = [];
+
+    for (var favorite in favIds) {
+
+      final productsResponse = await firestore
+          .collection(FireStoreConstants.productCollection)
+          .where("id", isEqualTo: favorite)
+          .get()
+          .timeout(Duration(seconds: 10));
+
+      if (productsResponse.docs.isNotEmpty) {
+        final productsData = productsResponse.docs.first.data();
+        favorites.add(ProductModel.fromJson(productsData));
       }
     }
 

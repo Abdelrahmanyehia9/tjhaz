@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
+import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
 import 'package:tjhaz/feature/cart/view/widgets/product_quantiy.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
+import '../../logic/cart_modify_cubit.dart';
 
 class CartItem extends StatelessWidget {
   final bool isSelected ;
@@ -84,8 +88,37 @@ class CartItem extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.h , horizontal: 12.w),
-                child: ProductQuantity(size: 12, cartModel: cartModel,),
+                padding:  EdgeInsets.all(8.0.w),
+                child: Row(
+                  children: [
+                    ProductQuantity(size: 12, cartModel: cartModel,),
+                    horizontalSpace(4) ,
+                    InkWell(
+                      onTap: () async {
+                        context.loaderOverlay.show();
+
+                        await context.read<CartModifyCubit>().removeItemFromCart(itemID: cartModel.itemID);
+
+                        if (context.mounted) {
+                          await context.read<CartCubit>().getCartItems();
+                          if (context.mounted) context.loaderOverlay.hide();
+                        }
+                      },
+
+
+                      child: Container(
+                        width:40.w,
+                        height: 25.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.r),
+                          color: AppColors.secondaryColor,
+
+                        ) ,
+                        child: Icon(Icons.delete , size: 20.sp , color: Colors.white,),
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           )

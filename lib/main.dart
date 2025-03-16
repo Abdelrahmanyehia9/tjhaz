@@ -3,31 +3,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:tjhaz/core/DI/dependency_injection.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
 import 'package:tjhaz/core/routes/index.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/widgets/lottie_widget.dart';
-import 'package:tjhaz/feature/booking/data/repository/bookings_repository.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
-import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
 import 'package:tjhaz/feature/cart/logic/cart_modify_cubit.dart';
 import 'package:tjhaz/feature/favorite/data/repository/favorite_repository.dart';
-import 'package:tjhaz/feature/favorite/logic/add_or_remove_to_favorite_cubit.dart';
-import 'package:tjhaz/feature/favorite/logic/get_all_favorite_cubit.dart';
 import 'package:toastification/toastification.dart';
 import 'core/database/local/shared_prefrences_helper.dart';
 import 'core/routes/app_router.dart';
 import 'feature/entertainment/logic/entertainment_details_cubit.dart';
+import 'feature/favorite/logic/favorite_cubit.dart';
 import 'firebase_options.dart';
 
 ///to do shared preference
-Locale currentLocale = Locale("en", "IN");
+Locale currentLocale = Locale("ar", "KW");
 
 void main() async {
   ProductModel model = ProductModel(id: "", inStock: 3, description: {
@@ -71,16 +66,16 @@ class TjhazApp extends StatelessWidget {
               create: (context) =>
                   AddNewBookingCubit(getIt.get<BookingRepository>())),
           BlocProvider(
-              create: (context) =>
-                  AddOrRemoveToFavoriteCubit(getIt.get<FavoriteRepository>())),
-          BlocProvider(
-              create: (context) =>
-                  GetAllFavoriteCubit(getIt.get<FavoriteRepository>())..get()),
-          BlocProvider(
             create: (context) => AddNewBookingCubit(
               getIt.get<BookingRepository>(),
             ),
           ),
+          BlocProvider(
+            create: (context) => FavoriteCubit(
+              getIt.get<FavoriteRepository>(),
+            )..getAllFavorites(),
+          ),
+
           BlocProvider(
             create: (context) => CartModifyCubit(
               getIt.get<CartRepository>(),
