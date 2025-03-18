@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
@@ -9,9 +11,9 @@ class AppConstants{
 
 const AppConstants._();
 
-  static String currentLanguage = currentLocale.languageCode.toUpperCase();
-  static bool isAnonymous = SharedPrefHelper.getBool(SharedPrefConstants.isAnonymous)?? true;
-  static String? currentUserID = SharedPrefHelper.getString(SharedPrefConstants.currentUserId) ;
+
+  static String currentLanguage = currentLocale.toUpperCase();
+  static String currentLocale = SharedPrefHelper.getString(SharedPrefConstants.currentLanguage) ?? "ar";
   static List<Map<String, String>> categories = [
     {
       "image": AppAssets.catTrips,

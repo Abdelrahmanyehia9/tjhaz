@@ -17,7 +17,7 @@ class AuthScreen extends StatelessWidget {
         child: Column(
           children: [
             AuthHeader(tittle: Image.asset(AppAssets.appLogo)) ,
-             TogglePages(pages: [LoginScreen() , SignupScreen()] , title: [AppStrings.login , AppStrings.signUp],)
+             TogglePages(pages: const [LoginScreen() , SignupScreen()] , title: [AppStrings.login , AppStrings.signUp],)
           ],
         ),
       ),

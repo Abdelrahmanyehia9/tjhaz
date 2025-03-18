@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
 
 class CachedNetworkImageWidget extends StatelessWidget {
@@ -17,13 +18,16 @@ class CachedNetworkImageWidget extends StatelessWidget {
         child: Opacity(
           opacity: 0.7,
           child: Center(
-            child: Image.asset(AppAssets.splashLogo) // Loading indicator
+            child: Padding(
+              padding:  EdgeInsets.all(36.0.w),
+              child: Image.asset(AppAssets.splashLogo , width: 150.w, fit: BoxFit.contain,),
+            ) // Loading indicator
           ),
         ),
       ),
       errorWidget: (context  ,url  , error) =>Container(
         color: Colors.grey[300],
-        child: Center(
+        child: const Center(
           child: Icon(Icons.error, color: Colors.red, size: 30),
         ),
       )

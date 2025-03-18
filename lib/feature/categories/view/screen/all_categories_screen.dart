@@ -11,6 +11,7 @@ import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 import 'package:tjhaz/feature/categories/logic/categories_states.dart';
 import 'package:tjhaz/feature/categories/view/widget/categories_loading_shimmer.dart';
@@ -33,7 +34,7 @@ class AllCategoriesScreen extends StatelessWidget {
             child: Row(
               children: [
                 //sidebar
-                SideBarMainCategories(),
+                const SideBarMainCategories(),
                 // Main Content
                    BlocBuilder<CategoriesCubit, CategoriesStates>(
                         builder: (context, state) {
@@ -53,7 +54,7 @@ class AllCategoriesScreen extends StatelessWidget {
                                   ),
                                   itemCount: categories.length,
                                   itemBuilder: (context, index) {
-                                    return InkWell(
+                                    return CustomGestureDetector(
                                         onTap: () {
                                         context.read<CategoriesCubit>().activeMainCategoryIndex != 3 ?
                                         context.push(
@@ -79,7 +80,7 @@ class AllCategoriesScreen extends StatelessWidget {
                               error: state.errorMsg,
                             );
                           } else {
-                            return CategoriesLoadingShimmer();
+                            return const CategoriesLoadingShimmer();
                           }
                         },
                       )
@@ -99,7 +100,7 @@ class AllCategoriesScreen extends StatelessWidget {
               width: 107.w,
               height: 64.h,
               decoration: BoxDecoration(
-                  color: Color(0xffEAEAEA),
+                  color: const Color(0xffEAEAEA),
                   borderRadius: BorderRadius.circular(8),
                   image: category.image != null
                       ? DecorationImage(
@@ -113,7 +114,7 @@ class AllCategoriesScreen extends StatelessWidget {
                       color: AppColors.secondaryColor,
                     )
                   : null),
-          Spacer(),
+          const Spacer(),
           Text(
             category.title.tr().toUpperCase(),
             style:
@@ -122,7 +123,7 @@ class AllCategoriesScreen extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
           ),
-          Spacer()
+          const Spacer()
         ],
       );
 }

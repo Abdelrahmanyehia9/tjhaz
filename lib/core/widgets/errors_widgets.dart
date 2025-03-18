@@ -9,16 +9,7 @@ import '../utils/app_strings.dart';
 import '../utils/app_assets.dart';
 import '../utils/screen_size.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../helpers/spacing.dart';
-import '../styles/colors.dart';
-import '../styles/typography.dart';
-import '../utils/app_strings.dart';
-import '../utils/app_assets.dart';
-import '../utils/screen_size.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final bool? isDisconnected;
@@ -31,7 +22,6 @@ class AppErrorWidget extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Display either disconnected or error icon
           SizedBox(
@@ -68,15 +58,14 @@ class EmptyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Column(
-crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
         icon ==null ? SizedBox(
             height: screenHeight(context)*.3,
             child: SvgPicture.asset(AppAssets.empty)) : Opacity(
           opacity: 0.5,
-            child: Icon(icon , size: 150.sp , color: Color(0xffffa994),)) ,
+            child: Icon(icon , size: 150.sp , color: const Color(0xffffa994),)) ,
         verticalSpace(8) ,
         Text.rich(
           textAlign: TextAlign.center,

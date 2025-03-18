@@ -11,7 +11,7 @@ class CartModel {
 
   final double itemPrice;
 
-  final int itemQuantity;
+   int itemQuantity;
 
   CartModel(
       {required this.addedDate,

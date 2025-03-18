@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
@@ -13,28 +14,29 @@ class FacilitiesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      width: isComfort==true?76.w: 104.w,height: 60.h,
-      decoration: BoxDecoration(
-          color: AppColors.cWhite,
-          borderRadius: BorderRadius.circular(4),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.shade300,
-                spreadRadius: 0.7 ,
-                blurRadius: 0.7 ,
-                offset: Offset(0 , 1)
-            )
-          ]
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon , size: 26.sp,color: AppColors.primaryColor,) ,
-          verticalSpace(2),
-          Text(title.toUpperCase() ,textAlign: TextAlign.center , maxLines: 2, overflow: TextOverflow.ellipsis, style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),)
-        ],
+    return  CustomGestureDetector(
+      child: Container(
+        width: isComfort==true?76.w: 104.w,height: 60.h,
+        decoration: BoxDecoration(
+            color: AppColors.cWhite,
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.shade300,
+                  spreadRadius: 0.7 ,
+                  blurRadius: 0.7 ,
+                  offset: const Offset(0 , 1)
+              )
+            ]
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon , size: 26.sp,color: AppColors.primaryColor,) ,
+            verticalSpace(2),
+            Text(title.toUpperCase() ,textAlign: TextAlign.center , maxLines: 2, overflow: TextOverflow.ellipsis, style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),)
+          ],
+        ),
       ),
     ) ;();
   }

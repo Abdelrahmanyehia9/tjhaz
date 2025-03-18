@@ -7,6 +7,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/app_slider.dart';
 import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/home/logic/banners_cubit.dart';
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GlobalAppBar(),
+              const GlobalAppBar(),
               //categories
               Padding(
                 padding:  EdgeInsets.symmetric(vertical: 16.0.h),
@@ -63,9 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (state is BannersStatesSuccess) {
                     List<String> imgList = state.banners.map((item)=>item.image).toList();
                     return state.banners.isNotEmpty? BannerSlider(imageList: imgList,)
-                        : SizedBox();
+                        : const SizedBox();
                   } else {
-                    return SizedBox();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
           AppConstants.categories.length,
           (index) {
             final item = AppConstants.categories[index];
-            return InkWell(
+            return CustomGestureDetector(
               onTap: ()
   {
                 index == 3 ?context.push(AppRouter.shopScreen) : context.push(AppRouter.entertainmentScreen,

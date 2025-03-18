@@ -3,10 +3,10 @@ import 'package:tjhaz/core/utils/app_strings.dart';
 
 class EntertainmentDetailsModel {
   final String id;
-  final String name;
+  final Map<String , dynamic> name;
   final String categoryID;
-  final String location;
-  final String description;
+  final Map<String  , dynamic>? location;
+  final Map<String , dynamic> description;
   final String entertainmentType;
   final List<AddonsModel>? addOns ;
   final String? details;
@@ -29,7 +29,7 @@ class EntertainmentDetailsModel {
     required this.id,
     required this.name,
     required this.categoryID,
-    required this.location,
+     this.location,
     required this.description,
     required this.entertainmentType,
      this.details,
@@ -50,9 +50,9 @@ class EntertainmentDetailsModel {
           : [], availableFrom:  json["available_from"] ?? 10,
       availableTo:  json["available_to"] ?? 22,
       minHoursToBooking:  json["min_hours_to_booking"] ?? 1,
-      name: (json["name"] as Map<String, dynamic>).localized,
-      location: (json["location"] as Map<String, dynamic>?)?.localized ?? AppStrings.notSpecified,
-      description: (json["description"] as Map<String, dynamic>).localized ,
+      name: (json["name"] as Map<String, dynamic>) ,
+      location: json["location"]  ,
+      description: (json["description"] as Map<String, dynamic>) ,
       details: (json["details"] as Map<String, dynamic>?)?.localized ,
       entertainmentType: json["entertainment_type"] ,
       categoryID: json["category_id"] ,

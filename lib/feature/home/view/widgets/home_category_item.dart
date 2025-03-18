@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/app_gradient.dart';

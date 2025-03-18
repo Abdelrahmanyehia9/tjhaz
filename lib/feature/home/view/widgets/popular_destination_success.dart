@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/feature/entertainment/logic/entertainment_details_cubit.dart';
 import 'package:tjhaz/feature/entertainment/logic/entertainment_details_states.dart';
 
@@ -65,26 +66,25 @@ class PopularDestinationSuccess extends StatelessWidget {
     );
   }
 
-  Widget showMoreDistButton(BuildContext context) => ElevatedButton(
-        // onPressed: () {
-        //   context.push(AppRouter.entertainmentScreen,
-        //       extra: {"parent": AppConstants.categories[0]});
-        // },
-    onPressed: (){
-      appBottomSheet(context: context) ;
-    },
-        style: ElevatedButton.styleFrom(
-          overlayColor: Colors.transparent,
-          backgroundColor: Colors.transparent,
-          fixedSize: Size(screenWidth(context), 30.h),
-          shadowColor: Colors.transparent,
-          side: BorderSide(color: AppColors.primaryColor, width: 1.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  Widget showMoreDistButton(BuildContext context) => CustomGestureDetector(
+    child: ElevatedButton(
+         onPressed: () {
+           context.push(AppRouter.entertainmentScreen,
+               extra: {"parent": AppConstants.categories[0]});
+         },
+          style: ElevatedButton.styleFrom(
+            overlayColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            fixedSize: Size(screenWidth(context), 30.h),
+            shadowColor: Colors.transparent,
+            side: const BorderSide(color: AppColors.primaryColor, width: 1.5),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          child: Text(
+            AppStrings.showMore,
+            style:
+                AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
+          ),
         ),
-        child: Text(
-          AppStrings.showMore,
-          style:
-              AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
-        ),
-      );
+  );
 }

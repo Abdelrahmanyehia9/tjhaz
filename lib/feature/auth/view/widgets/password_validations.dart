@@ -30,7 +30,7 @@ class PasswordValidations extends StatelessWidget {
         children: [
           Padding(
             padding:  EdgeInsets.only(bottom: 2.0.h),
-            child: Text(AppStrings.recommended ,style: AppTypography.t12Normal.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
+            child: Text(AppStrings.recommended ,style: AppTypography.t10Bold.copyWith(color: AppColors.secondaryColor , fontWeight: FontWeight.bold),),
           ) ,
           buildValidationRow(AppStrings.atLeast1Lowercase, hasLowerCase),
           verticalSpace(2),
@@ -57,7 +57,7 @@ class PasswordValidations extends StatelessWidget {
         horizontalSpace(6),
         Text(
           text,
-          style: AppTypography.t12Normal.copyWith(
+          style: AppTypography.t10Normal.copyWith(
             decoration: hasValidated ? TextDecoration.lineThrough : null,
             decorationColor: Colors.green,
             decorationThickness: 2,

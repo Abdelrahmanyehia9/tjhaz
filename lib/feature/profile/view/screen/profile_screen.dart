@@ -13,6 +13,7 @@ import 'package:tjhaz/core/widgets/app_message.dart';
 import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/logout_states.dart';
 import 'package:tjhaz/feature/auth/logic/logout_cubit.dart';
+import 'package:tjhaz/feature/profile/view/widgets/about_us.dart';
 import 'package:tjhaz/feature/profile/view/widgets/profile_button.dart';
 import 'package:toastification/toastification.dart';
 import '../widgets/language_toggle.dart';
@@ -47,44 +48,50 @@ super.initState();
               BlocBuilder<AnonymousUserCubit , bool>(
                 builder:(context , isAnonymous)=> Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
                   children: [
+
                     verticalSpace(16) ,
-                    AppHeadline(tittle: AppStrings.profile , hasBackButton: false,),
+                    AppHeadline(tittle: AppStrings.profile ,),
                     verticalSpace(8) ,
-                    ProfileButton(text: "personal info"  , visible: !isAnonymous ,icon:  Icons.person , onPressed: (){
+                    ProfileButton(text: AppStrings.personalInformation  , visible: !isAnonymous ,icon:  Icons.person , onPressed: (){
                       context.push(AppRouter.personalInfoScreen , ) ;
                     },),
-                    ProfileButton(text: "Login" , visible: isAnonymous ,icon:  Icons.login , filled: true, onPressed: (){
+                    ProfileButton(text: AppStrings.login , visible: isAnonymous ,icon:  Icons.login , filled: true, onPressed: (){
                      if(context.mounted) context.go(AppRouter.authScreen) ;
                     },),
-                    ProfileButton(text: "reset password" , visible: !isAnonymous ,icon:  Icons.lock),
-                    ProfileButton(text: "My Favorites" ,visible: !isAnonymous ,icon:  Icons.favorite , onPressed: (){
+                    ProfileButton(text: AppStrings.resetPassword , visible: !isAnonymous ,icon:  Icons.lock),
+                    ProfileButton(text: AppStrings.myFavourites ,visible: !isAnonymous ,icon:  Icons.favorite , onPressed: (){
                       context.push(AppRouter.favoriteScreen) ;
                     },),
-                    ProfileButton(text: "contact us"  ,visible: true ,icon:  Icons.support_agent),
-                    ProfileButton(text: "my orders", visible: !isAnonymous  ,icon:  Icons.receipt),
-                    ProfileButton(text: "my bookings", visible: !isAnonymous  ,icon:  Icons.calendar_today , onPressed: (){
+                    ProfileButton(text: AppStrings.contactUs  ,visible: true ,icon:  Icons.support_agent , onPressed: (){
+                      context.push(AppRouter.contactUsScreen) ;
+
+                    },),
+                    ProfileButton(text: AppStrings.myOrders, visible: !isAnonymous  ,icon:  Icons.receipt),
+                    ProfileButton(text: AppStrings.myBookings, visible: !isAnonymous  ,icon:  Icons.calendar_today , onPressed: (){
                       context.push(AppRouter.bookingsScreen ,) ;
                     },),
-                    ProfileButton(text: "about us", visible: true   ,icon:  Icons.contact_support),
+                    ProfileButton(text: AppStrings.aboutUs, visible: true   ,icon:  Icons.contact_support , onPressed: (){
+                      showAboutUs(context) ;
+                    },),
                     BlocListener<LogoutCubit , LogoutStates>(
                       listener: (context , state){
                         if(state is LogoutStatesFailure){
-                          appToast(type: ToastificationType.error, tittle: "logout Failed", description: state.errorMsg) ;
+                          appToast(type: ToastificationType.error, tittle: AppStrings.logoutFailed, description: state.errorMsg) ;
                         }else if(state is LogoutStatesSuccess){
-                          appToast(type: ToastificationType.success, tittle: "Logout success", description: "You logged out successfully") ;
+                          appToast(type: ToastificationType.success, tittle: AppStrings.logoutSuccess, description: AppStrings.loggedOutSuccess) ;
                           context.go(AppRouter.authScreen) ;
                         }
                       },
-                      child: ProfileButton(text: "Logout", visible: !isAnonymous  ,icon:  Icons.logout , onPressed: (){
+                      child: ProfileButton(
+                        text: AppStrings.logout, visible: !isAnonymous  ,icon:  Icons.logout , onPressed: (){
                         context.read<LogoutCubit>().logout() ;
                       },),
                     ),
                     verticalSpace(16),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("تغيير اللغة" , style: AppTypography.t11Bold.copyWith(color: AppColors.primaryColor),),
+                      padding:  EdgeInsets.all(8.0.w),
+                      child: Text(AppStrings.changeLanguage , style: AppTypography.t11Bold.copyWith(color: AppColors.primaryColor),),
                     ) ,
                     LanguageToggle() ,
                     verticalSpace(16) ,
@@ -116,11 +123,10 @@ super.initState();
 Widget profileFooter() {
     return  Center(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Privacy And Policies\t |\t Terms and Conditions" , style: AppTypography.t12Normal.copyWith(color: AppColors.cDarkGrey),) ,
+          Text("${AppStrings.privacyPolicy}\t |\t ${AppStrings.termsAndConditions}" , style: AppTypography.t12Normal.copyWith(color: AppColors.cDarkGrey),) ,
           verticalSpace(2) ,
-          Text("version 1.0.0" , style: AppTypography.t11Light.copyWith(color: AppColors.secondaryColor),)
+          Text("${AppStrings.version} 1.0.0" , style: AppTypography.t11Light.copyWith(color: AppColors.secondaryColor),)
         ],
       ),
     ) ;

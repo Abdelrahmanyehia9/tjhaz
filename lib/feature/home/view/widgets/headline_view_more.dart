@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -24,7 +25,7 @@ class HeadlineViewMore extends StatelessWidget {
                 .copyWith(color: AppColors.secondaryColor),
           ),
           hasViewMore == true
-              ? InkWell(
+              ? CustomGestureDetector(
             onTap:  viewMoreOnTap,
                 child: Text(
                             AppStrings.viewAll.toUpperCase(),
@@ -32,7 +33,7 @@ class HeadlineViewMore extends StatelessWidget {
                   .copyWith(color: AppColors.secondaryColor),
                           ),
               )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
     );

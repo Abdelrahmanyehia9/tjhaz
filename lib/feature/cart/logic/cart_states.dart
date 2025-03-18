@@ -21,3 +21,14 @@ class CartStatesFailure extends CartStates {
   final String errorMsg;
   const CartStatesFailure(this.errorMsg);
 }
+class UpdateQuantitySuccess extends CartStates {
+  const UpdateQuantitySuccess();
+}
+class UpdateQuantityFailure extends CartStates {
+  final String errorMsg;
+  const UpdateQuantityFailure(this.errorMsg);
+}
+class UpdateQuantityLoading extends CartStates {
+  final String itemLoading ;
+  const UpdateQuantityLoading(this.itemLoading);
+}

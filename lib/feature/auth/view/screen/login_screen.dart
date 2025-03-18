@@ -8,6 +8,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/app_message.dart';
 import 'package:tjhaz/feature/auth/logic/login_cubit.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: OverlayPortal(
         controller: overlayPortalController,
         overlayChildBuilder: (_) {
-          return AuthLoading();
+          return const AuthLoading();
         },
         child: Form(
           key: _globalKey,
@@ -97,15 +98,15 @@ class _LoginScreenState extends State<LoginScreen> {
           Text(
             AppStrings.forgotPassword,
             style:
-                AppTypography.t14Normal.copyWith(color: AppColors.primaryColor),
+                AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
           ),
-          InkWell(
+          CustomGestureDetector(
             onTap: () {
               GoRouter.of(context).push(AppRouter.forgetPasswordPage);
             },
             child: Text(
-              AppStrings.resetNow.tr(),
-              style: AppTypography.t14Normal
+              AppStrings.resetNow,
+              style: AppTypography.t12Normal
                   .copyWith(color: AppColors.secondaryColor),
             ),
           ),

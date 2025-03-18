@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import '../../../../core/styles/colors.dart';
 
@@ -28,65 +29,67 @@ class _AuthTextFieldState extends State<AuthTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0 , horizontal: 16),
-      child: TextFormField(
-style: AppTypography.t14light.copyWith(color: AppColors.primaryColor),
-        controller: widget.controller,
-        cursorColor: AppColors.primaryColor,
-        obscureText: widget.isPassword == true ? hiddenPassword : false,
-        decoration: InputDecoration(
+      padding:  EdgeInsets.symmetric(vertical: 4.0.h , horizontal: 16.w),
+      child: SizedBox(
+        height: 46.h,
+        child: TextFormField(
 
 
-          suffixIcon: widget.isPassword==true? InkWell(onTap: (){
-            setState(() {
-              hiddenPassword = !hiddenPassword ;
-            });
+        style: AppTypography.t14light.copyWith(color: AppColors.primaryColor),
+          controller: widget.controller,
+          cursorColor: AppColors.primaryColor,
+          obscureText: widget.isPassword == true ? hiddenPassword : false,
+          decoration: InputDecoration(
+
+
+
+            suffixIcon: widget.isPassword==true? InkWell(onTap: (){
+              setState(() {
+                hiddenPassword = !hiddenPassword ;
+              });
+            },
+                child: Icon(!hiddenPassword ?Icons.visibility_outlined  : Icons.visibility_off_outlined,color: AppColors.lightPrimaryColor,size: 24.sp,)) :null ,
+            prefixIcon: Icon(widget.icon  , size: 20.sp , weight: 100, color: AppColors.lightPrimaryColor,), // User icon
+            labelText: widget.labelText,
+            contentPadding: EdgeInsets.zero,
+            labelStyle: AppTypography.t12Normal.copyWith(color: AppColors.lightPrimaryColor) ,
+            focusColor: AppColors.primaryColor,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                  color: AppColors.lightPrimaryColor // Border color
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: AppColors.lightPrimaryColor,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: AppColors.primaryColor,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: Colors.red,
+              ),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: Colors.red,
+              ),
+            ),
+
+          ),
+          validator: (value) {
+            return widget.validator(value);
           },
-              child: Icon(!hiddenPassword ?Icons.visibility_outlined  : Icons.visibility_off_outlined,color: AppColors.cDarkGrey,)) :null ,
-          prefixIcon: Icon(widget.icon , color: AppColors.lightPrimaryColor,), // User icon
-          labelText: widget.labelText,
-          contentPadding: EdgeInsets.zero,
-          labelStyle: AppTypography.t14Normal.copyWith(color: AppColors.lightPrimaryColor) ,
-          focusColor: AppColors.primaryColor,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-                color: AppColors.lightPrimaryColor // Border color
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: AppColors.lightPrimaryColor ,
-              width: 1.0,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: AppColors.primaryColor ,
-              width: 1.0,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: Colors.red ,
-              width: 1.0,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: Colors.red ,
-              width: 1.0,
-            ),
-          ),
-
         ),
-        validator: (value) {
-          return widget.validator(value);
-        },
       ),
     );
   }

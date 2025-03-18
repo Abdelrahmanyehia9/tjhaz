@@ -11,8 +11,9 @@ class ProfileButton extends StatefulWidget {
   final GestureTapCallback ? onPressed;
   final bool filled  ;
   final bool visible ;
+  final bool hasLeading  ;
 
-  const ProfileButton({super.key, required this.text, required this.icon , this.onPressed , this.filled =false  , required this.visible});
+  const ProfileButton({super.key, required this.text, required this.icon , this.onPressed , this.filled =false  , required this.visible , this.hasLeading =true});
 
   @override
   State<ProfileButton> createState() => _ProfileButtonState();
@@ -22,8 +23,7 @@ class _ProfileButtonState extends State<ProfileButton> {
   bool isPressed = false;
 
   @override
-  Widget build(BuildContext context) {
-    return Visibility(
+  Widget build(BuildContext context) { return Visibility(
       visible: widget.visible,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 6.0.h),
@@ -42,7 +42,7 @@ class _ProfileButtonState extends State<ProfileButton> {
                     color: Colors.grey.shade200,
                     spreadRadius: 0.5,
                     blurRadius: 0.4,
-                    offset: Offset(0, 2))
+                    offset: const Offset(0, 2))
               ],
               border: Border.all(color: AppColors.secondaryColor), // Secondary color
               borderRadius: BorderRadius.circular(8.r),
@@ -60,7 +60,7 @@ class _ProfileButtonState extends State<ProfileButton> {
                       style: AppTypography.t12Normal.copyWith(color: isPressed || widget.filled? Colors.white : AppColors.primaryColor),
                     ),
                   ]),
-                  Icon(Icons.arrow_forward_ios, size: 18, color: isPressed || widget.filled? Colors.white : AppColors.primaryColor), // Secondary color
+                  widget.hasLeading ? Icon(Icons.arrow_forward_ios, size: 18, color: isPressed || widget.filled? Colors.white : AppColors.primaryColor) : const SizedBox(), // Secondary color
                 ],
               ),
             ),

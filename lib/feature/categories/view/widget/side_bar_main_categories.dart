@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/styles/colors.dart';
 import '../../../../core/utils/app_assets.dart';
@@ -24,12 +25,11 @@ class _SideBarMainCategoriesState extends State<SideBarMainCategories> {
         BoxShadow(
             color: Colors.grey.shade200,
             blurRadius: 4,
-            spreadRadius: 0,
-            offset: Offset(0, 4))
+            offset: const Offset(0, 4))
       ]),
       child: ListView.builder(
         itemCount: AppConstants.categories.length,
-        itemBuilder: (context, index) => InkWell(
+        itemBuilder: (context, index) => CustomGestureDetector(
           onTap: () async {
             setState(() {
               context.read<CategoriesCubit>().activeMainCategoryIndex = index;
@@ -61,7 +61,7 @@ class _SideBarMainCategoriesState extends State<SideBarMainCategories> {
               borderRadius: BorderRadius.circular(8),
               border: Border(
                   left: isActive == true
-                      ? BorderSide(color: AppColors.secondaryColor, width: 4)
+                      ? const BorderSide(color: AppColors.secondaryColor, width: 4)
                       : BorderSide.none)),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),

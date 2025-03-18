@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/auth/data/repository/login_repo.dart';
 import 'package:tjhaz/feature/auth/logic/login_states.dart';
 
@@ -23,13 +24,13 @@ class LoginCubit extends Cubit<LoginStates>{
           (credential) async {
        if (credential.user != null) {
         await loginRepo.saveUserData(credential.user!);
-        emit(LoginStateSuccess());
+        safeEmit(LoginStateSuccess());
        } else {
-        emit(LoginStateFailure(errorMsg: "User authentication failed."));
+        safeEmit(LoginStateFailure(errorMsg: "User authentication failed."));
        }
       },
   (error) {
-   emit(LoginStateFailure(errorMsg: error));
+   safeEmit(LoginStateFailure(errorMsg: error));
   });
  }
 }

@@ -23,8 +23,8 @@ class UserRepository {
         .set(userModel.toJson());
   }
 
-  Future<Either<UserModel, String>> getUserInfo(
-      {required String userID}) async {
+  Future<Either<UserModel, String>> getUserInfo() async {
+    final String userID = SharedPrefHelper.getString(SharedPrefConstants.currentUserId)!;
     final localUser = UserDataHelper.getLocalUser(userID);
     if (localUser != null) return left(localUser);
     return await UserDataHelper.fetchUserFromFirestore(userID, firestore);
@@ -37,7 +37,7 @@ class UserRepository {
           .collection(FireStoreConstants.userCollection)
           .doc(userModel.uID)
           .update(userModel.toJson())
-          .timeout(Duration(seconds: 10));
+          .timeout(const Duration(seconds: 10));
       await UserDataHelper.saveUserToLocal(userModel);
       return left(userModel);
     } catch (e) {

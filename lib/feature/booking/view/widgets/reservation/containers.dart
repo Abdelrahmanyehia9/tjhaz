@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/styles/colors.dart';
@@ -29,11 +30,10 @@ class DurationContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? AppColors.secondaryColor
-              : Color(0xffE0E0E0).withOpacity(0.46),
+              : const Color(0xffE0E0E0).withOpacity(0.46),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -68,7 +68,7 @@ class StartingHourContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return CustomGestureDetector(
       onTap: !isAvailable ? onTap : null,
       child: Container(
         alignment: Alignment.center,
@@ -77,7 +77,7 @@ class StartingHourContainer extends StatelessWidget {
         decoration: BoxDecoration(
             color: isSelected
                 ? AppColors.secondaryColor
-                : Color(0xffE0E0E0).withOpacity(0.46),
+                : const Color(0xffE0E0E0).withOpacity(0.46),
             borderRadius: BorderRadius.circular(6.r),
             border: !isAvailable
                 ? Border.all(color: AppColors.secondaryColor)
@@ -119,11 +119,10 @@ final int price ;
             border: Border.all(color: AppColors.secondaryColor ),
             color: isSelected
                 ? AppColors.secondaryColor
-                : Color(0xffE0E0E0).withOpacity(0.46),
+                : const Color(0xffE0E0E0).withOpacity(0.46),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(

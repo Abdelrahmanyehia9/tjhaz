@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/card_sizes.dart';
@@ -33,10 +34,7 @@ class ProductsGrid extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               final product = state.products[index];
-              return InkWell(
-                onTap: () => context.push(AppRouter.shopDetailsScreen, extra: product),
-                child: ProductCard(productModel: product),
-              );
+              return ProductCard(productModel: product);
             },
           )
               : EmptyList(title: vendorName.value);

@@ -126,6 +126,42 @@ class AppStrings {
   static String get bookingCancellation => "booking cancellation".tr();
   static String get areYouSureYouWantToCancel => "are you sure you want to cancel".tr();
   static String get confirm => "confirm".tr();
+  static String get timeoutMessage => "Oops! It looks like this action took too long. Please try again or check your connection.".tr();
+  static String get welcomeGuest => "Welcome Guest".tr();
+  static String get signInOrSignUpToEnjoyAPersonalizedExperience => "Sign in or sign up to enjoy a personalized experience tailored just for you.".tr();
+  static String get personalInformation => "personal information".tr();
+  static String get resetPassword => "reset password".tr();
+  static String get myFavourites => "My favourites".tr();
+  static String get contactUs => "contact us".tr();
+  static String get aboutUs => "about us".tr();
+  static String get myOrders => "my orders".tr();
+  static String get myBookings => "my bookings".tr();
+  static String get logout => "logout".tr();
+  static String get logoutFailed => "logout failed".tr();
+  static String get logoutSuccess => "logout success".tr();
+  static String get loggedOutSuccess => "you are logged out success".tr();
+  static String get changeLanguage => "change language".tr();
+  static String get profileUpdatedSuccess => "profile updated success".tr();
+  static String get profileUpdatedFailed => "profile updated failed".tr();
+  static String get personalInfoUpdated => "your personal information has been updated".tr();
+  static String get noBirthdateProvided => "no birthdate provided".tr();
+  static String get termsAndConditions => "terms and conditions".tr();
+  static String get version => "version".tr();
+  static String get favorites => "favorites".tr();
+  static String get favoriteProducts => "favorite products".tr();
+  static String get products => "products".tr();
+  static String get selectAll => "select all".tr();
+  static String get unselectAll => "unselect all".tr();
+  static String get items => "items".tr();
+  static String get save => "save".tr();
+  static String get close => "close".tr();
+  static String get startingFrom => "starting from".tr();
+  static String get perHr => "per hr".tr();
+  static String get warning => "warning".tr();
+  static String get youAlreadyUsingThisLanguage => "you already using this language".tr();
+
+
+
 
 
 

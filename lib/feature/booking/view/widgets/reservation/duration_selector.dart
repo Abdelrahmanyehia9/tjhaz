@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/feature/booking/view/widgets/reservation/containers.dart';
 import 'package:tjhaz/feature/booking/view/widgets/reservation/headlines.dart';
 
@@ -27,7 +28,7 @@ class DurationSelector extends StatelessWidget {
     return BlocBuilder<GetReservedHoursCubit, GetReservedHoursStates>(
       builder: (context, state) {
         if (state is GetReservedHoursInitial) {
-          return SizedBox();
+          return const SizedBox();
         } else {
           return Column(
             children: [
@@ -35,19 +36,21 @@ class DurationSelector extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: List.generate(availableDuration + 1, (index) {
                     return SlideFadeTransition(
                       index: index,
-                      child: InkWell(
+                      child: CustomGestureDetector(
                         onTap: () {
-                          context.read<GetReservedHoursCubit>().selectedDurationIndex = index;
-                          context.read<GetReservedHoursCubit>().getReservedHours(
-                            model: model,
-                            duration: minDuration + index,
-                            month: context.read<GetReservedDatesCubit>().currentMonth,
-                          );
+                          if(index != context.read<GetReservedHoursCubit>().selectedDurationIndex ){
+                            context.read<GetReservedHoursCubit>().selectedDurationIndex = index;
+                            context.read<GetReservedHoursCubit>().getReservedHours(
+                              model: model,
+                              duration: minDuration + index,
+                              month: context.read<GetReservedDatesCubit>().currentMonth,
+                            );
+                          }
+
                         },
                         child: availableDuration == index
                             ? BookingAllDayContainer(

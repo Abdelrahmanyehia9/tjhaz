@@ -6,6 +6,8 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/errors_widgets.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
@@ -15,6 +17,7 @@ import 'package:toastification/toastification.dart';
 import '../../../../core/database/local/shared_prefrences_constants.dart';
 import '../../../../core/database/local/shared_prefrences_helper.dart';
 import '../../../../core/widgets/app_message.dart';
+import '../../../../core/widgets/global_app_bar.dart';
 import '../../../auth/data/models/user_model.dart';
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
@@ -29,8 +32,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   void initState() {
     context
-        .read<PersonalInfoCubit>()
-        .get(SharedPrefHelper.getString(SharedPrefConstants.currentUserId)!);
+        .read<PersonalInfoCubit>().get();
     super.initState();
   }
 
@@ -45,12 +47,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               if (state is UpdatePersonalInfoSuccess) {
                 appToast(
                     type: ToastificationType.success,
-                    tittle: "Success",
-                    description: "your personal info updated successfully");
+                    tittle: AppStrings.profileUpdatedSuccess,
+                    description: AppStrings.personalInfoUpdated);
               } else if (state is UpdatePersonalInfoFailure) {
                 appToast(
                     type: ToastificationType.error,
-                    tittle: "Error",
+                    tittle: AppStrings.profileUpdatedFailed,
                     description: state.errorMsg);
               }
             },
@@ -62,8 +64,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     context.read<PersonalInfoCubit>().userModel!;
                 return Column(
                   children: [
-                    AppHeadline(tittle: "Personal Info"),
-                    verticalSpace(16.h),
+                    verticalSpace(36) ,
+                    const AppLogoImage() ,
+                    verticalSpace(16),
+                    AppHeadline(tittle: AppStrings.personalInformation , topPadding: 0,),
+                    verticalSpace(16),
                     Expanded(
                       child: ListView(
                         children: [
@@ -74,13 +79,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                             onTap: (){
                               showDatePicker(
 
-                                initialEntryMode: DatePickerEntryMode.calendar,
                                   context: context, firstDate: DateTime(1900), lastDate: DateTime.now(), initialDate: DateTime.now()).then((value) {
                                   value == null ? null : birthDateController.text = DateFormat('yyyy-MM-dd').format(value) ;
                               }) ;
                             },
                               hint: userModel.birthDate ??
-                                  "No Birthdate Provided",
+                                  AppStrings.noBirthdateProvided,
                               keyboardType: TextInputType.none,
                               controller: birthDateController),
                           textFormFieldOfPersonalInfo(
@@ -93,7 +97,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80.0.w),
                       child: AuthButton(
-                        tittle: "Save",
+                        tittle: AppStrings.save,
                         onPressed: () async{
                           await updatePersonalInfo(userModel , context);
                         } ,
@@ -105,7 +109,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               } else if (state is GetPersonalInfoFailure) {
                 return Center(child: AppErrorWidget(error: state.errorMsg));
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                       color: AppColors.secondaryColor),
                 );
@@ -152,16 +156,16 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             fillColor: AppColors.secondaryColor.withOpacity(0.1),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.primaryColor),
+              borderSide: const BorderSide(color: AppColors.primaryColor),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.primaryColor),
+              borderSide: const BorderSide(color: AppColors.primaryColor),
             ),
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.primaryColor , width: 1.5),
+              borderSide: const BorderSide(color: AppColors.primaryColor , width: 1.5),
             ),
 
 
@@ -183,7 +187,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             : birthDateController.text.trim());
     context.loaderOverlay.show() ;
     await context.read<PersonalInfoCubit>().update(updatedUser) ;
-    context.loaderOverlay.hide() ;
+    if (context.mounted) context.loaderOverlay.hide() ;
   }
 
 }

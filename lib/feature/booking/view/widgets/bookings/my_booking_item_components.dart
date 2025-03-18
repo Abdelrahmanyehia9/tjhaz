@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/helpers/time_helper.dart';
 import '../../../../../core/styles/colors.dart';
@@ -40,7 +42,7 @@ class MyBookingInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              booking.name,
+              booking.name.localized,
               style:
               AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),
             ),
@@ -209,12 +211,12 @@ class MyBookingCancelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return CustomGestureDetector(
       onTap: () {
         bookingDialog(context  , booking) ;
         },
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         alignment: Alignment.center,
         width: 55.w,
         height: 16.h,

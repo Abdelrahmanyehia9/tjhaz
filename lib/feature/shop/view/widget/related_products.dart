@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/shop/data/model/product_mode.dart';
 import 'package:tjhaz/feature/shop/logic/related_products_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/related_products_states.dart';
 import 'package:tjhaz/feature/shop/view/widget/related_product_loading.dart';
+import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/card_sizes.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
@@ -53,15 +55,18 @@ class _RelatedProductsState extends State<RelatedProducts> {
                       itemCount: state.products.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) =>
-                          item(state.products[index].images.first)),
+                          InkWell(onTap: (){
+                            context.pushReplacement(AppRouter.shopDetailsScreen, extra: state.products[index]);
+                          },
+                              child: item(state.products[index].images.first))),
                 ),
               ),
             ],
           );
         } else if (state is RelatedProductsStatesLoading) {
-          return RelatedProductsLoading();
+          return const RelatedProductsLoading();
         } else {
-          return SizedBox();
+          return const SizedBox();
         }
       },
     );

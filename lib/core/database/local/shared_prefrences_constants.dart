@@ -6,7 +6,7 @@ static String currentUserName = 'currentUserName';
 static String isAnonymous = 'isAnonymous';
 static String currentUserBirthDate = 'currentUserBirthDate';
 static String isFirstTime = 'isFirstTime';
-static String currentLocale = 'currentLocale';
+static String currentLanguage = 'currentLocale';
 static String currentCountryCode = 'currentCountryCode';
 
 

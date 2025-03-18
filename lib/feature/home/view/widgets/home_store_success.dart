@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/utils/app_strings.dart';
@@ -31,7 +32,7 @@ class HomeStoreSuccess extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => CardV2(
                 imgUrl: items[index].imgUrl,
-                title: items[index].name!,
+                title: items[index].name!.localized,
                 onTap: () {
                   context.push(AppRouter.shopScreen , extra: index);
 

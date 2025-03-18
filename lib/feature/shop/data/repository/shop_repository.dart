@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/extention/firebase_caching_helper.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
-import 'package:tjhaz/feature/shop/data/model/vendor_model.dart';
-
 import '../model/product_mode.dart';
+import '../model/vendor_model.dart';
 
 class ShopRepository {
   final FirebaseFirestore firestore;
@@ -13,11 +13,9 @@ class ShopRepository {
 
   Future<Either<List<VendorModel>, String>> getAllVendors() async {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection(FireStoreConstants.storesCollection)
-          .get();
-      List<VendorModel> vendors = snapshot.docs.map((doc) {
-        return VendorModel.fromJson(doc.data() as Map<String, dynamic>);
+      final snapshot = await firestore.getCollectionWithCache(FireStoreConstants.storesCollection);
+      final vendors = snapshot.docs.map((doc) {
+        return VendorModel.fromJson(doc.data());
       }).toList();
       return left(vendors);
     } catch (e) {
@@ -25,32 +23,35 @@ class ShopRepository {
     }
   }
 
-  Future<Either<List<ProductModel>, String>> getAllProductsByVendorID(
-      String vendorId)
-  async {
+  Future<Either<List<ProductModel>, String>> getAllProductsByVendorID(String vendorId) async {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection(FireStoreConstants.productCollection)
-          .where("parent_id" , isEqualTo: vendorId)
-          .get();
-      List<ProductModel> products = snapshot.docs.map((doc) {
-        return ProductModel.fromJson(doc.data() as Map<String, dynamic>);
+      final snapshot = await firestore.getCollectionWithWhereCache(
+          FireStoreConstants.productCollection,
+          "parent_id",
+          vendorId
+      );
+      final products = snapshot.docs.map((doc) {
+        return ProductModel.fromJson(doc.data());
       }).toList();
       return left(products);
     } catch (e) {
-      print(e.toString()) ;
       return right(e.firebaseErrorMessage);
     }
   }
+
   Future<Either<List<ProductModel>, String>> getRelatedProducts(ProductModel model) async {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection(FireStoreConstants.productCollection)
-          .where("tags" , arrayContainsAny:model.tags ).limit(4)
-          .get();
-      List<ProductModel> products = snapshot.docs.map((doc) {
-        return ProductModel.fromJson(doc.data() as Map<String, dynamic>);
-      }).where((product) => product.id != model.id).toList();;
+      final snapshot = await firestore.getCollectionWithWhereCache(
+          FireStoreConstants.productCollection,
+          "tags",
+          model.tags,
+          operator: "array-contains-any",
+          limit: 5
+      );
+      final products = snapshot.docs
+          .map((doc) => ProductModel.fromJson(doc.data()))
+          .where((product) => product.id != model.id)
+          .toList();
       return left(products);
     } catch (e) {
       return right(e.firebaseErrorMessage);

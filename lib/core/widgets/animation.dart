@@ -10,7 +10,7 @@ class SlideFadeTransition extends StatelessWidget {
     super.key,
     required this.child,
     required this.index,
-    this.duration = const Duration(milliseconds: 500),
+    this.duration = const Duration(milliseconds: 300),
     this.offsetY = -30,
   });
 
@@ -18,7 +18,7 @@ class SlideFadeTransition extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       key: ValueKey<int>(index),
-      duration: Duration(milliseconds: duration.inMilliseconds + (index * 100)),
+      duration: Duration(milliseconds: duration.inMilliseconds + (index * 50)),
       tween: Tween<double>(begin: offsetY, end: 0),
       curve: Curves.easeOut,
       builder: (context, double value, child) {

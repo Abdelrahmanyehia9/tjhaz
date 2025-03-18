@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/extention/localized_map.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
 import 'package:tjhaz/feature/cart/view/widgets/product_quantiy.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
-import '../../logic/cart_modify_cubit.dart';
 
 class CartItem extends StatelessWidget {
   final bool isSelected ;
@@ -77,7 +77,7 @@ class CartItem extends StatelessWidget {
                               .copyWith(color: AppColors.primaryColor),
                         ),
                         Text(
-                          "${cartModel.itemPrice} KWD".toUpperCase(),
+                          "${cartModel.itemPrice} ${AppStrings.kwdCurrency}".toUpperCase(),
                           style: AppTypography.t12Normal
                               .copyWith(color: AppColors.primaryColor),
                         ),
@@ -96,9 +96,7 @@ class CartItem extends StatelessWidget {
                     InkWell(
                       onTap: () async {
                         context.loaderOverlay.show();
-
-                        await context.read<CartModifyCubit>().removeItemFromCart(itemID: cartModel.itemID);
-
+                        await context.read<CartCubit>().removeItemFromCart(itemID: cartModel.itemID);
                         if (context.mounted) {
                           await context.read<CartCubit>().getCartItems();
                           if (context.mounted) context.loaderOverlay.hide();

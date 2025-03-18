@@ -22,12 +22,12 @@ class ShopDetailsScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppBackButton(),
+                const AppBackButton(),
                 AppSlider(imageList: model.images ,id: model.id,),
                 productTitle(),
                 ProductActionButtons(
@@ -80,7 +80,7 @@ class ShopDetailsScreen extends StatelessWidget {
                                         color: Colors.grey,
                                         decoration: TextDecoration.lineThrough,
                                         decorationColor: Colors.grey))
-                                : TextSpan()
+                                : const TextSpan()
                           ])),
                 ],
               ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/shop/logic/products_cubit.dart';
 import 'package:tjhaz/feature/shop/logic/vendors_cubit.dart';
@@ -81,7 +82,7 @@ class _ShopScreenState extends State<ShopScreen> {
                                 separatorBuilder: (context, _) => horizontalSpace(16),
                                 itemBuilder: (context, index) {
                                   final vendor = vendors[index];
-                                  return InkWell(
+                                  return CustomGestureDetector(
                                     onTap: () {
                                       activeIndex.value = index;
                                       vendorName.value = vendor.name;

@@ -1,6 +1,8 @@
 import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
+import 'package:tjhaz/feature/profile/logic/language_cubit.dart';
+import 'package:tjhaz/feature/profile/view/screen/contact_us_screen.dart';
 
 import 'index.dart';
 
@@ -24,6 +26,7 @@ class AppRouter {
   static const addOnsScreen = "/addOnsScreen";
   static const personalInfoScreen = "/personalInfoScreen";
   static const favoriteScreen = "/favoriteScreen";
+  static const contactUsScreen = "/contactUsScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
@@ -31,13 +34,13 @@ class AppRouter {
       GoRoute(
         path: splashScreen,
         pageBuilder: (context, state) =>
-            fadingTransition(child: SplashScreen()),
+            fadingTransition(child: const SplashScreen()),
       ),
       ///onboarding
       GoRoute(
         path: onBoardingScreen,
         pageBuilder: (context, state) =>
-            fadingTransition(child: OnboardingScreen()),
+            fadingTransition(child: const OnboardingScreen()),
       ),
       ///auth
       GoRoute(
@@ -53,7 +56,7 @@ class AppRouter {
                       auth: getIt<FirebaseAuth>(),
                       userRepository: getIt<UserRepository>()))),
             ],
-            child: AuthScreen(),
+            child: const AuthScreen(),
           ),
         ),
       ),
@@ -61,19 +64,19 @@ class AppRouter {
       GoRoute(
         path: forgetPasswordPage,
         pageBuilder: (context, state) => fadingTransition(
-          child: ForgetPasswordScreen(),
+          child: const ForgetPasswordScreen(),
         ),
       ),
       GoRoute(
         path: confirmOtpScreen,
         pageBuilder: (context, state) => fadingTransition(
-          child: OtpConfirmScreen(),
+          child: const OtpConfirmScreen(),
         ),
       ),
       GoRoute(
         path: setupNewPasswordScreen,
         pageBuilder: (context, state) => fadingTransition(
-          child: SetupNewPassword(),
+          child: const SetupNewPassword(),
         ),
       ),
 
@@ -112,7 +115,7 @@ class AppRouter {
                       ..getBanners(),
                   ),
                 ],
-                child: HomeScreen(),
+                child: const HomeScreen(),
               ),
             ),
           ),
@@ -122,7 +125,7 @@ class AppRouter {
               child: BlocProvider(
                 create: (context) => CategoriesCubit(getIt.get<CategoryRepository>())
                   ..getCategoriesByParentId("1"),
-                child: AllCategoriesScreen(),
+                child: const AllCategoriesScreen(),
               ),
             ),
           ),
@@ -132,21 +135,25 @@ class AppRouter {
               child: BlocProvider(
                 create: (context) => MyBookingsCubit(getIt.get<BookingRepository>())
                   ..getAllBookingsByCategory(
-                    userId: FirebaseAuth.instance.currentUser!.uid,
                   ),
-                child: MyBookingsScreen(),
+                child: const MyBookingsScreen(),
               ),
             ),
           ),
           GoRoute(
             path: AppRouter.profileScreen,
             pageBuilder: (context, state) => NoTransitionPage(
-              child: BlocProvider(
-                create: (context) => LogoutCubit(getIt.get<LoginRepo>()),
-                child: ProfileScreen(),
+              child: MultiBlocProvider(
+                providers: [
+  BlocProvider(create: (context) => LogoutCubit(getIt.get<LoginRepo>()),),
+  BlocProvider(create: (context) => LanguageCubit(),),
+
+                ],
+                  child: const ProfileScreen(),
+                ),
               ),
             ),
-          ),
+
         ],
       ),
       ///shell routing for auth
@@ -155,7 +162,7 @@ class AppRouter {
         path: cartScreen,
         pageBuilder: (context, state) {
           return fadingTransition(
-            child: CartScreen(),
+            child: const CartScreen(),
           );
         },
       ),
@@ -253,14 +260,21 @@ class AppRouter {
           return fadingTransition(
               child: BlocProvider(
                   create: (context)=> PersonalInfoCubit(getIt.get<UserRepository>()),
-                  child: PersonalInfoScreen()));
+                  child: const PersonalInfoScreen()));
         },
       ),
       GoRoute(
         path: favoriteScreen,
         pageBuilder: (context, state) {
           return fadingTransition(
-              child: FavoriteScreen());
+              child: const FavoriteScreen());
+        },
+      ),
+      GoRoute(
+        path: contactUsScreen,
+        pageBuilder: (context, state) {
+          return fadingTransition(
+              child: const ContactUsScreen());
         },
       ),
 

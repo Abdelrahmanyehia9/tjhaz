@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
+import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
@@ -20,7 +21,7 @@ void appToast(
   margin:  EdgeInsets.symmetric(vertical: 36.h , horizontal: 16.w),
     alignment: Alignment.bottomCenter,
     showProgressBar: true,
-    autoCloseDuration: Duration(seconds: 3),
+    autoCloseDuration: const Duration(seconds: 3),
     type: type,
     style: style ?? ToastificationStyle.fillColored,
     title: Text(tittle),
@@ -28,7 +29,8 @@ void appToast(
     context: context);
 
 
-void appDialog({required BuildContext context  ,Color? backgroundColor ,required String title   ,required String  contentMsg , void Function()? onConfirmed ,    })=>showDialog(
+void appDialog({required BuildContext context  ,Color? backgroundColor ,required String title   ,required String  contentMsg , void Function()? onConfirmed ,    })=>
+    showDialog(
     context: context,
     builder: (_) => AlertDialog(
       backgroundColor: AppColors.cWhite,
@@ -57,7 +59,7 @@ void appDialog({required BuildContext context  ,Color? backgroundColor ,required
             child: Text(AppStrings.confirm , style: AppTypography.t12Normal)),
       ],
     ));
-void appBottomSheet({required BuildContext context}) {
+void anonymousBottomSheet({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -70,12 +72,11 @@ void appBottomSheet({required BuildContext context}) {
       child: Column(
         children: [
           Stack(
-            alignment: AlignmentDirectional.topStart,
             children: [
               Container(
                 height: 300.h,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppColors.primaryColor,
                    image: DecorationImage(image: AssetImage(AppAssets.seaTrip) , fit: BoxFit.cover , colorFilter: ColorFilter.mode(Colors.black54, BlendMode.xor))
                 ),
@@ -89,26 +90,35 @@ void appBottomSheet({required BuildContext context}) {
                   },
                   child: CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.3),
-                    child: Icon(Icons.arrow_back , color: Colors.white,),
+                    child: const Icon(Icons.arrow_back , color: Colors.white,),
                   ),
                 ),
               )
             ],
           ) ,
-          Spacer() ,
+          const Spacer() ,
           Padding(
             padding:  EdgeInsets.all(0.0.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Welcome Guest" , style: AppTypography.t24Light.copyWith(color: AppColors.primaryColor),) ,
+                Text(AppStrings.welcomeGuest , style: AppTypography.t24Light.copyWith(color: AppColors.primaryColor),) ,
                 verticalSpace(8) ,
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 12.0.w),
-                  child: Text("Sign in or sign up to enjoy a personalized experience tailored just for you." , textAlign: TextAlign.center , softWrap: true   ,style: AppTypography.t14light.copyWith(color: AppColors.cMediumGrey),),
+                  child: Text(AppStrings.signInOrSignUpToEnjoyAPersonalizedExperience , textAlign: TextAlign.center , softWrap: true   ,style: AppTypography.t14light.copyWith(color: AppColors.cDarkGrey),),
                 ) ,
                 verticalSpace(24),
-                AuthButton(tittle: AppStrings.login, onPressed: (){}) ,
+                AuthButton(
+                  tittle: AppStrings.login,
+                  onPressed: () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop(); // إغلاق المودال
+                    }
+
+                    context.go(AppRouter.authScreen);
+                  },
+                ),
                 AuthButton(tittle: AppStrings.continueAsGuest, onPressed: (){
                   context.pop() ;
                 } , bgColor: AppColors.secondaryColor,) ,
@@ -121,7 +131,7 @@ void appBottomSheet({required BuildContext context}) {
               ],
             ),
           ) ,
-          Spacer()
+          const Spacer()
 
         ],
       ),

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_message.dart';
 import 'package:tjhaz/core/widgets/calender.dart';
 import 'package:tjhaz/feature/booking/data/model/bookings_model.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
@@ -16,6 +19,7 @@ import 'package:tjhaz/feature/booking/logic/reservation/get_reservation_hours_st
 import 'package:tjhaz/feature/booking/view/widgets/booking_bottom_button.dart';
 import 'package:tjhaz/feature/booking/view/widgets/reservation/select_day_in_calender.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
+import '../../../../core/database/local/shared_prefrences_constants.dart';
 import '../widgets/reservation/duration_selector.dart';
 import '../widgets/reservation/headlines.dart';
 import '../widgets/reservation/select_start_time.dart';
@@ -60,11 +64,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ReservationAppBarHeadline(title: widget.model.name),
+            ReservationAppBarHeadline(title: widget.model.name.localized),
             SelectDayInCalender(
               model: widget.model,
             ),
-            CalenderIllustration(),
+            const CalenderIllustration(),
             DurationSelector(model: widget.model),
             verticalSpace(16),
             SelectStartingTime(
@@ -90,13 +94,16 @@ class _ReservationScreenState extends State<ReservationScreen> {
   }
 
   void onTapFixedButton(double totalPrice  , int startingHour) {
+    if(SharedPrefHelper.getBool(SharedPrefConstants.isAnonymous) == true){
+      anonymousBottomSheet(context: context) ;
+    }else{
 context.read<AddNewBookingCubit>().totalPrice = totalPrice;
       String month = context
           .read<GetReservedDatesCubit>()
           .currentMonth;
       int day = context
           .read<GetReservedHoursCubit>()
-          .currentDay;
+          .currentDay!;
       int duration = (context
           .read<GetReservedHoursCubit>()
           .selectedDurationIndex) + widget.model.minHoursToBooking;
@@ -116,6 +123,7 @@ context.read<AddNewBookingCubit>().totalPrice = totalPrice;
       context.read<AddNewBookingCubit>().model = model;
       context.read<AddNewBookingCubit>().totalPrice = totalPrice;
       context.push(AppRouter.addOnsScreen, extra: widget.model);
+    }
 
   }
 }

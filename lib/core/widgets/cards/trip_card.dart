@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/app_gradient.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';
 import 'package:tjhaz/feature/favorite/view/widgets/add_to_favorite.dart';
@@ -18,7 +21,7 @@ class TripCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
+    return  CustomGestureDetector(
       onTap: (){
         context.push(AppRouter.entertainmentDetailsScreen , extra:  model) ;
       },
@@ -32,7 +35,6 @@ class TripCardItem extends StatelessWidget {
             gradient: AppGradient.tripCardGradient
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
@@ -51,15 +53,15 @@ class TripCardItem extends StatelessWidget {
               ],
             ) ,
             verticalSpace(8),
-            Text(model.name , style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),) ,
-            Text("Starting from ${model.price} KWD" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
-            Text("(Per Hr)" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
-            Spacer(),
+            Text(model.name.localized , style: AppTypography.t12Bold.copyWith(color: AppColors.primaryColor),) ,
+            Text("${AppStrings.startingFrom}: ${model.price.toStringAsFixed(0)} ${AppStrings.kwdCurrency}" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
+            Text("( ${AppStrings.perHr} )" , style: AppTypography.t10light.copyWith(color: AppColors.primaryColor),) ,
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children: [
-                tripOption("${model.guests!} guests" , Icons.person),
+                tripOption("${model.guests!} ${AppStrings.guests}" , Icons.person),
                 tripOption(model.rates , Icons.star)
               ],
             ),
@@ -67,11 +69,11 @@ class TripCardItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
               children: [
-                tripOption(model.location , Icons.location_on),
-                tripOption("${model.minHoursToBooking} Hrs" , Icons.access_time_filled_rounded)
+                tripOption(model.location.localized , Icons.location_on),
+                tripOption("${model.minHoursToBooking} ${AppStrings.hrs.toUpperCase()}" , Icons.access_time_filled_rounded)
               ],
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
       ),

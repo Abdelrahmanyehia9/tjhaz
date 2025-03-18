@@ -68,7 +68,7 @@ class ShimmerListV2 extends StatelessWidget {
         ShimmerContainer(width: screenWidth(context)*.425, height: screenHeight(context)*.13 , radius: 8,),
         verticalSpace(8),
         ShimmerContainer(width: screenWidth(context)*.425, height: 22.h , radius: 4,),
-        Spacer(),
+        const Spacer(),
       ],
     ),
   );

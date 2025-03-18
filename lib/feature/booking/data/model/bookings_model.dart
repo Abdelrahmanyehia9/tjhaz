@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tjhaz/core/utils/app_strings.dart';
 
-class BookingModel extends Equatable {
-  final String name;
+class BookingModel  {
+  final Map<String  , dynamic> name;
   final String bookingId;
   final Timestamp createdAt;
-  final String? location;
+  final Map<String  , dynamic>? location;
   final int? guests;
   final String imgUrl;
   final String date;
@@ -36,12 +37,12 @@ class BookingModel extends Equatable {
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
-      name: json["name"] as String,
+      name: json["name"] as Map<String,dynamic>,
       bookingId: json["bookingId"] as String,
       imgUrl: json["image"] as String,
       catID: json["categoryId"] as String,
       guests: json["guests"] != null ? json["guests"] as int : null,
-      location: json["location"] != null ? json["location"] as String : null,
+      location: json["location"] as Map<String,dynamic> ,
       createdAt: json['createdAT'] as Timestamp,
       date: json['date'] as String,
       startTime: json['startTime'] as int,
@@ -72,19 +73,4 @@ class BookingModel extends Equatable {
     };
   }
 
-  @override
-  List<Object?> get props => [
-    bookingId,
-    createdAt,
-    date,
-    startTime,
-    numOfHours,
-    name,
-    imgUrl,
-    location,
-    entertainmentID,
-    status,
-    totalPrice,
-    userId
-  ];
 }

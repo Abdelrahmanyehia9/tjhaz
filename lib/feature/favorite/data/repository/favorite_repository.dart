@@ -36,22 +36,22 @@ class FavoriteRepository {
   Future<Either<List<EntertainmentDetailsModel>, String>> getAllFavorites() async {
     try {
       List<String> ids = await FavoriteDataHelper.instance.getFavoritesIdsInFirestore(firestore) ;
-       List<EntertainmentDetailsModel> favorites = await FavoriteDataHelper.instance.fetchFavoritesEntertainments(ids, firestore) ;
+      List<EntertainmentDetailsModel> favorites = await FavoriteDataHelper.instance.fetchFavoritesEntertainments(ids, firestore) ;
       return Left(favorites);
     } catch (e) {
       return Right(e.firebaseErrorMessage);
     }
   }
   Future<List<ProductModel>>getAllFavoritesProducts() async {
-   try{
+    try{
 
-     List<String> ids = await FavoriteDataHelper.instance.getFavoritesIdsInFirestore(firestore) ;
-     List<ProductModel> favorites = await FavoriteDataHelper.instance.fetchFavoriteProducts(ids, firestore) ;
-     return favorites ;
+      List<String> ids = await FavoriteDataHelper.instance.getFavoritesIdsInFirestore(firestore) ;
+      List<ProductModel> favorites = await FavoriteDataHelper.instance.fetchFavoriteProducts(ids, firestore) ;
+      return favorites ;
 
-   }catch(e){
-     return [];
-   }
+    }catch(e){
+      return [];
+    }
 
   }
 }

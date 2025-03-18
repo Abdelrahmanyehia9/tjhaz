@@ -12,24 +12,16 @@ import 'package:tjhaz/feature/profile/data/repository/user_repository.dart';
   final UserRepository userRepository ;
   SignUpRepository({required this.auth, required this.userRepository});
 
-Future<Either<UserCredential , String>>signUpUsingEmailAndPassword({required String username  , required String email  , required String password})async{
-
-  try{
-    UserCredential credential = await auth.createUserWithEmailAndPassword(email: email, password: password) ;
-    UserModel userModel = UserModel(uID: credential.user!.uid, username: username, emailAddress: email);
-    await userRepository.addNewUserToFirestore(userModel: userModel) ;
-    return left(credential);
+Future<Either<UserCredential , String>>signUpUsingEmailAndPassword({required String username  , required String email  , required String password})async {
+    try {
+      UserCredential credential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      UserModel userModel = UserModel(
+          uID: credential.user!.uid, username: username, emailAddress: email);
+      await userRepository.addNewUserToFirestore(userModel: userModel);
+      return left(credential);
+    } catch (e) {
+      return right(e.firebaseErrorMessage);
+    }
   }
-  catch (e) {return right(e.firebaseErrorMessage);}
-
-
-
-
-  }
-
-
-
-
-
-
 }

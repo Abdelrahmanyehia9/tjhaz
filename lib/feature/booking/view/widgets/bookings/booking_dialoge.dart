@@ -10,7 +10,7 @@ void bookingDialog(BuildContext context , BookingModel booking){
   appDialog(context: context, title: AppStrings
       .bookingCancellation, contentMsg: AppStrings.areYouSureYouWantToCancel ,
       onConfirmed:  (){
-        context.read<MyBookingsCubit>().cancelBooking(bookingId: booking.bookingId , userId: booking.userId) ;
+        context.read<MyBookingsCubit>().cancelBooking(bookingId: booking.bookingId ) ;
         context.pop() ;
       }) ;
 }

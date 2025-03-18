@@ -12,11 +12,11 @@ class AddNewBookingCubit extends Cubit<AddNewBookingState>{
    double totalPrice = 0 ;
 
   final BookingRepository bookingRepository  ;
-  AddNewBookingCubit(this.bookingRepository):super(AddNewBookingInitial());
+  AddNewBookingCubit(this.bookingRepository):super(const AddNewBookingInitial());
 
 
   Future<void>addBook()async{
-    safeEmit(AddNewBookingLoading());
+    safeEmit(const AddNewBookingLoading());
     try{
       if(model == null) throw AppStrings.genericError ;
      final bool hasPendingBooking =  await bookingRepository.hasPendingBooking(model!.userId) ;

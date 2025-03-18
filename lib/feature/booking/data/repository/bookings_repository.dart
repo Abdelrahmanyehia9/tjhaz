@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
+import '../../../../core/database/local/shared_prefrences_constants.dart';
+import '../../../../core/database/local/shared_prefrences_helper.dart';
 import '../../../../core/database/remote/fireStore_constants.dart';
 import '../model/bookings_model.dart';
 
@@ -9,13 +11,14 @@ class BookingRepository {
 
   const BookingRepository(this.firestore);
 
-  Future<Either<List<int>?, String>> getReservedDaysByEnterID({required String month, required String entertainmentID,}) async {
+  Future<Either<List<int>?, String>> getReservedDaysByEnterID({
+    required String month,
+    required String entertainmentID,
+  }) async {
     try {
       final response = await firestore
           .collection(FireStoreConstants.entertainment)
           .doc(entertainmentID)
-          .collection(FireStoreConstants.reservationCollection)
-          .doc(month)
           .get();
 
       if (!response.exists) return left(null);
@@ -33,22 +36,24 @@ class BookingRepository {
       return right(e.firebaseErrorMessage);
     }
   }
-  Future<Either<List<int>?, String>> getReservedHoursByEnterID(
-      {required String month, required String entertainmentID, required int day,
-      }) async {
+
+  Future<Either<List<int>?, String>> getReservedHoursByEnterID({
+    required String month,
+    required String entertainmentID,
+    required int day,
+  }) async {
     try {
       final response = await firestore
           .collection(FireStoreConstants.entertainment)
           .doc(entertainmentID)
-          .collection(FireStoreConstants.reservationCollection)
-          .doc(month)
           .get();
 
       if (!response.exists) return left(null);
 
       final data = response.data();
-      if (data == null || !data.containsKey("reserved_hours"))
+      if (data == null || !data.containsKey("reserved_hours")) {
         return left(null);
+      }
 
       final reservedHoursMap = data["reserved_hours"];
       if (reservedHoursMap is! Map) return left(null);
@@ -63,37 +68,49 @@ class BookingRepository {
       return right(e.firebaseErrorMessage);
     }
   }
-  Future<bool>hasPendingBooking(String userID)async{
-    final response =  await firestore.collection(FireStoreConstants.bookingsCollection).where("userId",isEqualTo: userID).where("status",isEqualTo: "pending").get() ;
-    return response.docs.isNotEmpty ;
+
+  Future<bool> hasPendingBooking(String userID) async {
+    final response = await firestore
+        .collection(FireStoreConstants.bookingsCollection)
+        .where("userId", isEqualTo: userID)
+        .get();
+
+    return response.docs.isNotEmpty;
   }
+
   Future<void> bookingNewEntertainment(BookingModel booking) async {
-   final bookingDoc = await firestore.collection(FireStoreConstants.bookingsCollection).doc( ).get() ;
+    final bookingDoc = await firestore.collection(FireStoreConstants.bookingsCollection).doc().get();
     await firestore.collection(FireStoreConstants.bookingsCollection).doc(bookingDoc.id).set(
         booking.toJson(bookingDoc.id));
   }
-  Future<Either<List<BookingModel> , String>>getAllBookingsByCategory(String userId , String? categoryId) async{
-    try{
-      List<BookingModel> allBookings = [] ;
-      final QuerySnapshot<Map<String, dynamic>> response ;
-      if(categoryId != null){
-         response =  await firestore.collection(FireStoreConstants.bookingsCollection).where("userId",isEqualTo: userId).where("categoryId" , isEqualTo: categoryId).limit(5).get() ;
-      }else{
-         response =  await firestore.collection(FireStoreConstants.bookingsCollection).where("userId",isEqualTo: userId).limit(5).get() ;
+
+  Future<Either<List<BookingModel>, String>> getAllBookingsByCategory(String? categoryId) async {
+    final userId = SharedPrefHelper.getString(SharedPrefConstants.currentUserId);
+
+    try {
+      List<BookingModel> allBookings = [];
+
+      Query<Map<String, dynamic>> query = firestore.collection(FireStoreConstants.bookingsCollection)
+          .where("userId", isEqualTo: userId)
+          .limit(5);
+
+      if (categoryId != null) {
+        query = query.where("categoryId", isEqualTo: categoryId);
       }
-      for(var item in response.docs){
-        allBookings.add(BookingModel.fromJson(item.data())) ;
+
+      final response = await query.get();
+
+      for (var item in response.docs) {
+        allBookings.add(BookingModel.fromJson(item.data()));
       }
-      return left(allBookings) ;
-    }catch(e){
-      print(e.toString()) ;
-      return right(e.firebaseErrorMessage) ;
+
+      return left(allBookings);
+    } catch (e) {
+      return right(e.firebaseErrorMessage);
     }
-
-
-
   }
-  Future<void>cancelBooking(String id)async{
-    await firestore.collection(FireStoreConstants.bookingsCollection).doc(id).delete() ;
-}
+
+  Future<void> cancelBooking(String id) async {
+    await firestore.collection(FireStoreConstants.bookingsCollection).doc(id).delete();
+  }
 }

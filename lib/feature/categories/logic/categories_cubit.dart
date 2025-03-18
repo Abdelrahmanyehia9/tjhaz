@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/feature/categories/data/repository/categories_repository.dart';
 import 'package:tjhaz/feature/categories/logic/categories_states.dart';
@@ -12,13 +13,13 @@ class CategoriesCubit extends Cubit<CategoriesStates>{
 
   CategoriesCubit(this.categoryRepository ):super(CategoriesStateInitial()) ;
   Future<void>getCategoriesByParentId(String parentID)async{
-    emit(CategoriesStateLoading()) ;
+    safeEmit(CategoriesStateLoading()) ;
 
     final results = await categoryRepository.getSubCategoriesByParentID(parentID , activeMainCategoryIndex==3) ;
     results.fold((results){
-      emit(CategoriesStateSuccess(results)) ;
+      safeEmit(CategoriesStateSuccess(results)) ;
     }, (error){
-      emit(CategoriesStateFailure(errorMsg: error)) ;
+      safeEmit(CategoriesStateFailure(errorMsg: error)) ;
     }) ;
 
 

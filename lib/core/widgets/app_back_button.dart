@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../styles/colors.dart';
 import '../styles/typography.dart';
@@ -16,13 +17,10 @@ class AppBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return CustomGestureDetector(
       onTap: () {
-        if (GoRouter.of(context).canPop()) {
           context.pop();
-        } else {
-          // _closeApp();
-        }
+
       },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16.h),
@@ -40,15 +38,8 @@ class AppBackButton extends StatelessWidget {
             )
           ],
         ),
-      ),
+      )
     );
   }
 
-  void _closeApp() {
-    if (Platform.isAndroid) {
-      SystemNavigator.pop(); // Closes the app on Android
-    } else if (Platform.isIOS) {
-      exit(0); // Closes the app on iOS
-    }
-  }
 }

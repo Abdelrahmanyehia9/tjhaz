@@ -51,17 +51,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  AppHeadline(tittle: "Favourite"),
+                  AppHeadline(tittle: AppStrings.favorites),
                   verticalSpace(4),
                   TogglePages(
                     width: 100.w,
+
                     onTap: (newIndex) {
                       setState(() {
                         index = newIndex + 1;
-                        print("Selected index: $index");
                       });
                     },
-                    unSelectedTextStyle: AppTypography.t12Normal
+                    unSelectedTextStyle: AppTypography.t14Normal
                         .copyWith(color: AppColors.cWhite),
                     selectedTextStyle: AppTypography.t14Normal
                         .copyWith(color: AppColors.cWhite),
@@ -91,7 +91,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     height: 520.h,
                                     child: Center(
                                         child: EmptyList(
-                                            title: "Favorite Products",
+                                            title: AppStrings.favoriteProducts,
                                             icon: AppIcons.favorite)
                                     )
                                 );
@@ -106,7 +106,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   height: 520.h,
                                   child: Center(
                                       child: EmptyList(
-                                          title: "Favorite",
+                                          title: AppStrings.favorites,
                                           icon: AppIcons.favorite
                                       )
                                   )
@@ -129,7 +129,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       AppStrings.trips,
                       AppStrings.wild,
                       AppStrings.activities,
-                      "Products",
+                      AppStrings.products,
                     ],
                   ),
                 ],

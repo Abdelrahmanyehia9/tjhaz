@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/auth/data/repository/login_repo.dart';
 import 'package:tjhaz/feature/auth/logic/logout_states.dart';
 
@@ -11,13 +12,13 @@ final LoginRepo loginRepo ;
 
   Future<void> logout()async{
     try{
-      emit(LogoutStatesLoading()) ;
+      safeEmit(LogoutStatesLoading()) ;
       await loginRepo.logout() ;
       Future.delayed(Duration(seconds: 2) , (){
-        emit(LogoutStatesSuccess()) ;
+        safeEmit(LogoutStatesSuccess()) ;
       }) ;
     }catch(e){
-      emit(LogoutStatesFailure(errorMsg: e.firebaseErrorMessage)) ;
+      safeEmit(LogoutStatesFailure(errorMsg: e.firebaseErrorMessage)) ;
     }
 
   }

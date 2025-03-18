@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tjhaz/core/styles/card_sizes.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/cards/square_card.dart';
 import 'package:tjhaz/core/widgets/cards/trip_card.dart';
@@ -61,7 +62,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GlobalAppBar(),
+                  const GlobalAppBar(),
                   AppHeadline(tittle: parentTitle),
                   BlocConsumer<CategoriesCubit, CategoriesStates>(
                     builder: (context, state) {
@@ -78,7 +79,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                               return ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 controller: scrollController,
-                                itemBuilder: (context, index) => InkWell(
+                                itemBuilder: (context, index) => CustomGestureDetector(
                                   onTap: () {
                                     activeIndex.value = index;
                                     subCategoryTitle.value = categories[index].title;
@@ -103,9 +104,9 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                         )
                             : Container();
                       } else if (state is CategoriesStateLoading) {
-                        return EntertainmentCategoriesLoading();
+                        return const EntertainmentCategoriesLoading();
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     },
                     listener: (context, state) {
@@ -134,7 +135,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                       } else if (state is EntertainmentItemsFailure) {
                         return AppErrorWidget(error: state.errorMsg);
                       } else {
-                        return GridLoading();
+                        return const GridLoading();
                       }
                     },
                   ),

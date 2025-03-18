@@ -40,7 +40,6 @@ class _SelectStartingTimeState extends State<SelectStartingTime> {
               Wrap(
                 spacing: 16.w,
                 runSpacing: 8.h,
-                alignment: WrapAlignment.start,
                 children: List.generate(
                   (widget.availableTo - widget.availableFrom),
                   (index) {
@@ -68,7 +67,7 @@ class _SelectStartingTimeState extends State<SelectStartingTime> {
           );
 
         } else if (state is GetReservedHoursInitial) {
-          return SizedBox();
+          return const SizedBox();
         } else {
           return _buildLoadingShimmer();
         }
@@ -81,7 +80,6 @@ class _SelectStartingTimeState extends State<SelectStartingTime> {
         child: Wrap(
           spacing: 16.w,
           runSpacing: 8.h,
-          alignment: WrapAlignment.start,
           children: List.generate(
             12,
             (index) => ShimmerContainer(

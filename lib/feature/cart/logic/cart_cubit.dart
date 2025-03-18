@@ -20,6 +20,37 @@ class CartCubit extends Cubit<CartStates>{
     }, (error)=>safeEmit(CartStatesFailure(error))) ;
 
   }
+  Future<void> updateItemQuantity(bool isIncrement , String itemID)async{
+    emit(UpdateQuantityLoading(itemID)) ;
+    final result = await cartRepository.quantityUpdate( isIncrement ,  itemID ) ;
+     safeEmit(UpdateQuantitySuccess());
+    if(isIncrement){
+      cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity = cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity + 1 ;
+    }else{ cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity = cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity - 1 ;}
+    result.fold((_){}, (error){
+      safeEmit(UpdateQuantityFailure(error)) ;
+    }) ;
+  }
+  Future<void>removeItemFromCart({required String itemID})async{
+    safeEmit(UpdateQuantityLoading(itemID)) ;
+    final result = await cartRepository.removeItemFromCart(itemID: itemID) ;
+    result.fold((_){
+      cartItems.removeWhere((element) => element.itemID == itemID) ;
+      safeEmit(UpdateQuantitySuccess()) ;
+    }, (error){
+      safeEmit(UpdateQuantityFailure(error)) ;
+    }) ;
+  }
+  Future<void>addItemToCart({required CartModel model})async{
+    safeEmit(UpdateQuantityLoading(model.itemID)) ;
+    final result = await cartRepository.addItemToCart(cartModel: model) ;
+    result.fold((_){
+      cartItems.add(model) ;
+      safeEmit(UpdateQuantitySuccess()) ;
+    }, (error){
+      safeEmit(UpdateQuantityFailure(error)) ;
+    }) ;
+  }
 
 
 

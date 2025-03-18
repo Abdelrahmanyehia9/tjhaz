@@ -8,7 +8,6 @@ import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/fixed_bottom_button.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
-import 'package:tjhaz/feature/cart/logic/cart_modify_cubit.dart';
 import 'package:tjhaz/feature/cart/logic/cart_states.dart';
 import 'package:tjhaz/feature/cart/view/widgets/cart_item.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -72,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                               child: Align(
                                 alignment: AlignmentDirectional.centerEnd,
                                 child: Text(
-                                  selectedItems.length == totalItems ? "Unselect All" : "Select All",
+                                  selectedItems.length == totalItems ? AppStrings.unselectAll : AppStrings.selectAll,
                                   style: AppTypography.t12Bold.copyWith(color: AppColors.secondaryColor),
                                 ),
                               ),
@@ -109,7 +108,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   Text(AppStrings.checkout.toUpperCase(), style: AppTypography.t16Bold),
                   verticalSpace(4),
-                  Text("items: ${selectedItems.length} / ${AppStrings.total}: ${calculateTotalPrice()} ${AppStrings.kwdCurrency}", style: AppTypography.t14Normal),
+                  Text("${AppStrings.items}: ${selectedItems.length} / ${AppStrings.total}: ${calculateTotalPrice()} ${AppStrings.kwdCurrency}", style: AppTypography.t14Normal),
                 ],
               ),
             ),
@@ -133,8 +132,8 @@ class _CartScreenState extends State<CartScreen> {
     final cartItems = context.read<CartCubit>().cartItems;
 
     for (int index in selectedItems) {
-      if (index < cartItems.length) { // تجنب الوصول إلى عنصر غير موجود
-        int currentItemQuantity = context.watch<CartModifyCubit>().quantityMap[cartItems[index].itemID] ?? 1;
+      if (index < cartItems.length) {
+        int currentItemQuantity = context.watch<CartCubit>().cartItems[index].itemQuantity ;
         totalPrice += cartItems[index].itemPrice * currentItemQuantity;
       }
     }

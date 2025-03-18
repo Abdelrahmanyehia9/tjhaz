@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
@@ -27,30 +28,30 @@ class EntertainmentDetailsScreen extends StatelessWidget {
       }),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppBackButton(),
+                const AppBackButton(),
                 AppSlider(
                     imageList: model.images  ,id: model.id,   ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8),
                   child: Text(
-                    model.name,
+                    model.name.localized,
                     style: AppTypography.t20Bold
                         .copyWith(color: AppColors.primaryColor),
                   ),
                 ),
                 entertainmentOption() ,
                 verticalSpace(24),
-                model.facilities == null ? SizedBox() : EntertainmentFacilities(
+                model.facilities == null ? const SizedBox() : EntertainmentFacilities(
                   facilitiesComfortable: model.comfortFacilities!,
                   entertainmentFacilities: model.facilities!,),
-              headlineAndText(model.description, AppStrings.description),
+              headlineAndText(model.description.localized, AppStrings.description),
                 model.details == null
-                    ? SizedBox()
+                    ? const SizedBox()
                     : headlineAndText(model.details!, AppStrings.details),
                 verticalSpace(16)
               ],
@@ -91,7 +92,7 @@ class EntertainmentDetailsScreen extends StatelessWidget {
     }
 
     items.add(IconAndTextHorizontal(
-      title: model.location ?? "Unknown Location",
+      title: model.location.localized  ,
       icon: Icons.location_on,
     ));
 

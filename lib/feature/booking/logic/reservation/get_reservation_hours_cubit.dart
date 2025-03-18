@@ -7,32 +7,32 @@ import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_mod
 class GetReservedHoursCubit extends Cubit<GetReservedHoursStates> {
 
   final BookingRepository bookingRepository;
-  int currentDay = DateTime.now().day ;
+  int? currentDay  ;
   List<int>reservedHours = []  ;
   int? startingHoursSelectedIndex ;
   int selectedDurationIndex = 0  ;
 
   GetReservedHoursCubit(this.bookingRepository)
-      : super(GetReservedHoursInitial());
+      : super(const GetReservedHoursInitial());
 
   Future<void> getReservedHours({required EntertainmentDetailsModel model, required String month , required int duration }) async {
     startingHoursSelectedIndex = null ;
-    emit(GetReservedHoursLoading());
+    safeEmit(const GetReservedHoursLoading());
 
     final results = await bookingRepository.getReservedHoursByEnterID(
       month: month.toLowerCase(),
       entertainmentID: model.id,
-      day: currentDay ,
+      day: currentDay! ,
     );
 
     results.fold(
           (reservedHours) {
             this.reservedHours = reservedHours??[] ;
             this.reservedHours = getAvailableHoursByDuration(model, duration);
-        emit(GetReservedHoursSuccess());
+        safeEmit(const GetReservedHoursSuccess());
       },
           (error) {
-        emit(GetReservedHoursFailure(error));
+        safeEmit(GetReservedHoursFailure(error));
       },
     );
   }
@@ -41,7 +41,7 @@ class GetReservedHoursCubit extends Cubit<GetReservedHoursStates> {
     reservedHours = []  ;
     startingHoursSelectedIndex = null ;
     selectedDurationIndex = 0  ;
-    safeEmit(GetReservedHoursInitial()) ;
+    safeEmit(const GetReservedHoursInitial()) ;
 }
 
   List<int> getAvailableHoursByDuration(EntertainmentDetailsModel  model ,int duration ) {

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/home/data/repository/home_repository.dart';
 import 'package:tjhaz/feature/home/logic/banners_states.dart';
 
@@ -10,9 +11,9 @@ class BannerCubit extends Cubit<BannersStates>{
     Future<void> getBanners() async{
       final results = await homeRepository.getAllBanners() ;
       results.fold((banners) {
-        emit(BannersStatesSuccess(banners));
+        safeEmit(BannersStatesSuccess(banners));
       }, (error) {
-        emit(BannerStatesFailure());
+        safeEmit(BannerStatesFailure());
       });
     }
 

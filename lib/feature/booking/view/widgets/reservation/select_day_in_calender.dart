@@ -27,10 +27,12 @@ class SelectDayInCalender extends StatelessWidget {
               ),
               child: AppCalender(
                 onDateSelected: (selectedDate){
-                  String month = context.read<GetReservedDatesCubit>().currentMonth ;
-                  context.read<GetReservedHoursCubit>().currentDay = selectedDate.day ;
-                  context.read<GetReservedHoursCubit>().selectedDurationIndex = 0 ;
-                  context.read<GetReservedHoursCubit>().getReservedHours(model: model, month: month , duration: model.minHoursToBooking);
+                  if(selectedDate.day != context.read<GetReservedHoursCubit>().currentDay ){
+                    String month = context.read<GetReservedDatesCubit>().currentMonth ;
+                    context.read<GetReservedHoursCubit>().currentDay = selectedDate.day ;
+                    context.read<GetReservedHoursCubit>().selectedDurationIndex = 0 ;
+                    context.read<GetReservedHoursCubit>().getReservedHours(model: model, month: month , duration: model.minHoursToBooking);
+                  }
                 },
                 onChanged: (month) {
                   context.read<GetReservedDatesCubit>().currentMonth = month;

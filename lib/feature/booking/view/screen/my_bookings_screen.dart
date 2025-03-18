@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tjhaz/core/styles/colors.dart';
+import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/check_anonymous.dart';
 import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/toggle_pages.dart';
@@ -23,11 +26,12 @@ class MyBookingsScreen extends StatelessWidget {
                   padding:  EdgeInsets.symmetric( horizontal: 16.w),
                   child: AppHeadline(
                     tittle: AppStrings.bookings,
-                    hasBackButton: true,
                   ),
                 ),
                 TogglePages(
                   width: 100.w,
+                  selectedTextStyle: AppTypography.t14Normal.copyWith(color: AppColors.cWhite),
+                  unSelectedTextStyle: AppTypography.t14Normal.copyWith(color: AppColors.cWhite),
                   pages: List.generate(4, (index)=> MyBookingsList(id: index,)) ,
                   title: [
                     AppStrings.all,
@@ -36,7 +40,7 @@ class MyBookingsScreen extends StatelessWidget {
                     AppStrings.activities
                   ],
                   onTap: (index) {
-                    context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: index == 0 ? null : index.toString()) ;
+                    context.read<MyBookingsCubit>().getAllBookingsByCategory(category: index == 0 ? null : index.toString()) ;
                   },
                 )
               ],

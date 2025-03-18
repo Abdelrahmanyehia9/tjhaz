@@ -23,8 +23,7 @@ class CircularCategory extends StatelessWidget {
               BoxShadow(
                   color: Colors.grey.shade200 ,
                   blurRadius: 4,
-                  spreadRadius: 0,
-                  offset: Offset(0, 3)
+                  offset: const Offset(0, 3)
               )
             ],
             shape: BoxShape.circle ,

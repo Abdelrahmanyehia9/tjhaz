@@ -6,6 +6,7 @@ import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/utils/screen_size.dart';
 import 'package:tjhaz/core/widgets/app_back_button.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/feature/auth/view/widgets/auth_button.dart';
 import 'package:tjhaz/feature/home/view/screen/home_layout.dart';
 import '../../../../core/helpers/icon_helper.dart';
@@ -91,7 +92,7 @@ class EntertainmentFacilities extends StatelessWidget {
                               icon: IconHelper.getFacilitiesIcon(fac[item]),
                               title: fac[item].tr()))),
               horizontalSpace(16),
-              InkWell(
+              CustomGestureDetector(
                   onTap: () {
 
                     showModalBottomSheet(context: context, builder: (context) =>  Container(
@@ -103,10 +104,8 @@ class EntertainmentFacilities extends StatelessWidget {
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
                               children: [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding:  EdgeInsets.only(top: 24.0.h , bottom: 16.h),
@@ -125,8 +124,8 @@ class EntertainmentFacilities extends StatelessWidget {
                                 ],
                               ) ,
                               Padding(
-                                padding:  EdgeInsets.symmetric(vertical: 8.0),
-                                child: AuthButton(tittle: "CLOSE", onPressed: (){
+                                padding:  const EdgeInsets.symmetric(vertical: 8.0),
+                                child: AuthButton(tittle: AppStrings.close.toUpperCase(), onPressed: (){
                                   context.pop() ;
                                 }),
                               )
@@ -179,7 +178,7 @@ class EntertainmentFacilities extends StatelessWidget {
                       color: Colors.grey.shade300,
                       spreadRadius: 0.7,
                       blurRadius: 0.7,
-                      offset: Offset(0, 1))
+                      offset: const Offset(0, 1))
                 ]),
             child: Icon(
               Icons.more_horiz,

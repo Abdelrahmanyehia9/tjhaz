@@ -130,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: privacyPolicy(),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 24.0, bottom: 8),
+                padding:  EdgeInsets.only(top: 24.0.h, bottom: 8.h),
                 child: AuthButton(
                   tittle: AppStrings.signUp,
                   onPressed: () => validateThenSignup(context),
@@ -151,14 +151,14 @@ class _SignupScreenState extends State<SignupScreen> {
       child: Wrap(
         children: [
           Text(AppStrings.bySigningUp,
-              style: AppTypography.t14Normal),
+              style: AppTypography.t12Normal),
           InkWell(
             child: Text(
-              AppStrings.privacyPolicy,
-              style: AppTypography.t14Bold,
+              "${AppStrings.privacyPolicy} ",
+              style: AppTypography.t12Bold,
             ),
           ),
-          Text(AppStrings.terms, style: AppTypography.t14Normal),
+          Text(AppStrings.terms, style: AppTypography.t12Normal),
         ],
       ),
     );

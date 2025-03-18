@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
-import 'package:tjhaz/core/utils/app_constants.dart';
+import 'package:tjhaz/core/routes/index.dart';
+import 'package:tjhaz/core/widgets/app_badge.dart';
 import 'package:tjhaz/core/widgets/app_message.dart';
+import 'package:tjhaz/feature/favorite/logic/favorite_cubit.dart';
 import '../../../../core/routes/app_router.dart';
 import '../../../../core/styles/app_icon.dart';
 import '../../../../core/styles/colors.dart';
+import '../../../../core/styles/typography.dart';
 import '../../../../core/utils/app_strings.dart';
+import '../../../cart/logic/cart_cubit.dart';
 
 class HomeLayoutShell extends StatefulWidget {
   final Widget child;
@@ -34,7 +37,9 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
   @override
   void initState() {
     super.initState();
-    // Set default value
+    context.read<FavoriteCubit>().getAllFavorites() ;
+    context.read<CartCubit>().getCartItems();
+
     _selectedIndex = 0;
 
     // Schedule update after build is complete
@@ -75,7 +80,7 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
   void _onItemTapped(int index) {
     // Handle cart navigation as a special case with push
   if (SharedPrefHelper.getBool(SharedPrefConstants.isAnonymous) == true && (index  == 2 || index == 3  )){
-    appBottomSheet(context: context) ;
+    anonymousBottomSheet(context: context) ;
 
 
 
@@ -106,9 +111,10 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
           backgroundColor: AppColors.primaryColor,
           selectedItemColor: AppColors.cWhite,
           unselectedItemColor: AppColors.cLightGrey,
-          selectedFontSize: 16.sp,
-          showUnselectedLabels: false,
-          unselectedFontSize: 12.sp,
+
+          selectedFontSize: 13.sp,
+          showUnselectedLabels: true,
+          unselectedFontSize: 10.sp,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
           items: [
@@ -124,9 +130,20 @@ class _HomeLayoutShellState extends State<HomeLayoutShell> {
   }
 
   BottomNavigationBarItem _buildNavItem(IconData icon, String label) {
+
+    if (label == AppStrings.cart){
+      return BottomNavigationBarItem(
+        icon: AppBadge(
+            content: context.read<CartCubit>().cartItems.length,
+            child: Icon(icon, size: 28.sp)) ,
+            label: label,
+      );
+    }
     return BottomNavigationBarItem(
-      icon: Icon(icon, size: 28.sp),
+      icon: Icon(icon, size: 28.sp) ,
       label: label,
     );
   }
 }
+
+

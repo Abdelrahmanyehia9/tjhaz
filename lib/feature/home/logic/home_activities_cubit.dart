@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/home/logic/home_activities_states.dart';
 
 import '../data/repository/home_repository.dart';
@@ -8,12 +9,12 @@ class HomeActivitiesCubit extends Cubit<HomeActivitiesStates> {
   HomeActivitiesCubit({required this.homeRepository})
       : super(HomeActivitiesStatesInitial());
   Future<void> getHomeActivities() async {
-    emit(HomeActivitiesStatesLoading());
+    safeEmit(HomeActivitiesStatesLoading());
     final results = await homeRepository.getActivities();
     results.fold((activities) {
-      emit(HomeActivitiesStatesSuccess(activities)) ;
+      safeEmit(HomeActivitiesStatesSuccess(activities)) ;
     }, (error) {
-      emit(HomeActivitiesStatesFailure(error));
+      safeEmit(HomeActivitiesStatesFailure(error));
     });
   }
 }

@@ -16,7 +16,7 @@ final GetIt getIt = GetIt.instance ;
 
 void setupGetIt()  {
 FirebaseFirestore firestore = FirebaseFirestore.instance;
-firestore.settings = Settings(persistenceEnabled: true , cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+firestore.settings = const Settings(persistenceEnabled: true , cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
   getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(firebaseAuth: getIt.get<FirebaseAuth>()));
 getIt.registerLazySingleton<FirebaseFirestore>(() => firestore);

@@ -28,23 +28,18 @@ class MyBookingsList extends StatelessWidget {
           builder: (context, state) {
             if (state is MyBookingsStatesSuccess) {
               return state.bookings.isEmpty
-                  ? RefreshableWidget(
-                onRefresh: (){
-                  context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: id == 0 ? null : id.toString()) ;
-                },
-                    child: EmptyList(
-                                    title: AppStrings.bookings,
-                                    icon: AppIcons.noBooking,
-                                  ),
-                  )
+                  ? EmptyList(
+                                  title: AppStrings.bookings,
+                                  icon: AppIcons.noBooking,
+                                )
                   : RefreshableWidget(
                 onRefresh: (){
-                  context.read<MyBookingsCubit>().getAllBookingsByCategory(userId: FirebaseAuth.instance.currentUser!.uid , category: id == 0 ? null : id.toString()) ;
+                  context.read<MyBookingsCubit>().getAllBookingsByCategory( category: id == 0 ? null : id.toString()) ;
                 },
 
                     child: ListView.separated(
                                     shrinkWrap: true,
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) =>
                       myBookingItem(state.bookings[index], context),
                                     separatorBuilder: (context, index) => verticalSpace(12),
@@ -56,7 +51,7 @@ class MyBookingsList extends StatelessWidget {
             } else {
               return ListView.separated(
                 shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => ShimmerContainer(
                   width: double.infinity,
                   height: 120.h,
@@ -80,7 +75,7 @@ class MyBookingsList extends StatelessWidget {
               color: Colors.grey.shade200,
               spreadRadius: 0.3,
               blurRadius: 5,
-              offset: Offset(0, 1))
+              offset: const Offset(0, 1))
         ],
         borderRadius: BorderRadius.circular(8.r),
       ),

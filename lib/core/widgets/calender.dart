@@ -7,6 +7,7 @@ import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
 import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/widgets/animation.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import '../styles/colors.dart';
 
 class AppCalender extends StatefulWidget {
@@ -55,7 +56,6 @@ class _AppCalenderState extends State<AppCalender> {
   late DateTime _focusedDate;
   late DateTime _today;
   late DateTime _minDate;
-  late DateTime _maxDate;
   final List<DateTime> _selectedDates = [];
   DateTime? _lastSelectedDate;
 
@@ -65,10 +65,9 @@ class _AppCalenderState extends State<AppCalender> {
     _today = DateTime.now();
 
     int initialMonthIndex = _getMonthIndex(widget.initialMonth ?? DateFormat('MMM').format(_today).toLowerCase());
-    _focusedDate = DateTime(_today.year, initialMonthIndex, 1 );
+    _focusedDate = DateTime(_today.year, initialMonthIndex );
 
-    _minDate = DateTime(_today.year, 1, 1);
-    _maxDate = DateTime(_today.year, 12, 31);
+    _minDate = DateTime(_today.year);
   }
 
   int _getMonthIndex(String month) {
@@ -83,7 +82,7 @@ class _AppCalenderState extends State<AppCalender> {
   Widget build(BuildContext context) {
     String formattedMonth = DateFormat('MMM yyyy' ,AppConstants.currentLanguage).format(_focusedDate ).toUpperCase();
     int daysInMonth = DateTime(_focusedDate.year, _focusedDate.month + 1, 0).day;
-    int firstWeekday = DateTime(_focusedDate.year, _focusedDate.month, 1).weekday;
+    int firstWeekday = DateTime(_focusedDate.year, _focusedDate.month).weekday;
     int emptyCells = firstWeekday % 7;
 
     return Column(
@@ -101,7 +100,7 @@ class _AppCalenderState extends State<AppCalender> {
                 onPressed: _focusedDate.isAfter(_minDate)
                     ? () {
                   setState(() {
-                    _focusedDate = DateTime(_focusedDate.year, _focusedDate.month - 1, 1);
+                    _focusedDate = DateTime(_focusedDate.year, _focusedDate.month - 1);
                   });
 
                   if (widget.onChanged != null) {
@@ -126,7 +125,7 @@ class _AppCalenderState extends State<AppCalender> {
                 onPressed: (_focusedDate.year == _today.year && _focusedDate.month < 12)
                     ? () {
                   setState(() {
-                    _focusedDate = DateTime(_focusedDate.year, _focusedDate.month + 1, 1);
+                    _focusedDate = DateTime(_focusedDate.year, _focusedDate.month + 1);
                   });
 
                   if (widget.onChanged != null) {
@@ -180,7 +179,7 @@ class _AppCalenderState extends State<AppCalender> {
       bool isPast = currentDate.isBefore(_today.subtract(const Duration(days: 1)));
 
       dayWidgets.add(
-        InkWell(
+        CustomGestureDetector(
           onTap: (!isPast && !isBooked)
               ? () {
             setState(() {
@@ -204,7 +203,7 @@ class _AppCalenderState extends State<AppCalender> {
           child: SlideFadeTransition(
             index: day,
             offsetY: -40,
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             child: Container(
               width: 20.w,
               height: 20.h,
@@ -225,7 +224,7 @@ class _AppCalenderState extends State<AppCalender> {
       );
     }
 
-    return GridView.count(crossAxisCount: 7,physics: NeverScrollableScrollPhysics(), shrinkWrap: true, children: dayWidgets ,);
+    return GridView.count(crossAxisCount: 7,physics: const NeverScrollableScrollPhysics(), shrinkWrap: true, children: dayWidgets ,);
   }
 }
 class CalenderIllustration extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/feature/categories/logic/categories_cubit.dart';
 
@@ -24,7 +25,6 @@ class HomeActivitiesSuccess extends StatelessWidget {
     return Column(
       children: [
         HeadlineViewMore(title: AppStrings.topActivities,hasViewMore: true,viewMoreOnTap:(){
-          print("🔥 Current Context: ${context.findAncestorWidgetOfExactType<MaterialApp>()}");
           context.push(AppRouter.entertainmentScreen , extra: {"parent":AppConstants.categories[2] }) ;
         } ,),
         SizedBox(
@@ -45,7 +45,7 @@ class HomeActivitiesSuccess extends StatelessWidget {
               },
               child: CardV2(
                 imgUrl: items[index].imgUrl,
-                title: items[index].name!,
+                title: items[index].name!.localized,
                 onTap: () async{
                   context.loaderOverlay.show() ;
                   await context.read<EntertainmentDetailsCubit>().findEntertainmentByID(items[index].id) ;

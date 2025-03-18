@@ -5,6 +5,7 @@ import 'package:tjhaz/core/widgets/cached_image_widget.dart';
 import '../../../../core/styles/colors.dart';
 import '../../../../core/styles/typography.dart';
 import '../../../../core/utils/screen_size.dart';
+import '../../../../core/widgets/app_gestur_detector.dart';
 
 class CardV1 extends StatelessWidget {
 final GestureTapCallback? onTap ;
@@ -15,7 +16,7 @@ const CardV1({super.key , this.onTap , required this.img});
   Widget build(BuildContext context) {
     return  Padding(
       padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 4.w),
-      child: InkWell(
+      child: CustomGestureDetector(
         onTap: onTap,
         child: Container(
           width: screenWidth(context) * .3,
@@ -48,7 +49,7 @@ class CardV2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
+          CustomGestureDetector(
             onTap: onTap,
             child: Container(
               width: screenWidth(context) * .425,

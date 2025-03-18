@@ -1,13 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/app_message.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_cubit.dart';
 import 'package:tjhaz/feature/booking/logic/booking/add_new_booking_states.dart';
@@ -32,7 +33,7 @@ class _AddOnsScreenState extends State<AddOnsScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.model.addOns!.isEmpty) {
-      return Scaffold(body: const Center(child: Text("NO ADDONS")));
+      return const Scaffold(body: Center(child: Text("NO ADDONS")));
     } else {
       return Scaffold(
       bottomNavigationBar: BlocListener<AddNewBookingCubit , AddNewBookingState>(
@@ -62,7 +63,7 @@ class _AddOnsScreenState extends State<AddOnsScreen> {
           padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: Column(
             children: [
-              ReservationAppBarHeadline(title: widget.model.name),
+              ReservationAppBarHeadline(title: widget.model.name.localized),
               Center(
                 child: Text(
                   AppStrings.addons.toUpperCase(),
@@ -83,7 +84,7 @@ class _AddOnsScreenState extends State<AddOnsScreen> {
                     final addOn = widget.model.addOns![index];
                     final isSelected = selectedAddOns.contains(index);
 
-                    return GestureDetector(
+                    return CustomGestureDetector(
                       onTap: () {
                         setState(() {
                           if (isSelected) {
