@@ -45,11 +45,11 @@ class CartItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.r) ,
                     color: Colors.white,
                     boxShadow: isSelected == false ?   [
-                      BoxShadow(
+                      const BoxShadow(
                         color: AppColors.cLightGrey,
                         spreadRadius: 0.1,
                         blurRadius: 0.5,
-                        offset: const Offset(0, 1), // changes position of shadow
+                        offset: Offset(0, 1), // changes position of shadow
                       ) ,
                     ] : []
 
@@ -97,10 +97,7 @@ class CartItem extends StatelessWidget {
                       onTap: () async {
                         context.loaderOverlay.show();
                         await context.read<CartCubit>().removeItemFromCart(itemID: cartModel.itemID);
-                        if (context.mounted) {
-                          await context.read<CartCubit>().getCartItems();
                           if (context.mounted) context.loaderOverlay.hide();
-                        }
                       },
 
 

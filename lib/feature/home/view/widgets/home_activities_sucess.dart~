@@ -25,7 +25,7 @@ class HomeActivitiesSuccess extends StatelessWidget {
     return BlocListener<EntertainmentDetailsCubit, EntertainmentDetailsStates>(
       listener: (context, state) {
         if (state is EntertainmentDetailsStatesSuccess) {
-          context.push(AppRouter.entertainmentDetailsScreen,
+          context.pushReplacement(AppRouter.entertainmentDetailsScreen,
               extra: state.entertainmentModel);
         }
       },

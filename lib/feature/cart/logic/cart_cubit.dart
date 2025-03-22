@@ -7,23 +7,23 @@ import '../data/model/cart_model.dart';
 class CartCubit extends Cubit<CartStates>{
   final CartRepository cartRepository ;
   List<CartModel> cartItems = [] ;
-  CartCubit(this.cartRepository) : super(CartStatesInitial()) ;
+  CartCubit(this.cartRepository) : super(const CartStatesInitial()) ;
 
 
 
   Future<void> getCartItems()async{
-    safeEmit(CartStatesLoading()) ;
+    safeEmit(const CartStatesLoading()) ;
     final result = await cartRepository.getCartItems() ;
     result.fold((items){
       cartItems = items ;
-      safeEmit(CartStatesSuccess()) ;
+      safeEmit(const CartStatesSuccess()) ;
     }, (error)=>safeEmit(CartStatesFailure(error))) ;
 
   }
   Future<void> updateItemQuantity(bool isIncrement , String itemID)async{
     emit(UpdateQuantityLoading(itemID)) ;
     final result = await cartRepository.quantityUpdate( isIncrement ,  itemID ) ;
-     safeEmit(UpdateQuantitySuccess());
+     safeEmit(const UpdateQuantitySuccess());
     if(isIncrement){
       cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity = cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity + 1 ;
     }else{ cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity = cartItems.firstWhere((element) => element.itemID == itemID).itemQuantity - 1 ;}
@@ -36,17 +36,18 @@ class CartCubit extends Cubit<CartStates>{
     final result = await cartRepository.removeItemFromCart(itemID: itemID) ;
     result.fold((_){
       cartItems.removeWhere((element) => element.itemID == itemID) ;
-      safeEmit(UpdateQuantitySuccess()) ;
+      safeEmit(const UpdateQuantitySuccess()) ;
     }, (error){
       safeEmit(UpdateQuantityFailure(error)) ;
     }) ;
+    getCartItems() ; 
   }
   Future<void>addItemToCart({required CartModel model})async{
     safeEmit(UpdateQuantityLoading(model.itemID)) ;
     final result = await cartRepository.addItemToCart(cartModel: model) ;
     result.fold((_){
       cartItems.add(model) ;
-      safeEmit(UpdateQuantitySuccess()) ;
+      safeEmit(const UpdateQuantitySuccess()) ;
     }, (error){
       safeEmit(UpdateQuantityFailure(error)) ;
     }) ;

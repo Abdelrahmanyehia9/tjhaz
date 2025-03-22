@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:tjhaz/core/utils/app_assets.dart';
 import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -9,6 +11,7 @@ import '../../../../core/styles/typography.dart';
 import '../../../../core/utils/app_strings.dart';
 import '../../../../core/widgets/app_headline.dart';
 import '../../../../core/widgets/global_app_bar.dart';
+import '../widgets/contact_us_social_icons.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({super.key});
@@ -35,7 +38,8 @@ class ContactUsScreen extends StatelessWidget {
             contactUsItem(title: "location" ,icon:  Icons.location_on ,value:  "www.tjhaz.com" , onTap: ()async{
               await UrlLauncherService.instance.launchLocation(latitude: 30.0444, longitude: 31.2357 , label: "Tjhaz") ;
             }) ,
-
+            verticalSpace(8) ,
+            const ContactUsSocialIcons()
 
           ],
         ),

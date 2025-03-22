@@ -4,7 +4,7 @@ import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 
 import 'package:tjhaz/core/routes/index.dart';
 
-import '../../../../core/database/remote/fireStore_constants.dart';
+import '../../../../core/database/remote/firestore_constants.dart';
 import '../../../../core/utils/app_constants.dart';
 
 class FavoriteDataHelper {

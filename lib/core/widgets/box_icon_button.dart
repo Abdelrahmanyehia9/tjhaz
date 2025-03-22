@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
+import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/app_icon.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/core/widgets/app_message.dart';
+import 'package:tjhaz/feature/notification/view/screen/notification_screen.dart';
 
 class FavouriteIcon extends StatelessWidget {
   final double? size;
@@ -45,6 +48,9 @@ class NotificationIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  CustomGestureDetector(
+      onTap: (){
+        context.push(AppRouter.notificationsScreen) ;
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8.w , vertical: 8.h),
         decoration: BoxDecoration(

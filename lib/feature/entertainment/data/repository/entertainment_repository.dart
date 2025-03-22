@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/database/remote/firestore_constants.dart';
 import 'package:tjhaz/core/extention/firebase_caching_helper.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/feature/entertainment/data/model/entertainment_details_model.dart';

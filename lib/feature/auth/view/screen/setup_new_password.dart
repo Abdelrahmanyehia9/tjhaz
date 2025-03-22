@@ -45,7 +45,7 @@ class _SetupNewPasswordState extends State<SetupNewPassword> {
                 description:
                     "You must choose a strong password that will protect your information.",
               ),
-              AuthTextField(
+              const AuthTextField(
                 labelText: "Password",
                 icon: Icons.lock_outline,
                 isPassword: true,
@@ -75,7 +75,7 @@ class _SetupNewPasswordState extends State<SetupNewPassword> {
               verticalSpace(
                 screenHeight(context) * .05,
               ),
-              AuthBackButton() ,
+              const AuthBackButton() ,
               verticalSpace(16)
             ],
           ),

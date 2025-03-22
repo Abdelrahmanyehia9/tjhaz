@@ -12,9 +12,7 @@ class AuthLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(width: screenWidth(context),height: screenHeight(context),
       color: Colors.white.withOpacity(0.4),
-      child: LottieAnimation(
-
-      ),
+      child: const LottieAnimation(),
     ) ;;
   }
 }

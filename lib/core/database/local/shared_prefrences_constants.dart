@@ -7,7 +7,6 @@ static String isAnonymous = 'isAnonymous';
 static String currentUserBirthDate = 'currentUserBirthDate';
 static String isFirstTime = 'isFirstTime';
 static String currentLanguage = 'currentLocale';
-static String currentCountryCode = 'currentCountryCode';
 
 
 

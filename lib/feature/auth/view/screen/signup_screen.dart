@@ -78,7 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
       },
       child: OverlayPortal(
         controller: overlayPortalController,
-        overlayChildBuilder: (_) => AuthLoading(),
+        overlayChildBuilder: (_) => const AuthLoading(),
         child: Form(
           key: _globalKey,
           child: Column(

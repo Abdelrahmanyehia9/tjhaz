@@ -4,7 +4,7 @@ import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import '../models/user_model.dart';
 import '../../../../core/database/local/shared_prefrences_constants.dart';
-import '../../../../core/database/remote/fireStore_constants.dart';
+import '../../../../core/database/remote/firestore_constants.dart';
 
 class UserDataHelper {
 

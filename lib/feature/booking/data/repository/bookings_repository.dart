@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import '../../../../core/database/local/shared_prefrences_constants.dart';
 import '../../../../core/database/local/shared_prefrences_helper.dart';
-import '../../../../core/database/remote/fireStore_constants.dart';
+import '../../../../core/database/remote/firestore_constants.dart';
 import '../model/bookings_model.dart';
 
 class BookingRepository {
@@ -19,7 +19,7 @@ class BookingRepository {
       final response = await firestore
           .collection(FireStoreConstants.entertainment)
           .doc(entertainmentID)
-          .get();
+          .get().timeout(const Duration(seconds: 10));
 
       if (!response.exists) return left(null);
 

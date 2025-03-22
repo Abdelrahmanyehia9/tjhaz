@@ -159,6 +159,7 @@ class AppStrings {
   static String get perHr => "per hr".tr();
   static String get warning => "warning".tr();
   static String get youAlreadyUsingThisLanguage => "you already using this language".tr();
+  static String get notifications => "Notifications".tr();
 
 
 

@@ -22,7 +22,6 @@ class AuthHeader extends StatelessWidget {
             height: screenHeight(context)*.48,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 tittle ,
                 Padding(

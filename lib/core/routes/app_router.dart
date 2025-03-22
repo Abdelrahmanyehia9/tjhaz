@@ -1,6 +1,7 @@
 import 'package:tjhaz/feature/auth/logic/anonymous_user_cubit.dart';
 import 'package:tjhaz/feature/cart/data/repository/cart_repository.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
+import 'package:tjhaz/feature/notification/view/screen/notification_screen.dart';
 import 'package:tjhaz/feature/profile/logic/language_cubit.dart';
 import 'package:tjhaz/feature/profile/view/screen/contact_us_screen.dart';
 
@@ -27,6 +28,7 @@ class AppRouter {
   static const personalInfoScreen = "/personalInfoScreen";
   static const favoriteScreen = "/favoriteScreen";
   static const contactUsScreen = "/contactUsScreen";
+  static const notificationsScreen = "/notificationsScreen";
 
   static final GoRouter routes = GoRouter(
     routes: [
@@ -275,6 +277,13 @@ class AppRouter {
         pageBuilder: (context, state) {
           return fadingTransition(
               child: const ContactUsScreen());
+        },
+      ),
+      GoRoute(
+        path: notificationsScreen,
+        pageBuilder: (context, state) {
+          return fadingTransition(
+              child: const NotificationScreen());
         },
       ),
 

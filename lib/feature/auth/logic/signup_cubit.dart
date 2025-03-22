@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
 import 'package:tjhaz/core/database/remote/auth_error_handler.dart';
-import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/database/remote/firestore_constants.dart';
 import 'package:tjhaz/core/extention/safe_emit.dart';
 import 'package:tjhaz/feature/auth/data/models/user_model.dart';
 import 'package:tjhaz/feature/auth/data/repository/sign_up_repository.dart';

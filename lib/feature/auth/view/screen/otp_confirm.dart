@@ -48,7 +48,7 @@ class _OtpConfirmScreenState extends State<OtpConfirmScreen> {
                 }, isDisabled: otp.text.length !=4 ? true : false     ,),
               ),
               verticalSpace(screenHeight(context)*.175,) ,
-              AuthBackButton(),
+              const AuthBackButton(),
               verticalSpace(16)
             ],
           ),
@@ -97,7 +97,7 @@ class _OtpConfirmScreenState extends State<OtpConfirmScreen> {
           "Didn't receive the code ? ",
           style: AppTypography.t14Normal.copyWith(color: AppColors.primaryColor),
         ),
-        InkWell(
+        const InkWell(
             child: Text(
               " Send again",
               style:

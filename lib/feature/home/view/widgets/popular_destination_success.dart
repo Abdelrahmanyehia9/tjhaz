@@ -27,64 +27,54 @@ class PopularDestinationSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        HeadlineViewMore(
-          title: AppStrings.popularDestinations,
-        ),
-        SizedBox(
-          height: screenHeight(context) * 0.175,
-          child: ListView.builder(
-            itemCount: items.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => BlocListener<
-                EntertainmentDetailsCubit, EntertainmentDetailsStates>(
-              listener: (context, state) {
-                if (state is EntertainmentDetailsStatesSuccess) {
-                  context.push(AppRouter.entertainmentDetailsScreen,
-                      extra: state.entertainmentModel);
-                }
-              },
-              child: CardV1(
+    return BlocListener<EntertainmentDetailsCubit, EntertainmentDetailsStates>(
+      listener: (context, state) {
+        if (state is EntertainmentDetailsStatesSuccess) {
+          context.push(AppRouter.entertainmentDetailsScreen,
+              extra: state.entertainmentModel);
+        }
+      },
+      child: Column(
+        children: [
+          HeadlineViewMore(title: AppStrings.popularDestinations),
+          SizedBox(
+            height: screenHeight(context) * 0.175,
+            child: ListView.builder(
+              itemCount: items.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => CardV1(
                 img: items[index].imgUrl,
-                onTap: () async {
-                  context.loaderOverlay.show();
-                  await context
-                      .read<EntertainmentDetailsCubit>()
-                      .findEntertainmentByID(items[index].id);
-                  if (context.mounted) {
-                    context.loaderOverlay.hide();
-                  }
+                onTap: () {
+                  context.read<EntertainmentDetailsCubit>().findEntertainmentByID(items[index].id);
                 },
               ),
             ),
           ),
-        ),
-        verticalSpace(8),
-        showMoreDistButton(context)
-      ],
+          verticalSpace(8),
+          showMoreDistButton(context),
+        ],
+      ),
     );
   }
 
   Widget showMoreDistButton(BuildContext context) => CustomGestureDetector(
     child: ElevatedButton(
-         onPressed: () {
-           context.push(AppRouter.entertainmentScreen,
-               extra: {"parent": AppConstants.categories[0]});
-         },
-          style: ElevatedButton.styleFrom(
-            overlayColor: Colors.transparent,
-            backgroundColor: Colors.transparent,
-            fixedSize: Size(screenWidth(context), 30.h),
-            shadowColor: Colors.transparent,
-            side: const BorderSide(color: AppColors.primaryColor, width: 1.5),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          child: Text(
-            AppStrings.showMore,
-            style:
-                AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
-          ),
-        ),
+      onPressed: () {
+        context.push(AppRouter.entertainmentScreen,
+            extra: {"parent": AppConstants.categories[0]});
+      },
+      style: ElevatedButton.styleFrom(
+        overlayColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        fixedSize: Size(screenWidth(context), 30.h),
+        shadowColor: Colors.transparent,
+        side: const BorderSide(color: AppColors.primaryColor, width: 1.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Text(
+        AppStrings.showMore,
+        style: AppTypography.t12Normal.copyWith(color: AppColors.primaryColor),
+      ),
+    ),
   );
 }

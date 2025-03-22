@@ -32,3 +32,4 @@ class UpdateQuantityLoading extends CartStates {
   final String itemLoading ;
   const UpdateQuantityLoading(this.itemLoading);
 }
+

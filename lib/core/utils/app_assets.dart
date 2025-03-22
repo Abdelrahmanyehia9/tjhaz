@@ -15,5 +15,8 @@ class AppAssets {
   static const String crownIcon ="assets/images/crown.png" ;
   static const String refreshLoading ="assets/images/refreshLoading.json" ;
   static const String seaTrip ="assets/images/d3.jpg" ;
+  static const String whatsAppLogo ="assets/icons/whatsapp (1).svg" ;
+  static const String instagramAppLogo ="assets/icons/instagram (1).svg" ;
+  static const String facebookAppLogo ="assets/icons/facebook (2).svg" ;
 
 }

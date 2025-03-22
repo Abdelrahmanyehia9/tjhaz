@@ -6,6 +6,7 @@ import 'package:tjhaz/core/routes/index.dart';
 import 'package:tjhaz/core/styles/app_icon.dart';
 import 'package:tjhaz/core/styles/colors.dart';
 import 'package:tjhaz/core/styles/typography.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/widgets/app_headline.dart';
 import 'package:tjhaz/core/widgets/errors_widgets.dart';
 import 'package:tjhaz/core/widgets/refresh_idecator.dart';
@@ -106,7 +107,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   height: 520.h,
                                   child: Center(
                                       child: EmptyList(
-                                          title: AppStrings.favorites,
+                                          title: "${AppConstants.categories[index-1]["title"]} ${AppStrings.favorites}",
                                           icon: AppIcons.favorite
                                       )
                                   )

@@ -93,10 +93,10 @@ super.initState();
                       padding:  EdgeInsets.all(8.0.w),
                       child: Text(AppStrings.changeLanguage , style: AppTypography.t11Bold.copyWith(color: AppColors.primaryColor),),
                     ) ,
-                    LanguageToggle() ,
-                    verticalSpace(16) ,
+                    const LanguageToggle() ,
+                    verticalSpace(24) ,
                     profileFooter() ,
-                    verticalSpace(16) ,
+                    verticalSpace(24) ,
 
 
                   ],
@@ -107,7 +107,7 @@ super.initState();
                   visible: state is LogoutStatesLoading,
                   child: SizedBox(
                     width: 120.w,
-                    height: 220.h,
+                    height: 240.h,
                     child: Lottie.asset("assets/images/bye.json" , fit: BoxFit.cover),
                   ),
                 ),

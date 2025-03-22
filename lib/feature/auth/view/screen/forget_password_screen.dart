@@ -44,7 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             verticalSpace(
               screenHeight(context) * .175,
             ),
-            AuthBackButton(),
+            const AuthBackButton(),
             verticalSpace(16)
           ],
         ),

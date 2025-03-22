@@ -41,10 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return RefreshableWidget(
       onRefresh: (){
-        context.read<HomeActivitiesCubit>().getHomeActivities() ;
-        context.read<HomeTripsCubit>().getHomeTrips() ;
-        context.read<BannerCubit>().getBanners() ;
-        context.read<HomeStoresCubit>().getHomeStores() ;
+        Future.wait([
+        context.read<HomeActivitiesCubit>().getHomeActivities() ,
+        context.read<HomeTripsCubit>().getHomeTrips() ,
+        context.read<BannerCubit>().getBanners() ,
+        context.read<HomeStoresCubit>().getHomeStores()
+
+        ]);
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w),

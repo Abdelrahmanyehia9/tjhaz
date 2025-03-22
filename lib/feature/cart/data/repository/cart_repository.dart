@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
-import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/database/remote/firestore_constants.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';

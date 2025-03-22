@@ -25,7 +25,7 @@ class AppHeadline extends StatelessWidget {
          ),
           const Spacer(),
           SizedBox(
-            width: 150.w,
+            width: 160.w,
             child: Text(
               tittle.toUpperCase(),
               textAlign: TextAlign.center,

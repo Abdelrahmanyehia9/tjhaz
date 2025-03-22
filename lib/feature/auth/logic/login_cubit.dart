@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginStates>{
         await loginRepo.saveUserData(credential.user!);
         safeEmit(LoginStateSuccess());
        } else {
-        safeEmit(LoginStateFailure(errorMsg: "User authentication failed."));
+        safeEmit(const LoginStateFailure(errorMsg: "User authentication failed."));
        }
       },
   (error) {

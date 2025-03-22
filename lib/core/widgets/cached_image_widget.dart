@@ -19,8 +19,8 @@ class CachedNetworkImageWidget extends StatelessWidget {
           opacity: 0.7,
           child: Center(
             child: Padding(
-              padding:  EdgeInsets.all(36.0.w),
-              child: Image.asset(AppAssets.splashLogo , width: 150.w, fit: BoxFit.contain,),
+              padding:  EdgeInsets.all(24.0.w),
+              child: Image.asset(AppAssets.splashLogo ,),
             ) // Loading indicator
           ),
         ),

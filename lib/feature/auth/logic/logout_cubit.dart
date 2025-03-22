@@ -14,7 +14,7 @@ final LoginRepo loginRepo ;
     try{
       safeEmit(LogoutStatesLoading()) ;
       await loginRepo.logout() ;
-      Future.delayed(Duration(seconds: 2) , (){
+      Future.delayed(const Duration(seconds: 2) , (){
         safeEmit(LogoutStatesSuccess()) ;
       }) ;
     }catch(e){

@@ -3,11 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
-import 'package:tjhaz/core/database/remote/firestore_errorHandler.dart';
+import 'package:tjhaz/core/database/remote/firestore_error_handler.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/feature/auth/data/repository/auth_repo.dart';
 
-import '../../../../core/database/remote/fireStore_constants.dart';
+import '../../../../core/database/remote/firestore_constants.dart';
 import '../../../auth/data/repository/user_data_helper.dart';
 import '../../../auth/data/models/user_model.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:tjhaz/core/utils/app_constants.dart';
 import 'package:tjhaz/core/widgets/refresh_idecator.dart';
 import 'package:tjhaz/feature/booking/view/widgets/bookings/booking_dialoge.dart';
 import '../../../../../core/helpers/spacing.dart';
@@ -29,7 +30,7 @@ class MyBookingsList extends StatelessWidget {
             if (state is MyBookingsStatesSuccess) {
               return state.bookings.isEmpty
                   ? EmptyList(
-                                  title: AppStrings.bookings,
+                title: AppStrings.bookings + (id == 0 ? "" : " (${AppConstants.categories[id-1]["title"]})") ,
                                   icon: AppIcons.noBooking,
                                 )
                   : RefreshableWidget(
@@ -132,5 +133,8 @@ class MyBookingsList extends StatelessWidget {
       child: bookingCard,
     );
   }
+
+
+
 }
 

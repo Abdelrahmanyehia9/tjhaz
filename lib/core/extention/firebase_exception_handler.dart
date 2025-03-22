@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../database/remote/auth_error_handler.dart';
-import '../database/remote/firestore_errorHandler.dart';
+import '../database/remote/firestore_error_handler.dart';
 
 extension FirebaseExceptionHandler on Object {
   String get firebaseErrorMessage {

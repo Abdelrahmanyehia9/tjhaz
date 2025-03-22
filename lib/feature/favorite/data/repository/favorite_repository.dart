@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_constants.dart';
 import 'package:tjhaz/core/database/local/shared_prefrences_helper.dart';
-import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/database/remote/firestore_constants.dart';
 import 'package:tjhaz/core/extention/firebase_exception_handler.dart';
 import 'package:tjhaz/core/routes/index.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';

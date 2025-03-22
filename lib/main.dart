@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:tjhaz/core/database/remote/fireStore_constants.dart';
+import 'package:tjhaz/core/database/remote/firestore_constants.dart';
 import 'package:tjhaz/core/routes/index.dart';
 import 'package:tjhaz/core/theme/light.dart';
 import 'package:tjhaz/core/utils/app_constants.dart';

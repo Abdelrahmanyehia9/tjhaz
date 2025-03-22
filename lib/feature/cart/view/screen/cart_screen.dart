@@ -35,8 +35,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    context.read<CartCubit>().getCartItems();
     super.initState();
+    context.read<CartCubit>().getCartItems();
   }
 
   @override
@@ -45,13 +45,15 @@ class _CartScreenState extends State<CartScreen> {
       buildWhen: (previous, current) => current is CartStatesSuccess || current is CartStatesFailure,
       listener: (context, state) {
         if (state is CartStatesSuccess) {
-          totalItems = context.read<CartCubit>().cartItems.length;
+          setState(() {
+            totalItems = context.read<CartCubit>().cartItems.length;
+            selectedItems = List.generate(totalItems, (index) => index);
+          });
         }
       },
       builder: (context, state) {
         if (state is CartStatesSuccess) {
           List<CartModel> cartItems = context.read<CartCubit>().cartItems;
-          totalItems = cartItems.length;
 
           return Scaffold(
             body: SafeArea(
@@ -101,9 +103,8 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             bottomNavigationBar: FixedBottomButton(
-              onPressed: () {},
+              onPressed: selectedItems.isEmpty ? null : () {},
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(AppStrings.checkout.toUpperCase(), style: AppTypography.t16Bold),
@@ -116,25 +117,25 @@ class _CartScreenState extends State<CartScreen> {
         } else if (state is CartStatesFailure) {
           return Scaffold(body: AppErrorWidget(error: state.errorMsg));
         } else {
-          return Scaffold(body: SizedBox());
+          return const Scaffold(body: SizedBox());
         }
       },
     );
   }
 
-
   double calculateTotalPrice() {
-    if (selectedItems.isEmpty || context.read<CartCubit>().cartItems.isEmpty) {
+    final cartCubit = context.read<CartCubit>();
+    final cartItems = List.from(cartCubit.cartItems);
+
+    if (selectedItems.isEmpty || cartItems.isEmpty) {
       return 0.0;
     }
 
     double totalPrice = 0.0;
-    final cartItems = context.read<CartCubit>().cartItems;
 
     for (int index in selectedItems) {
-      if (index < cartItems.length) {
-        int currentItemQuantity = context.watch<CartCubit>().cartItems[index].itemQuantity ;
-        totalPrice += cartItems[index].itemPrice * currentItemQuantity;
+      if (index >= 0 && index < cartItems.length) {
+        totalPrice += cartItems[index].itemPrice * cartItems[index].itemQuantity;
       }
     }
     return totalPrice;
