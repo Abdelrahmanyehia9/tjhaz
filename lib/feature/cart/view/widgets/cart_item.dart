@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:tjhaz/core/extention/localized_map.dart';
 import 'package:tjhaz/core/utils/app_strings.dart';
+import 'package:tjhaz/core/widgets/app_gestur_detector.dart';
 import 'package:tjhaz/feature/cart/data/model/cart_model.dart';
 import 'package:tjhaz/feature/cart/logic/cart_cubit.dart';
 import 'package:tjhaz/feature/cart/view/widgets/product_quantiy.dart';
@@ -93,7 +94,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     ProductQuantity(size: 12, cartModel: cartModel,),
                     horizontalSpace(4) ,
-                    InkWell(
+                    CustomGestureDetector(
                       onTap: () async {
                         context.loaderOverlay.show();
                         await context.read<CartCubit>().removeItemFromCart(itemID: cartModel.itemID);

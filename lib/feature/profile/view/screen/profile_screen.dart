@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tjhaz/core/helpers/spacing.dart';
 import 'package:tjhaz/core/routes/app_router.dart';
 import 'package:tjhaz/core/styles/colors.dart';
@@ -26,93 +27,127 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
-
+  String appVersion = "";
 
   @override
   void initState() {
-context.read<AnonymousUserCubit>().checkAnonymousUser()  ;
-super.initState();
+    super.initState();
+    context.read<AnonymousUserCubit>().checkAnonymousUser();
+    _getAppVersion();
   }
+
+  Future<void> _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = packageInfo.version;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w),
         child: SingleChildScrollView(
-          child: Stack(
-            alignment: Alignment.bottomCenter,
+          child: Column(
             children: [
-              BlocBuilder<AnonymousUserCubit , bool>(
-                builder:(context , isAnonymous)=> Column(
+              BlocBuilder<AnonymousUserCubit, bool>(
+                builder: (context, isAnonymous) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    verticalSpace(16) ,
-                    AppHeadline(tittle: AppStrings.profile ,),
-                    verticalSpace(8) ,
-                    ProfileButton(text: AppStrings.personalInformation  , visible: !isAnonymous ,icon:  Icons.person , onPressed: (){
-                      context.push(AppRouter.personalInfoScreen , ) ;
-                    },),
-                    ProfileButton(text: AppStrings.login , visible: isAnonymous ,icon:  Icons.login , filled: true, onPressed: (){
-                     if(context.mounted) context.go(AppRouter.authScreen) ;
-                    },),
-                    ProfileButton(text: AppStrings.resetPassword , visible: !isAnonymous ,icon:  Icons.lock),
-                    ProfileButton(text: AppStrings.myFavourites ,visible: !isAnonymous ,icon:  Icons.favorite , onPressed: (){
-                      context.push(AppRouter.favoriteScreen) ;
-                    },),
-                    ProfileButton(text: AppStrings.contactUs  ,visible: true ,icon:  Icons.support_agent , onPressed: (){
-                      context.push(AppRouter.contactUsScreen) ;
-
-                    },),
-                    ProfileButton(text: AppStrings.myOrders, visible: !isAnonymous  ,icon:  Icons.receipt),
-                    ProfileButton(text: AppStrings.myBookings, visible: !isAnonymous  ,icon:  Icons.calendar_today , onPressed: (){
-                      context.push(AppRouter.bookingsScreen ,) ;
-                    },),
-                    ProfileButton(text: AppStrings.aboutUs, visible: true   ,icon:  Icons.contact_support , onPressed: (){
-                      showAboutUs(context) ;
-                    },),
-                    BlocListener<LogoutCubit , LogoutStates>(
-                      listener: (context , state){
-                        if(state is LogoutStatesFailure){
-                          appToast(type: ToastificationType.error, tittle: AppStrings.logoutFailed, description: state.errorMsg) ;
-                        }else if(state is LogoutStatesSuccess){
-                          appToast(type: ToastificationType.success, tittle: AppStrings.logoutSuccess, description: AppStrings.loggedOutSuccess) ;
-                          context.go(AppRouter.authScreen) ;
+                    verticalSpace(16),
+                    AppHeadline(tittle: AppStrings.profile),
+                    verticalSpace(8),
+                    ProfileButton(
+                      text: AppStrings.personalInformation,
+                      visible: !isAnonymous,
+                      icon: Icons.person,
+                      onPressed: () => context.push(AppRouter.personalInfoScreen),
+                    ),
+                    ProfileButton(
+                      text: AppStrings.login,
+                      visible: isAnonymous,
+                      icon: Icons.login,
+                      filled: true,
+                      onPressed: () {
+                        if (context.mounted) context.go(AppRouter.authScreen);
+                      },
+                    ),
+                    ProfileButton(text: AppStrings.resetPassword, visible: !isAnonymous, icon: Icons.lock),
+                    ProfileButton(
+                      text: AppStrings.myFavourites,
+                      visible: !isAnonymous,
+                      icon: Icons.favorite,
+                      onPressed: () => context.push(AppRouter.favoriteScreen),
+                    ),
+                    ProfileButton(
+                      text: AppStrings.contactUs,
+                      visible: true,
+                      icon: Icons.support_agent,
+                      onPressed: () => context.push(AppRouter.contactUsScreen),
+                    ),
+                    ProfileButton(text: AppStrings.myOrders, visible: !isAnonymous, icon: Icons.receipt),
+                    ProfileButton(
+                      text: AppStrings.myBookings,
+                      visible: !isAnonymous,
+                      icon: Icons.calendar_today,
+                      onPressed: () => context.push(AppRouter.bookingsScreen),
+                    ),
+                    ProfileButton(
+                      text: AppStrings.aboutUs,
+                      visible: true,
+                      icon: Icons.contact_support,
+                      onPressed: () => showAboutUs(context),
+                    ),
+                    BlocListener<LogoutCubit, LogoutStates>(
+                      listener: (context, state) {
+                        if (state is LogoutStatesFailure) {
+                          appToast(
+                            type: ToastificationType.error,
+                            tittle: AppStrings.logoutFailed,
+                            description: state.errorMsg,
+                          );
+                        } else if (state is LogoutStatesSuccess) {
+                          appToast(
+                            type: ToastificationType.success,
+                            tittle: AppStrings.logoutSuccess,
+                            description: AppStrings.loggedOutSuccess,
+                          );
+                          context.go(AppRouter.authScreen);
                         }
                       },
                       child: ProfileButton(
-                        text: AppStrings.logout, visible: !isAnonymous  ,icon:  Icons.logout , onPressed: (){
-                        context.read<LogoutCubit>().logout() ;
-                      },),
+                        text: AppStrings.logout,
+                        visible: !isAnonymous,
+                        icon: Icons.logout,
+                        onPressed: () => context.read<LogoutCubit>().logout(),
+                      ),
                     ),
                     verticalSpace(16),
                     Padding(
-                      padding:  EdgeInsets.all(8.0.w),
-                      child: Text(AppStrings.changeLanguage , style: AppTypography.t11Bold.copyWith(color: AppColors.primaryColor),),
-                    ) ,
-                    const LanguageToggle() ,
-                    verticalSpace(24) ,
-                    profileFooter() ,
-                    verticalSpace(24) ,
-
-
+                      padding: EdgeInsets.all(8.0.w),
+                      child: Text(
+                        AppStrings.changeLanguage,
+                        style: AppTypography.t11Bold.copyWith(color: AppColors.primaryColor),
+                      ),
+                    ),
+                    const LanguageToggle(),
+                    verticalSpace(24),
+                    profileFooter(),
+                    verticalSpace(24),
                   ],
                 ),
               ),
-              BlocBuilder<LogoutCubit ,  LogoutStates>(
-                builder:(context  , state) => Visibility(
+              BlocBuilder<LogoutCubit, LogoutStates>(
+                builder: (context, state) => Visibility(
                   visible: state is LogoutStatesLoading,
                   child: SizedBox(
                     width: 120.w,
                     height: 240.h,
-                    child: Lottie.asset("assets/images/bye.json" , fit: BoxFit.cover),
+                    child: Lottie.asset("assets/images/bye.json", fit: BoxFit.cover),
                   ),
                 ),
-              )
-
+              ),
             ],
           ),
         ),
@@ -120,16 +155,21 @@ super.initState();
     );
   }
 
-Widget profileFooter() {
-    return  Center(
+  Widget profileFooter() {
+    return Center(
       child: Column(
         children: [
-          Text("${AppStrings.privacyPolicy}\t |\t ${AppStrings.termsAndConditions}" , style: AppTypography.t12Normal.copyWith(color: AppColors.cDarkGrey),) ,
-          verticalSpace(2) ,
-          Text("${AppStrings.version} 1.0.0" , style: AppTypography.t11Light.copyWith(color: AppColors.secondaryColor),)
+          Text(
+            "${AppStrings.privacyPolicy} | ${AppStrings.termsAndConditions}",
+            style: AppTypography.t12Normal.copyWith(color: AppColors.cDarkGrey),
+          ),
+          verticalSpace(2),
+          Text(
+            "${AppStrings.version} $appVersion",
+            style: AppTypography.t11Light.copyWith(color: AppColors.secondaryColor),
+          ),
         ],
       ),
-    ) ;
-
-}
+    );
+  }
 }

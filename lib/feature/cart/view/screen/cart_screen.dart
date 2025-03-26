@@ -26,11 +26,13 @@ class _CartScreenState extends State<CartScreen> {
   int totalItems = 0;
 
   void toggleSelectAll() {
-    setState(() {
-      selectedItems.length == totalItems
-          ? selectedItems.clear()
-          : selectedItems = List.generate(totalItems, (index) => index);
-    });
+    if (totalItems > 0) {
+      setState(() {
+        selectedItems = selectedItems.length == totalItems
+            ? []
+            : List.generate(totalItems, (index) => index);
+      });
+    }
   }
 
   @override
@@ -42,12 +44,15 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartStates>(
-      buildWhen: (previous, current) => current is CartStatesSuccess || current is CartStatesFailure,
+      buildWhen: (previous, current) =>
+      current is CartStatesSuccess || current is CartStatesFailure,
       listener: (context, state) {
-        if (state is CartStatesSuccess) {
+        if (state is CartStatesSuccess || state is UpdateQuantitySuccess) {
           setState(() {
             totalItems = context.read<CartCubit>().cartItems.length;
-            selectedItems = List.generate(totalItems, (index) => index);
+            selectedItems = selectedItems
+                .where((index) => index < totalItems)
+                .toList();
           });
         }
       },
@@ -73,8 +78,11 @@ class _CartScreenState extends State<CartScreen> {
                               child: Align(
                                 alignment: AlignmentDirectional.centerEnd,
                                 child: Text(
-                                  selectedItems.length == totalItems ? AppStrings.unselectAll : AppStrings.selectAll,
-                                  style: AppTypography.t12Bold.copyWith(color: AppColors.secondaryColor),
+                                  selectedItems.length == totalItems
+                                      ? AppStrings.unselectAll
+                                      : AppStrings.selectAll,
+                                  style: AppTypography.t12Bold.copyWith(
+                                      color: AppColors.secondaryColor),
                                 ),
                               ),
                             ),
@@ -90,13 +98,17 @@ class _CartScreenState extends State<CartScreen> {
                                         : selectedItems.add(index);
                                   });
                                 },
-                                child: CartItem(isSelected: selectedItems.contains(index), cartModel: cartItems[index]),
+                                child: CartItem(
+                                    isSelected:
+                                    selectedItems.contains(index),
+                                    cartModel: cartItems[index]),
                               ),
                             ),
                           ),
                         ],
                       )
-                          : EmptyList(title: AppStrings.cart, icon: AppIcons.cart),
+                          : EmptyList(
+                          title: AppStrings.cart, icon: AppIcons.cart),
                     ),
                   ],
                 ),
@@ -107,9 +119,13 @@ class _CartScreenState extends State<CartScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppStrings.checkout.toUpperCase(), style: AppTypography.t16Bold),
+                  Text(AppStrings.checkout.toUpperCase(),
+                      style: AppTypography.t16Bold),
                   verticalSpace(4),
-                  Text("${AppStrings.items}: ${selectedItems.length} / ${AppStrings.total}: ${calculateTotalPrice()} ${AppStrings.kwdCurrency}", style: AppTypography.t14Normal),
+                  Text(
+                    "${AppStrings.items}: ${selectedItems.length} / ${AppStrings.total}: ${calculateTotalPrice()} ${AppStrings.kwdCurrency}",
+                    style: AppTypography.t14Normal,
+                  ),
                 ],
               ),
             ),
@@ -124,20 +140,13 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   double calculateTotalPrice() {
-    final cartCubit = context.read<CartCubit>();
-    final cartItems = List.from(cartCubit.cartItems);
+    final cartItems = context.read<CartCubit>().cartItems;
 
-    if (selectedItems.isEmpty || cartItems.isEmpty) {
-      return 0.0;
-    }
-
-    double totalPrice = 0.0;
-
-    for (int index in selectedItems) {
-      if (index >= 0 && index < cartItems.length) {
-        totalPrice += cartItems[index].itemPrice * cartItems[index].itemQuantity;
-      }
-    }
-    return totalPrice;
+    return selectedItems
+        .where((index) => index >= 0 && index < cartItems.length)
+        .fold(
+        0.0,
+            (total, index) =>
+        total + cartItems[index].itemPrice * cartItems[index].itemQuantity);
   }
 }

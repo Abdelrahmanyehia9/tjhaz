@@ -160,6 +160,38 @@ class AppStrings {
   static String get warning => "warning".tr();
   static String get youAlreadyUsingThisLanguage => "you already using this language".tr();
   static String get notifications => "Notifications".tr();
+  static String get aboutTjhazTitle => "about_tjhaz_title".tr();
+  static String get aboutTjhazDescription => "about_tjhaz_description".tr();
+
+  static String get visionTitle => "vision_title".tr();
+  static String get vision => "vision".tr();
+
+  static String get boatRentalTitle => "boat_rental_title".tr();
+  static String get boatRental => "boat_rental".tr();
+
+  static String get chaletRentalTitle => "chalet_rental_title".tr();
+  static String get chaletRental => "chalet_rental".tr();
+
+  static String get campingAndWaterActivitiesTitle => "camping_and_water_activities_title".tr();
+  static String get campingAndWaterActivities => "camping_and_water_activities".tr();
+
+  static String get yachtDiningServicesTitle => "yacht_dining_services_title".tr();
+  static String get yachtDiningServices => "yacht_dining_services".tr();
+
+  static String get onlineShoppingTitle => "online_shopping_title".tr();
+  static String get onlineShopping => "online_shopping".tr();
+
+  static String get easyBookingTitle => "easy_booking_title".tr();
+  static String get easyBooking => "easy_booking".tr();
+
+  static String get securePaymentTitle => "secure_payment_title".tr();
+  static String get securePayment => "secure_payment".tr();
+
+  static String get whyTjhazTitle => "why_tjhaz_title".tr();
+  static String get whyTjhaz => "why_tjhaz".tr();
+
+  static String get unforgettableExperienceTitle => "unforgettable_experience_title".tr();
+  static String get unforgettableExperience => "unforgettable_experience".tr();
 
 
 

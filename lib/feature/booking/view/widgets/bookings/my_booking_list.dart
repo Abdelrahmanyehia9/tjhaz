@@ -67,26 +67,29 @@ class MyBookingsList extends StatelessWidget {
   }
 
   Widget myBookingItem(BookingModel booking, BuildContext context) {
-    Widget bookingCard = Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-      decoration: BoxDecoration(
-        color: AppColors.cWhite,
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.shade200,
-              spreadRadius: 0.3,
-              blurRadius: 5,
-              offset: const Offset(0, 1))
-        ],
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MyBookingInfo(booking: booking),
-          verticalSpace(16),
-          MyBookingStatusAndPrice(booking: booking),
-        ],
+    Widget bookingCard = Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+        decoration: BoxDecoration(
+          color: AppColors.cWhite,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade200,
+                spreadRadius: 0.3,
+                blurRadius: 5,
+                offset: const Offset(0, 1))
+          ],
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MyBookingInfo(booking: booking),
+            verticalSpace(16),
+            MyBookingStatusAndPrice(booking: booking),
+          ],
+        ),
       ),
     );
 

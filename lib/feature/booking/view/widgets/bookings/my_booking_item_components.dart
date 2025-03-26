@@ -130,10 +130,9 @@ class MyBookingExtraDetails extends StatelessWidget {
       children: [
         IconAndTextHorizontal(
           icon: Icons.location_on,
-          title: "${booking.location}",
+          title: booking.location.localized,
           iconSize: 14.sp,
           iconColor: AppColors.secondaryColor,
-          textColor: AppColors.primaryColor,
         ),
         horizontalSpace(8),
         IconAndTextHorizontal(
@@ -141,7 +140,6 @@ class MyBookingExtraDetails extends StatelessWidget {
           title: "${booking.guests}",
           iconSize: 14.sp,
           iconColor: AppColors.secondaryColor,
-          textColor: AppColors.primaryColor,
         ),
         horizontalSpace(8),
         IconAndTextHorizontal(
@@ -149,7 +147,6 @@ class MyBookingExtraDetails extends StatelessWidget {
           title: "${booking.numOfHours} ${AppStrings.hrs}",
           iconSize: 14.sp,
           iconColor: AppColors.secondaryColor,
-          textColor: AppColors.primaryColor,
         ),
       ],
     );

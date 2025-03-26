@@ -70,58 +70,58 @@ void showAboutUs(BuildContext context) {
         //     width: 150.w,height: 80.h,
         //     child: Image.asset(AppAssets.splashLogo)) ,
         titleAndDescription(
-            title: "عن تجهز",
-            description: "مرحبًا بكم في تجهز، وجهتكم الرسمية للحصول على تجربة فريدة واحترافية تجمع بين الرحلات البحرية الممتعة، الأنشطة الترفيهية، والتسوق الإلكتروني. نحن في تجهز ملتزمون بتقديم خدمات مبتكرة وموثوقة تلبي جميع احتياجاتكم بأسلوب سهل وآمن، مع التركيز على تقديم أعلى معايير الجودة والراحة في جميع خدماتنا."
+            title: AppStrings.aboutTjhazTitle,
+            description: AppStrings.aboutTjhazDescription
         ),
 
         titleAndDescription(
-            title: "رؤيتنا",
-            description: "أن نكون المنصة الرائدة في تقديم الحلول البحرية، الخدمات الترفيهية، وتجربة التسوق الإلكترونية. من خلال تقديم تجارب استثنائية تلبي تطلعات جميع مستخدمينا في بيئة آمنة ومتكاملة."
+            title: AppStrings.visionTitle ,
+          description: AppStrings.vision
         ),
 
         titleAndDescription(
-            title: "تأجير القوارب واليخوت",
-            description: "نقدم لكم فرصًا فريدة للاستمتاع برحلات بحرية لا تُنسى. سواء كانت رحلات صيد أو ترفيهية، يمكنكم استئجار القوارب واليخوت عبر تطبيقنا أو الموقع الإلكتروني بكل سهولة وأمان."
+            title: AppStrings.boatRentalTitle,
+          description: AppStrings.boatRental
         ),
 
         titleAndDescription(
-            title: "تأجير الشاليهات",
-            description: "احجزوا شاليهكم المثالي في مواقع مميزة، واستمتعوا بوقت هادئ ومريح في بيئة طبيعية، بعيدًا عن ضغوط الحياة اليومية."
+            title: AppStrings.chaletRentalTitle,
+          description:  AppStrings.chaletRental
         ),
 
         titleAndDescription(
-            title: "الكشتات والأنشطة المائية",
-            description: "استمتعوا بتجربة مغامرات صحراوية وأنشطة مائية ممتعة تلائم كافة الأعمار، مع ضمان أعلى مستويات الأمان والراحة أثناء النشاطات."
+            title: AppStrings.campingAndWaterActivitiesTitle,
+          description: AppStrings.campingAndWaterActivities
         ),
 
         titleAndDescription(
-            title: "خدمات الطعام على اليخوت",
-            description: "نقدم لكم تجربة طعام مميزة على متن اليخوت، مع مجموعة متنوعة من الوجبات الفاخرة التي تناسب مختلف الأذواق، مما يجعل كل رحلة بحرية أكثر تميزًا."
+          title: AppStrings.yachtDiningServicesTitle,
+          description: AppStrings.yachtDiningServices
         ),
 
         titleAndDescription(
-            title: "التسوق عبر الإنترنت",
-            description: "يمكنكم تصفح مجموعة واسعة من المتاجر الإلكترونية التي تقدم لكم أفضل المنتجات من المعدات البحرية، ملابس البحر، أدوات الغوص، وغير ذلك الكثير. كل ذلك متاح لكم بسهولة ويسر عبر تطبيقنا أو الموقع الإلكتروني."
+            title: AppStrings.onlineShoppingTitle,
+          description:  AppStrings.onlineShopping
         ),
 
         titleAndDescription(
-            title: "حجوزات سريعة وسهلة",
-            description: "احجزوا تجربتكم بكل سهولة وسرعة من خلال تطبيقنا المتاح على أنظمة Android وiOS أو عبر الموقع الإلكتروني، مما يضمن لكم تجربة سلسة ومريحة."
+          title: AppStrings.easyBookingTitle,
+          description: AppStrings.easyBooking
         ),
 
         titleAndDescription(
-            title: "دفع مرن وآمن",
-            description: "نقدم لكم خيارات دفع متعددة وآمنة تشمل K-Net، Visa، وMasterCard، لضمان تجربة تسوق مريحة وآمنة."
+          title: AppStrings.securePaymentTitle,
+          description: AppStrings.securePayment
         ),
 
         titleAndDescription(
-            title: "لماذا تختارون تجهز؟",
-            description: "منصة موثوقة ومتطورة تقدم خدمات بحرية وترفيهية من الدرجة الأولى. واجهة مستخدم سهلة وسريعة عبر تطبيقنا وموقعنا الإلكتروني www.tajhezapp.com. دعم فني متواصل على مدار الساعة لضمان راحتكم ورضاكم. انضموا إلينا اليوم!"
+          title:  AppStrings.whyTjhazTitle,
+          description: AppStrings.whyTjhaz
         ),
 
         titleAndDescription(
-            title: "اختبروا تجربة لا تُنسى مع تجهز",
-            description: "حيث نقدم لكم أعلى مستويات الخدمة والراحة في كل لحظة."
+            title: AppStrings.unforgettableExperienceTitle,
+            description:AppStrings.unforgettableExperience
         ),
 
 
