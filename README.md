@@ -1,16 +1,31 @@
-# tjhaz
+# Tjhaz 🐪⚓️
 
-A new Flutter project.
+**Tjhaz** is a full-featured mobile application for buying and selling marine and desert products, booking boat trips, desert tours, tents, and outdoor adventures. The app supports both Arabic and English languages and offers a seamless experience for nature lovers, hunters, and travelers.
 
-## Getting Started
+## 📱 Built With
 
-This project is a starting point for a Flutter application.
+- **Flutter** – Cross-platform UI framework
+- **Firebase** – Authentication, Firestore, Storage, Cloud Messaging
+- **Google Maps API** – For location-based bookings and navigation
+- **Stripe/PayPal** – Integrated payment solutions
+- **AI Image Search** *(Upcoming)* – Smart image-based product search
+- **Chatbot** *(Upcoming)* – AI-powered assistant for booking help
 
-A few resources to get you started if this is your first Flutter project:
+## 🌟 Key Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- User Authentication (Email/Phone/Google)
+- Browse & list marine and desert products
+- Real-time product listing with image upload
+- Book desert or boat trips directly
+- Multi-language (🇸🇦 Arabic & 🇺🇸 English)
+- Push notifications (FCM)
+- In-app chat between buyers & sellers
+- Secure online payments
+- Smart search by keyword or category
+- Clean & intuitive UI/UX
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
+
